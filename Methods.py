@@ -33,6 +33,7 @@ ListofAll=[]
 ListofNeighbour=[] #List which contains neighbour
 ListSensorneighQ =[]
 ListSensorneighQresult =[]
+ListDebug=[]
 #ListFor every experiment:
 ListQ=[]
 ListF=[]
@@ -100,16 +101,7 @@ std_freqKDcC = []
 STATE=gs.STATES
 #print(gs.STATES)
 def Start():
-    ListSensorneighQresult.append("#Number of Sensors " + str(gs.amountReadWSN))
-    ListSensorneighQresult.append("#Sensor Range: " + str(gs.radius.get()))
-    ListSensorneighQresult.append("#POI: " + str(len(gs.ListPOI)))
-    ListSensorneighQresult.append("#Sensor for file: " + str(gs.textsVariable))  # radiusTxt) CHANGE
-    ListSensorneighQresult.append("Battery Unit : " + str(g.labelBattery.get()))
-    ListSensorneighQresult.append("Iterations: " + str(g.labelIterationNumb.get()))
-    ListSensorneighQresult.append("Multiruns: " + str(g.labelMuttiruns.get()))
-    ListSensorneighQresult.append("prob KD: " + str(g.labelkDvalue.get()))
-    ListSensorneighQresult.append("prob KC: " + str(g.labelkCvalue.get()))
-    ListSensorneighQresult.append("prob KDC: " + str(g.labelkDCvalue.get()))
+
     #print(ListPOI)
     #print(gs.radius.get())
     #print(gs.amountReadWSN)
@@ -227,10 +219,24 @@ def Start():
     #Read neighb of onn LIST
     #BEFORE START ASSIGN SOME VARIABLE
     #List Sensor neigh result 1.txt
-    xo= 1#info about run
-    ListSensorneighQresult.append("#run 1 ")
-    ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
-    xo += 1
+    #info about run
+    if (len(ListSensorneighQresult)==0):
+        ListSensorneighQresult.append("#Number of Sensors " + str(gs.amountReadWSN))
+        ListSensorneighQresult.append("#Sensor Range: " + str(gs.radius.get()))
+        ListSensorneighQresult.append("#POI: " + str(len(gs.ListPOI)))
+        ListSensorneighQresult.append("#Sensor for file: " + str(gs.textsVariable))  # radiusTxt) CHANGE
+        ListSensorneighQresult.append("Battery Unit : " + str(g.labelBattery.get()))
+        ListSensorneighQresult.append("Iterations: " + str(g.labelIterationNumb.get()))
+        ListSensorneighQresult.append("Multiruns: " + str(g.labelMuttiruns.get()))
+        ListSensorneighQresult.append("prob KD: " + str(g.labelkDvalue.get()))
+        ListSensorneighQresult.append("prob KC: " + str(g.labelkCvalue.get()))
+        ListSensorneighQresult.append("prob KDC: " + str(g.labelkDCvalue.get()))
+        ListSensorneighQresult.append("Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
+        ListSensorneighQresult.append("#run ")
+        ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
+    else:
+        ListSensorneighQresult.append("#run ")
+        ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     def MainIter():
         converted_ListData = []
         NewState = []
@@ -496,8 +502,8 @@ def Start():
 def Mamut():
     for i in range(int(g.labelMuttiruns.get())):
         Start()
-
-    def SaveFileSenss():
+    if(int(g.labelMuttiruns.get())>1):
+        def SaveFileSenss():
             with open("Ca_result_std.txt"
                       "", 'w') as file:
                 for row in ListSensorneighQ:
@@ -514,6 +520,7 @@ def Mamut():
     ListSensorneighQ.append("prob KD: " + str(g.labelkDvalue.get()))
     ListSensorneighQ.append("prob KC: " + str(g.labelkCvalue.get()))
     ListSensorneighQ.append("prob KDC: " + str(g.labelkDCvalue.get()))
+    ListSensorneighQ.append("Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
     ListSensorneighQ.append(
             "iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
         #HELPERS List
@@ -522,7 +529,8 @@ def Mamut():
     #    "       av_falive std f_alive " + str(round(avhelper, 2)) + " " + str(round(np.std(av_alive), 2)))
     #avhelper = float(sum(av_minBatt) / (len(BatterY_STATE_SUM)))
     for i in range(int(g.labelIterationNumb.get())):
-        avqhelper = float(sum(ListQ[i::8])/ (len(ListQ[i::8])))# Z KAZDEJ ITERACJI JEST LICZONA SREDNIA -> Dac for dzielacego na liczbe multirunow
+        avqhelper = float(sum(ListQ[i::8])/ (len(ListQ[i::8])))
+        print(str(avqhelper) + " " + str(ListQ[i::8]))# Z KAZDEJ ITERACJI JEST LICZONA SREDNIA -> Dac for dzielacego na liczbe multirunow
         avalife= float(sum(ListF[i::8]) / (len(ListF[i::8])))
         minhelper = float(sum(ListminBatt[i::8]) / (len(ListminBatt[i::8])))
         avbathelperr = float(sum(lisavBatt[i::8]) / (len(lisavBatt[i::8])))
@@ -675,7 +683,7 @@ def DisplayBeutyful():
         ListSensorneighQ.append("#Sensor Range: " + str(gs.radius.get()))
         ListSensorneighQ.append("#POI:" + str(len(gs.ListPOI)))
         ListSensorneighQ.append("#Sensor for file: " + str(gs.textsVariable))  # radiusTxt) CHANGE
-        ListSensorneigh.append("Battery Unit : " + str(g.labelBattery.get()))
+        ListSensorneighQ.append("Battery Unit : " + str(g.labelBattery.get()))
         ListSensorneighQ.append("Iterations: " + str(g.labelIterationNumb.get()))
         ListSensorneighQ.append("Multiruns"+ str(g.labelMuttiruns.get()))
         ListSensorneighQ.append("prob KD" + str(g.labelkDvalue.get()))
@@ -689,6 +697,10 @@ def DisplayBeutyful():
         ListSensorneighQresult.append("# parameters of experminet")
         ListSensorneighQresult.append('#')
         ListSensorneighQresult.append("# iter  q  f_alive minBatt, avBatt, maxBatt, freqkD freqkC freqkDC")
+
+        ListDebug.append("PARAMS ....")
+        ListDebug.append(STATE)
+        ListDebug.append(RULES)
 
         def MainIter():
             converted_ListData = []
@@ -902,6 +914,7 @@ def DisplayBeutyful():
 
                     SaveFileSensss()
                 print("NEIGHBOURS")
+                ListDebug.append(StateListNeigh)
                 print(StateListNeigh)
                 # FIrst ITeration
                 iterr = 0
@@ -940,6 +953,13 @@ def DisplayBeutyful():
                 # print(STATE)
                 # ======================================================================ALL COV Q ##################################
                 CalcALLq()
+
+                def SaveFileDebug():
+                    with open("debug.txt"
+                              "", 'w') as file:
+                        for row in ListDebug:
+                            s = "".join(map(str, row))
+                            file.write(s + '\n')
                 # BATTERY ALIVE
                 # print("BATTERY STATE")
                 # print(BATTERY_STATE)
@@ -950,10 +970,13 @@ def DisplayBeutyful():
                 StateEnd = []
                 BatterY_STATE_SUM.append(sum(BATTERY_STATE))
                 print("BATTERY STATE")
+                ListDebug.append(BATTERY_STATE)
                 print(BATTERY_STATE)
                 # for x in range(len(STATE)):
                 #    StateEnd.append(0)
+                #CREATE LIST DEBUG
 
+                SaveFileDebug()
                 # if (STATE == StateEnd):
                 #     break
                 # print("BATTERY STATE")
@@ -961,5 +984,6 @@ def DisplayBeutyful():
                 # CalcALLq()
                 # CLEAR
                 StateListNeigh.clear()
+
 
         MainIter()

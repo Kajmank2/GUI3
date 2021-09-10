@@ -27,6 +27,7 @@ AmountWSN=0
 textsVariable=""
 ListofNumbers=[]
 amountReadWSN=0
+helpVal=0
 def InitGui():
         main_window =tk.Tk()
         global ListofNumbers
@@ -48,8 +49,11 @@ def InitGui():
         #POI 411
         #FIRST POI
         def OpenMYSensorStates(): #SENSOR ID FILE
-                        global STATES
-                        global amountReadWSN
+                    global STATES
+                    global amountReadWSN
+                    if(len(ListofNumbers)>0):
+                        ms.showinfo(title="Error", message="you have already loaded this file ! ! !")
+                    else:
                         c.delete('all')
                         ExitButton = tk.Button(main_window, text="Next Page", command=Destroyer)
                         ExitButton.pack(side="right")
@@ -153,16 +157,23 @@ def InitGui():
                         listSenss.extend(listSens)
 
         def OpenSensorWSN():
-                        text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                        if(len(ListofNumbers)>0):
+                            ms.showinfo(title="Error", message="you have already loaded this file ! ! !")
+
+                        else:
+                            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
-                        text_file = open(text_file, 'r')
-                        # DELETE FIRST PARAMETER
-                        for x in text_file:
+                            text_file = open(text_file, 'r')
+                            # DELETE FIRST PARAMETER
+                            for x in text_file:
                                 ListofNumbers.append(x)
-                        ListofNumbers.pop(0)
-                        for x in ListofNumbers:
-                                print(x)
-                        textsVariable=text_file.name
+                            ListofNumbers.pop(0)
+                            for x in ListofNumbers:
+                                    print(x)
+                            textsVariable=text_file.name
+
+
+
         longb=2
         i=0
 
@@ -325,18 +336,21 @@ def InitGui():
         amountReadWSN = 0
 ############ RIGHT GUI#########################
         tk.Label(text="---Sensor Parameters---").pack()
-        SaveButton = tk.Button(main_window, text="Read WSN", command=OpenSensorWSN).pack()
+        ReadButton = tk.Button(main_window, text="Read WSN", command=OpenSensorWSN).pack()
         tk.Label(text="RADIUS").pack()
         radiusSens = tk.Entry(main_window,textvariable =radius ,width=10, borderwidth=5).pack()
         tk.Label(text="Battery Capacity").pack()
         batteryCapacity = tk.Entry(main_window, textvariable=battery, width=10, borderwidth=5).pack()
         tk.Label(text="---ACTIVE Sensor---").pack()
         tk.Label(text="Probabilistic").pack()
-        SaveButton = tk.Button(main_window, text="Read WSN ON/OFF", command=OpenMYSensorStates).pack()
+        ReadButtonOnOF = tk.Button(main_window, text="Read WSN ON/OFF", command=OpenMYSensorStates).pack()
         tk.Label(text="Randomly % Sensor Activity VALUE: 0-1").pack()
         propabilityEntry = tk.Entry(main_window, textvariable=color, width=10, borderwidth=5).pack()
 # INICJACJA
         def Init():
+            if(len(ListofNumbers)==0 or len(ListofNumbers[0])>11):
+                ms.showinfo(title="Error", message="failed to load the WSN file -> Read WSN")
+            else:
                 c.delete('all')
                 sensorId=0
                 listSens= []
@@ -407,7 +421,7 @@ def InitGui():
                                            font="Times 10 italic bold", text=sensorId)
                                     s = str(id) + " " + str(round(int(xval))) + ".00 " + str(round(int(yval))) + ".00 "
                                     calcSensorID.append(s)
-                                    #print(calcSensorID)
+                                    print(calcSensorID)
                                     id += 1;
                 RadioVariable = variableRadio.get()
                 longb = 5
@@ -462,6 +476,8 @@ def InitGui():
                                                 c.create_oval(0 + i, 400, 0 + i + longb, 402, fill="black")
                                                 i = i + 20
                 listSenss.extend(listSens)
+                SaveButton = tk.Button(main_window, text="cal sensor ID", command=SaveFileSens)
+                SaveButton.pack(side="left")
 
         def Exit():
                         python = sys.executable
@@ -478,7 +494,8 @@ def InitGui():
 
         POIVALUE=0
         def OpenMYSensorNeighbour(): #find WSN grapph
-
+                        c.delete('all')
+                        ListofNumbers.clear()
                         text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
                         text_file = open(text_file, 'r')
@@ -534,14 +551,14 @@ def InitGui():
                                         donothing()
                                     else:
                                         if(len(xs)<3):
-                                            ys+=xs[0]
+                                            ys+=xs[0] + " "
                                             helper=helper+1
                                         else:
-                                            ys+=xs[0:2]
+                                            ys+=xs[0:2] + " "
                                             helper = helper + 1
                                     id = id + 1
                             ListSensorneigh.append(str(counter) + "    "+str(helper) + "     " +ys)
-                            ys=""
+                            ys=" "
                             ListofNeighbour.clear()
                             counter=counter+1
                         #print(ListSensorneigh)
@@ -554,6 +571,7 @@ def InitGui():
 
         def CalcSingleq():  # calc single q
             SensorStates=[]
+            ListofNumbers.clear()
             IdPOICOV.clear()
             global ListPOI
             ListPOI.clear()
@@ -572,13 +590,13 @@ def InitGui():
                     #print(row)
                     ListPOI.append(row)
 
-            #ms.showinfo(title=None, message="Read Sensor States")
-            #text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
-             #                                      filetypes=(("Text Files", "*.txt"),))
-            #text_fileq = open(text_fileq, 'r')
+            ms.showinfo(title=None, message="Read Sensor States -> \"sensor-states-10\" ")
+            text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                                                  filetypes=(("Text Files", "*.txt"),))
+            text_fileq = open(text_fileq, 'r')
 
             state = []
-            text_fileq = open("FILES/sensor-states-10.txt") #do usuniecia potem STEJTY
+            #text_fileq = open("FILES/sensor-states-10.txt") #do usuniecia potem STEJTY
             for x in text_fileq:
                 ListofNumbersCalcSingleqState.append(x)
                 state.append(x[12])
@@ -587,13 +605,13 @@ def InitGui():
             #print(ListofNumbersCalcSingleqState)
             #print(state)
 
-            #ms.showinfo(title=None, message="READ WSN FILE")
-            #text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
-            #                                        filetypes=(("Text Files", "*.txt"),))
-            #text_file = open(text_file, 'r')
+            ms.showinfo(title=None, message="Read WSN FILE ->\"WSN-5d\"")
+            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                                                    filetypes=(("Text Files", "*.txt"),))
+            text_file = open(text_file, 'r')
 
             variableAm = 0
-            text_file = open("FILES/WSN-5d.txt")
+            #text_file = open("FILES/WSN-5d.txt")
             for x in text_file:
                 ListofNumbersCalcSingleq.append(x)
                 #print(ListofNumbersCalcSingleq)
@@ -848,6 +866,7 @@ def InitGui():
             SensorStates=[]
             ListPOI.clear()
             IdPOICOV.clear()
+            ListofNumbers.clear()
             ListSensorneigh.clear()
             converted_listCalcSingleq.clear()
             ListofNumbersCalcSingleq.clear()
@@ -1040,10 +1059,8 @@ def InitGui():
 
              counterchuk=0
              idstates=idstates+1
-             randAppend=random.randint(0,1)
-             if(randAppend==0):
-                ListSensorneigh.append(str(idAllq) + " " + str(round(coverageQ, 2)) + "  " + str(idAllq)+ "    " + abde+  '  '.join(
-                 SensorStates) + "   " + '  '.join(str(round(e, 1)) for e in products))
+             ListSensorneigh.append(str(idAllq) + " " + str(round(coverageQ, 2)) + "  " + str(idAllq)+ "    " + abde+  '  '.join(
+             SensorStates) + "   " + '  '.join(str(round(e, 1)) for e in products))
              idAllq+=1
 
 
@@ -1062,8 +1079,8 @@ def InitGui():
 
         myButton = tk.Button(main_window, text="SHOW WSN", command=Init)
         myButton.pack()
-        SaveButton=tk.Button(main_window,text="cal sensor ID",command=SaveFileSens)
-        SaveButton.pack(side="left")
+        #SaveButton=tk.Button(main_window,text="cal sensor ID",command=SaveFileSens)
+        #SaveButton.pack(side="left")
         SaveButton = tk.Button(main_window, text="find WSN graph", command=OpenMYSensorNeighbour)
         SaveButton.pack(side="left")
         SaveButton = tk.Button(main_window, text="calc single q", command=CalcSingleq)
