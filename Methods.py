@@ -26,6 +26,7 @@ STATE=[] # STATES
 RULES=[] #RULES
 K=[]
 BATTERY_STATE=[] # List with lifetime battery
+BATTERY_STATE_Debug=[]
 ALIVE_DEAD=[] #ALIVE OF SENSOR
 FreqOn=[] #PLOT FREQ ON
 FreqOff=[] #PLOT FREQ OFF
@@ -34,6 +35,7 @@ iters=[] #plotlib value Q
 AmountWSN=0
 ListofAll=[]
 ListofNeighbour=[] #List which contains neighbour
+ListofNeighbourse=[]
 ListSensorneighQ =[]
 ListSensorneighQresult =[]
 ListDebug=[]
@@ -98,6 +100,7 @@ std_maxBatt = []
 av_freqKD = []
 std_freqKD = []
 av_freqKC = []
+TempDebugList=[]
 std_freqKC = []
 av_freqKDC = []
 std_freqKDcC = []
@@ -694,6 +697,7 @@ def DisplayBeutyful():
     for x in range(int(gs.amountReadWSN)):
         BATTERY_STATE.append(int(gs.battery.get()))
     # print(BATTERY_STATE)
+    BATTERY_STATE_Debug=BATTERY_STATE
     ListofAll.append("BATTERY STATE [1..N]" + str(RULES))
     # Read neighb of onn LIST
     # BEFORE START ASSIGN SOME VARIABLE
@@ -1028,6 +1032,15 @@ def DisplayBeutyful():
                 if (1 == int(STATE[iterr])):
                     BATTERY_STATE[iterr] -= int(g.labelBattery.get())
                 iterr += 1
+            # TESTOWE DEBUUG
+            '''
+            iterrek = 0
+            for xs in RULES:
+                # Battery STATE
+                if (1 == int(STATE[iterrek])):
+                    BATTERY_STATE_Debug[iterrek] -= int(g.labelBattery.get())
+                iterrek += 1
+            '''
             # =====================================================================================
             # QOVERAGE
             # print("STATE")
@@ -1044,51 +1057,10 @@ def DisplayBeutyful():
             print("BATTERY STATE")
             print(BATTERY_STATE)
             increse=0
-
             '''
-            for x in BATTERY_STATE:
-                if (x<=0):
-                    for y in Neighb:
-                        if(y==increse)
-                        
-                increse+=1
-            '''
-
             def FindWSNGRAPH():  # find WSN grapph
-                c.delete('all')
-                ListofNumbers.clear()
-                text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
-                                                       filetypes=(("Text Files", "*.txt"),))
-                text_file = open(text_file, 'r')
-                for x in text_file:
-                    ListofNumbers.append(x)
-                ListofNumbers.pop(0)
-                for x in ListofNumbers:
-                    print(x)
-                # LIST NEIGTBOUR
-                ListSensorneigh.append("#parameters of run: ")
-                ListSensorneigh.append("#Number of Sensors " + str(amountReadWSN))
-                ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
-                ListSensorneigh.append("#POI: " + str(variableRadio.get()))
-                ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
-                ListSensorneigh.append("#id num_of_neighb neigb-ID")
-                id = 1
-
-                for x in ListofNumbers:
-                    xx = int(re.search(r'\d+', x[0:2]).group())
-                    yy = int(re.search(r'\d+', x[5:7]).group())
-                    c.create_oval(int(xx) * 4 - 2, int(yy) * 4 - 2, int(xx) * 4 + 2,
-                                  int(yy) * 4 + 2, stipple="gray50",
-                                  outline="green", fill="green", width=1)
-                    c.create_oval(int(xx) * 4 - (int(radius.get()) * 4),
-                                  int(yy) * 4 - (int(radius.get()) * 4),
-                                  int(xx) * 4 + (int(radius.get()) * 4),
-                                  int(yy) * 4 + (int(radius.get()) * 4),
-                                  outline="Green", tags=id)
-                    c.create_text(int(xx) * 4 + 15, int(yy) * 4 + 15,
-                                  font="Times 10 italic bold", text=id)
-                    id += 1;
-
+                #tempListofNumbers.clear()
+                TempDebugList.clear()
                 def circle(x1, y1, x2, y2, r1, r2):
                     distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
                     radSumSq = (r1 + r2) * (r1 + r2)
@@ -1098,21 +1070,20 @@ def DisplayBeutyful():
                         return -1
                     else:
                         return 0
-
                 ys = ""
                 counter = 1
-                for x in ListofNumbers:
+                for x in tempListofNumbers:
                     id = 1
                     helper = 0
-                    for y in ListofNumbers:
-                        ListofNeighbour.append(str(id) + str(
+                    for y in tempListofNumbers:
+                        ListofNeighbourse.append(str(id) + str(
                             circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
                                    int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
-                                   int(radius.get()), int(radius.get()))))
+                                   int(gs.radius.get()), int(gs.radius.get()))))
                         xs = str(id) + str(
                             circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
                                    int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
-                                   int(radius.get()), int(radius.get())))
+                                   int(gs.radius.get()), int(gs.radius.get())))
                         beng = '-'
                         if (beng in xs or str(counter) == xs[0:1]):
                             donothing()
@@ -1124,10 +1095,19 @@ def DisplayBeutyful():
                                 ys += xs[0:2] + " "
                                 helper = helper + 1
                         id = id + 1
-                    ListSensorneigh.append(str(counter) + "    " + str(helper) + "     " + ys)
+                    #ListSensorneightemp.append(str(counter) + "    " + str(helper) + "     " + ys)
+                    TempDebugList.append(str(helper))
                     ys = " "
-                    ListofNeighbour.clear()
+                    ListofNeighbourse.clear()
                     counter = counter + 1
+            FindWSNGRAPH()
+            increse = 0
+            for x in BATTERY_STATE_Debug:
+                if (x<=0):
+                    BATTERY_STATE_Debug.pop(increse)
+                    tempListofNumbers.pop(increse)
+                increse+=1
+            '''
             StateListNeigh.clear()
 
 

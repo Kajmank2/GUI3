@@ -2,19 +2,26 @@
 #Sensor Range: 35
 #POI: 441
 #Sensor for file: 
-Battery Unit : 1
-Iterations: 8
+Battery Unit : 4
+Iterations: 15
 Multiruns: 1
 prob KD: 0.33
 prob KC: 0.33
 prob KDC: 0.34
 #run 
 #iter  s1 s2 s3 s4 s5   str1 str2 str3 str4 str5            s1 s2 s3 s4 s5 
-0      1 1 0 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
-1      1 1 1 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
-2      0 0 0 0 0      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
-3      1 1 1 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
-4      0 0 0 0 0      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
-5      1 1 1 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
-6      0 0 0 0 0      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
-7      1 1 1 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
+0       0  1  1  1  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+1       1  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+2       1  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+3       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+4       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+5       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+6       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+7       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+8       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+9       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+10       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+11       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+12       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+13       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
+14       0  0  0  0  0         10D  10DC  10DC  10DC  10DC                   4 4 4 4 4 
