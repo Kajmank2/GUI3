@@ -99,7 +99,7 @@ def InitGuis():
     tk.Entry(main_windower, textvariable=labelSetSeed, width=10, borderwidth=5).grid(row=18, column=1)
     tk.Button(main_windower,text="Start",command=m.Mamut).grid(row=20,column=1)
     tk.Button(main_windower, text="Start by iter", command=m.Mamut).grid(row=21, column=1)
-    tk.Button(main_windower, text="DEBUG", command=m.DisplayBeutyful).grid(row=22, column=1)
+    tk.Button(main_windower, text="DEBUG", command=m.MamutDebug).grid(row=22, column=1)
     #tk.Button(main_window, text="Start ", command=m.Startstandard).grid(row=19, column=1)
     #==========================================================#
     #GUI DATA - > #READ POI #READ DATA X,Y

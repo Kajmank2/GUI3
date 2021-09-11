@@ -1,19 +1,41 @@
-PARAMS ....
-00101
-44444
-0 40 40 40 40 4
-00000
-0 40 40 40 40 4
-00000
-0 40 40 40 40 4
-00000
-0 40 40 40 40 4
-00000
-0 40 40 40 40 4
-00000
-0 40 40 40 40 4
-00000
-0 40 40 40 40 4
-00000
-0 40 40 40 40 4
-00000
+#Number of Sensors 5
+#Sensor Range: 35
+#POI: 441
+#Sensor for file: 
+Battery Unit : 1
+Iterations: 8
+Multiruns: 3
+prob KD: 0.33
+prob KC: 0.33
+prob KDC: 0.34
+Strategies 1-KD , 2 -KC ,3 KDC ->[1, 2, 1, 2, 2]
+#run 
+#     stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora
+0      [1, 1, 1, 0, 1]     10D 10C 10D 10C 10C                 4 4 4 4 4 
+1      [1, 1, 1, 1, 1]     10D 10C 10D 10C 10C                 4 4 4 4 4 
+2      [1, 1, 1, 1, 1]     10D 10C 10D 10C 10C                 4 4 4 4 4 
+3      [1, 1, 1, 1, 1]     10D 10C 10D 10C 10C                 4 4 4 4 4 
+4      [1, 1, 1, 1, 1]     10D 10C 10D 10C 10C                 4 4 4 4 4 
+5      [1, 1, 1, 1, 1]     10D 10C 10D 10C 10C                 4 4 4 4 4 
+6      [1, 1, 1, 1, 1]     10D 10C 10D 10C 10C                 4 4 4 4 4 
+7      [1, 1, 1, 1, 1]     10D 10C 10D 10C 10C                 4 4 4 4 4 
+#run 
+#      stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora
+0      [1, 1, 1, 1, 1]     10D 10D 10D 10DC 10DC                 4 4 4 4 4 
+1      [1, 1, 1, 0, 0]     10D 10D 10D 10DC 10DC                 4 4 4 4 4 
+2      [1, 1, 1, 0, 0]     10D 10D 10D 10DC 10DC                 4 4 4 4 4 
+3      [1, 1, 1, 0, 0]     10D 10D 10D 10DC 10DC                 4 4 4 4 4 
+4      [1, 1, 1, 0, 0]     10D 10D 10D 10DC 10DC                 4 4 4 4 4 
+5      [1, 1, 1, 0, 0]     10D 10D 10D 10DC 10DC                 4 4 4 4 4 
+6      [1, 1, 1, 0, 0]     10D 10D 10D 10DC 10DC                 4 4 4 4 4 
+7      [1, 1, 1, 0, 0]     10D 10D 10D 10DC 10DC                 4 4 4 4 4 
+#run 
+#      stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora
+0      [1, 1, 1, 0, 0]     10C 10C 10DC 10DC 10D                 4 4 4 4 4 
+1      [1, 1, 0, 0, 1]     10C 10C 10DC 10DC 10D                 4 4 4 4 4 
+2      [1, 1, 0, 0, 1]     10C 10C 10DC 10DC 10D                 4 4 4 4 4 
+3      [1, 1, 0, 0, 1]     10C 10C 10DC 10DC 10D                 4 4 4 4 4 
+4      [1, 1, 0, 0, 1]     10C 10C 10DC 10DC 10D                 4 4 4 4 4 
+5      [1, 1, 0, 0, 1]     10C 10C 10DC 10DC 10D                 4 4 4 4 4 
+6      [1, 1, 0, 0, 1]     10C 10C 10DC 10DC 10D                 4 4 4 4 4 
+7      [1, 1, 0, 0, 1]     10C 10C 10DC 10DC 10D                 4 4 4 4 4 
