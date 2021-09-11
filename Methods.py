@@ -102,9 +102,7 @@ std_freqKC = []
 av_freqKDC = []
 std_freqKDcC = []
 STATE=gs.STATES
-#print(gs.STATES)
 def Start():
-
     #print(ListPOI)
     #print(gs.radius.get())
     #print(gs.amountReadWSN)
@@ -235,7 +233,15 @@ def Start():
         ListSensorneighQresult.append("prob KD: " + str(g.labelkDvalue.get()))
         ListSensorneighQresult.append("prob KC: " + str(g.labelkCvalue.get()))
         ListSensorneighQresult.append("prob KDC: " + str(g.labelkDCvalue.get()))
-        ListSensorneighQresult.append("Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
+        stringRules = ""  # String with help with debug txt
+        for x in RULES:
+            if (x == 1):
+                stringRules += str(g.valuesRadiokDstate.get()) + "D "
+            elif (x == 2):
+                stringRules += str(g.valuesRadiokCstate.get()) + "C "
+            elif (x == 3):
+                stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
+        ListSensorneighQresult.append("Strategies: " + stringRules)
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     else:
@@ -530,7 +536,15 @@ def Mamut():
     ListSensorneighQ.append("prob KD: " + str(g.labelkDvalue.get()))
     ListSensorneighQ.append("prob KC: " + str(g.labelkCvalue.get()))
     ListSensorneighQ.append("prob KDC: " + str(g.labelkDCvalue.get()))
-    ListSensorneighQ.append("Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
+    stringRules = ""  # String with help with debug txt
+    for x in RULES:
+        if (x == 1):
+            stringRules += str(g.valuesRadiokDstate.get()) + "D "
+        elif (x == 2):
+            stringRules += str(g.valuesRadiokCstate.get()) + "C "
+        elif (x == 3):
+            stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
+    ListSensorneighQresult.append("Strategies: " + stringRules)
     ListSensorneighQ.append(
             "iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
         #HELPERS List
@@ -558,6 +572,9 @@ def Mamut():
                                  "        "+ str(round(listkdchelper,2 )) + "          "+ str(round(np.std(listfreqKDC[i::8]),2)))
     SaveFileSenss()
 
+    def Exit():
+        python = sys.executable
+        os.execl(python, python, *sys.argv)
 
     Exit()
 def DisplayBeutyful():
@@ -693,7 +710,15 @@ def DisplayBeutyful():
         ListSensorneighQresult.append("prob KD: " + str(g.labelkDvalue.get()))
         ListSensorneighQresult.append("prob KC: " + str(g.labelkCvalue.get()))
         ListSensorneighQresult.append("prob KDC: " + str(g.labelkDCvalue.get()))
-        ListSensorneighQresult.append("Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
+        stringRules = ""  # String with help with debug txt
+        for x in RULES:
+            if (x == 1):
+                stringRules += str(g.valuesRadiokDstate.get()) + "D "
+            elif (x == 2):
+                stringRules += str(g.valuesRadiokCstate.get()) + "C "
+            elif (x == 3):
+                stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
+        ListSensorneighQresult.append("Strategies: " + stringRules)
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     else:
@@ -711,7 +736,15 @@ def DisplayBeutyful():
         ListDebug.append("prob KD: " + str(g.labelkDvalue.get()))
         ListDebug.append("prob KC: " + str(g.labelkCvalue.get()))
         ListDebug.append("prob KDC: " + str(g.labelkDCvalue.get()))
-        ListDebug.append("Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
+        stringRules = ""  # String with help with debug txt
+        for x in RULES:
+            if (x == 1):
+                stringRules += str(g.valuesRadiokDstate.get()) + "D "
+            elif (x == 2):
+                stringRules += str(g.valuesRadiokCstate.get()) + "C "
+            elif (x == 3):
+                stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
+        ListSensorneighQresult.append("Strategies: " + stringRules)
         ListDebug.append("#run ")
         ListDebug.append("#     stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora")
     else:

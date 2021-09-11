@@ -63,10 +63,9 @@ def InitGui():
                         text_file = open(text_file, 'r')
                         ListofNumbers.clear() #CLEAR LIST
                         for x in text_file:
-                                ListofNumbers.append(x)
+                                ListofNumbers.append(x[2:])
                         ListofNumbers.pop(0)
                         for x in ListofNumbers:
-                            #    print(x)
                             amountReadWSN = amountReadWSN + 1
                         ListPOI.clear()
                         if (str(variableRadio.get()) == '441'):
@@ -80,11 +79,16 @@ def InitGui():
                             for row in reader:
                                 # print(row)
                                 ListPOI.append(row)
+                        id = 1
                         for x in ListofNumbers:
-                                xx=x[2:4]
-                                yy=x[7:9]
-                                id=x[0]
-                                state=x[12]
+                                xx=x[0:2]
+                                yy=x[5:7]
+                                try:
+                                    state=x[10]
+                                except:
+                                    ms.showerror("ERROR","Read File with State ( STATIC) eg. 10001")
+                                    print("ERROR")
+                                    ListofNumbers.clear()
                                 STATES.append(int(state))
                                 if state=='0':
                                         colo="red"
@@ -105,6 +109,7 @@ def InitGui():
                         RadioVariable = variableRadio.get()
                         longb = 5
                         i = 0
+
                         if (RadioVariable == "36"):
                             for x in range(6):
                                 c.create_oval(0 + i, 0, 0 + i + longb, 5, fill="black")
@@ -154,9 +159,20 @@ def InitGui():
                                 c.create_oval(0 + i, 380, 0 + i + longb, 382, fill="black")
                                 c.create_oval(0 + i, 400, 0 + i + longb, 402, fill="black")
                                 i = i + 20
-                        listSenss.extend(listSens)
+                        id+=1
+
+                        '''
+                        for x in ListofNumbers:
+                            strs = ""
+                            strs=x
+                            strs=[e[1:]for e in strs]
+                            ListofNumbers.append(strs)
+                        '''
+
+
 
         def OpenSensorWSN():
+                    try:
                         if(len(ListofNumbers)>0):
                             ms.showinfo(title="Error", message="you have already loaded this file ! ! !")
 
@@ -171,6 +187,8 @@ def InitGui():
                             for x in ListofNumbers:
                                     print(x)
                             textsVariable=text_file.name
+                    except:
+                        ms.showinfo(title="ERROR",message="Read one more time")
 
 
 
