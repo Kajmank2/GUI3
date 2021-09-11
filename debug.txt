@@ -4,37 +4,17 @@
 #Sensor for file: 
 Battery Unit : 1
 Iterations: 8
-Multiruns: 3
+Multiruns: 1
 prob KD: 0.33
 prob KC: 0.33
 prob KDC: 0.34
 #run 
-#     stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora
-0      [0, 1, 1, 1, 0]     10D 10DC 10C 10DC 10D                 4 4 4 4 4 
-1      [1, 0, 1, 0, 1]     10D 10DC 10C 10DC 10D                 4 4 4 4 4 
-2      [1, 0, 1, 0, 1]     10D 10DC 10C 10DC 10D                 4 4 4 4 4 
-3      [1, 0, 1, 0, 1]     10D 10DC 10C 10DC 10D                 4 4 4 4 4 
-4      [1, 0, 1, 0, 1]     10D 10DC 10C 10DC 10D                 4 4 4 4 4 
-5      [1, 0, 1, 0, 1]     10D 10DC 10C 10DC 10D                 4 4 4 4 4 
-6      [1, 0, 1, 0, 1]     10D 10DC 10C 10DC 10D                 4 4 4 4 4 
-7      [1, 0, 1, 0, 1]     10D 10DC 10C 10DC 10D                 4 4 4 4 4 
-#run 
-#      stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora
-0      [1, 0, 1, 0, 1]     10D 10D 10DC 10DC 10D                 4 4 4 4 4 
-1      [1, 1, 0, 0, 1]     10D 10D 10DC 10DC 10D                 4 4 4 4 4 
-2      [1, 1, 0, 0, 1]     10D 10D 10DC 10DC 10D                 4 4 4 4 4 
-3      [1, 1, 0, 0, 1]     10D 10D 10DC 10DC 10D                 4 4 4 4 4 
-4      [1, 1, 0, 0, 1]     10D 10D 10DC 10DC 10D                 4 4 4 4 4 
-5      [1, 1, 0, 0, 1]     10D 10D 10DC 10DC 10D                 4 4 4 4 4 
-6      [1, 1, 0, 0, 1]     10D 10D 10DC 10DC 10D                 4 4 4 4 4 
-7      [1, 1, 0, 0, 1]     10D 10D 10DC 10DC 10D                 4 4 4 4 4 
-#run 
-#      stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora
-0      [1, 1, 0, 0, 1]     10C 10DC 10D 10D 10DC                 4 4 4 4 4 
-1      [1, 0, 1, 1, 0]     10C 10DC 10D 10D 10DC                 4 4 4 4 4 
-2      [1, 0, 1, 1, 0]     10C 10DC 10D 10D 10DC                 4 4 4 4 4 
-3      [1, 0, 1, 1, 0]     10C 10DC 10D 10D 10DC                 4 4 4 4 4 
-4      [1, 0, 1, 1, 0]     10C 10DC 10D 10D 10DC                 4 4 4 4 4 
-5      [1, 0, 1, 1, 0]     10C 10DC 10D 10D 10DC                 4 4 4 4 4 
-6      [1, 0, 1, 1, 0]     10C 10DC 10D 10D 10DC                 4 4 4 4 4 
-7      [1, 0, 1, 1, 0]     10C 10DC 10D 10D 10DC                 4 4 4 4 4 
+#iter  s1 s2 s3 s4 s5   str1 str2 str3 str4 str5            s1 s2 s3 s4 s5 
+0      1 1 0 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
+1      1 1 1 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
+2      0 0 0 0 0      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
+3      1 1 1 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
+4      0 0 0 0 0      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
+5      1 1 1 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
+6      0 0 0 0 0      2C 2C 2C 4DC 4DC                 4 4 4 4 4 
+7      1 1 1 1 1      2C 2C 2C 4DC 4DC                 4 4 4 4 4 

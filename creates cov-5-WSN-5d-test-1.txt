@@ -1,8 +1,8 @@
 #parameters of run: 
 #Number of Sensors 5
-#Sensor Range: 35
+#Sensor Range: 10
 #POI: 441
-#Sensor for file: C:/Users/PC/Desktop/AD HOc/GUI3/FILES/WSN-5d.txt
+#Sensor for file: C:/Users/PC/Desktop/AD HOc/WSN_GUI/WSN/FILES/WSN-5d.txt
 Sensor for file: :WSN-5d-test0.txt
 #q    s    1 2 3 4 5   q1   q2   q3   q4   q5
-0.66  10   0 1 0 1 0   0.6  1.0  0.9  1.0  0.6
+0.66  10   0 1 0 1 0   7.2  11.9  11.5  11.9  7.2

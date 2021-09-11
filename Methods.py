@@ -46,7 +46,7 @@ lisavBatt=[]
 listfreqKD=[]
 listfreqKC=[]
 listfreqKDC=[]
-
+tempListofNumbers=gs.ListofNumbers
 def donothing():
     abc=0
 '''
@@ -710,7 +710,7 @@ def DisplayBeutyful():
         ListSensorneighQresult.append("prob KD: " + str(g.labelkDvalue.get()))
         ListSensorneighQresult.append("prob KC: " + str(g.labelkCvalue.get()))
         ListSensorneighQresult.append("prob KDC: " + str(g.labelkDCvalue.get()))
-        stringRules = ""  # String with help with debug txt
+        stringRules = ""
         for x in RULES:
             if (x == 1):
                 stringRules += str(g.valuesRadiokDstate.get()) + "D "
@@ -725,6 +725,14 @@ def DisplayBeutyful():
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
         #DEBUG FILEEEE
+    debugstringstate=""
+    debugstringrules=""
+    itera=0
+    for x in gs.ListofNumbers:
+        itera+=1
+        debugstringstate=debugstringstate+'s'+str(itera)+ " "
+        debugstringrules = debugstringrules + 'str' + str(itera) + " "
+
     if (len(ListDebug) == 0):
         ListDebug.append("#Number of Sensors " + str(gs.amountReadWSN))
         ListDebug.append("#Sensor Range: " + str(gs.radius.get()))
@@ -736,7 +744,7 @@ def DisplayBeutyful():
         ListDebug.append("prob KD: " + str(g.labelkDvalue.get()))
         ListDebug.append("prob KC: " + str(g.labelkCvalue.get()))
         ListDebug.append("prob KDC: " + str(g.labelkDCvalue.get()))
-        stringRules = ""  # String with help with debug txt
+        stringRules = ""
         for x in RULES:
             if (x == 1):
                 stringRules += str(g.valuesRadiokDstate.get()) + "D "
@@ -746,10 +754,11 @@ def DisplayBeutyful():
                 stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
         ListSensorneighQresult.append("Strategies: " + stringRules)
         ListDebug.append("#run ")
-        ListDebug.append("#     stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora")
+
+        ListDebug.append("#iter  "+ debugstringstate+ "  "+debugstringrules + "           "+ debugstringstate)
     else:
         ListDebug.append("#run ")
-        ListDebug.append("#      stan sensorow      strategia przypisana do sensora    l-ba sasiadow sensora")
+        ListDebug.append("#iter  "+ debugstringstate+ "  "+debugstringrules + "           "+ debugstringstate)
     def MainIter():
         converted_ListData = []
         NewState = []
@@ -956,19 +965,21 @@ def DisplayBeutyful():
                 stringRules="" #String with help with debug txt
                 for x in RULES:
                     if(x==1):
-                        stringRules+= str(g.valuesRadiokDstate.get())+"D "
+                        stringRules+= str(g.valuesRadiokDstate.get())+"D  "
                     elif (x == 2):
-                        stringRules += str(g.valuesRadiokCstate.get()) + "C "
+                        stringRules += str(g.valuesRadiokCstate.get()) + "C  "
                     elif(x==3):
-                        stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
+                        stringRules += str(g.valuesRadiokDCstate.get()) + "DC  "
                 stringNeigh=""
                 hh=""
                 for x in Neighb:
                     hh=str(x)
                     hh=hh.replace(" ", "")
                     stringNeigh+= str(len(hh)) + " "
-
-                ListDebug.append(str(int(i)) + "      "+ str(STATE) +"     "+ stringRules + "                "+stringNeigh)
+                stringstatedisplay=""
+                for x in STATE:
+                    stringstatedisplay+= str(x) + "  "
+                ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"       "+ stringRules + "                 "+stringNeigh)
 
                 def SaveFileSensss():
                     with open("CA_result.txt"
@@ -1033,6 +1044,7 @@ def DisplayBeutyful():
             print("BATTERY STATE")
             print(BATTERY_STATE)
             increse=0
+
             '''
             for x in BATTERY_STATE:
                 if (x<=0):
@@ -1041,6 +1053,81 @@ def DisplayBeutyful():
                         
                 increse+=1
             '''
+
+            def FindWSNGRAPH():  # find WSN grapph
+                c.delete('all')
+                ListofNumbers.clear()
+                text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                                                       filetypes=(("Text Files", "*.txt"),))
+                text_file = open(text_file, 'r')
+                for x in text_file:
+                    ListofNumbers.append(x)
+                ListofNumbers.pop(0)
+                for x in ListofNumbers:
+                    print(x)
+                # LIST NEIGTBOUR
+                ListSensorneigh.append("#parameters of run: ")
+                ListSensorneigh.append("#Number of Sensors " + str(amountReadWSN))
+                ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
+                ListSensorneigh.append("#POI: " + str(variableRadio.get()))
+                ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
+                ListSensorneigh.append("#id num_of_neighb neigb-ID")
+                id = 1
+
+                for x in ListofNumbers:
+                    xx = int(re.search(r'\d+', x[0:2]).group())
+                    yy = int(re.search(r'\d+', x[5:7]).group())
+                    c.create_oval(int(xx) * 4 - 2, int(yy) * 4 - 2, int(xx) * 4 + 2,
+                                  int(yy) * 4 + 2, stipple="gray50",
+                                  outline="green", fill="green", width=1)
+                    c.create_oval(int(xx) * 4 - (int(radius.get()) * 4),
+                                  int(yy) * 4 - (int(radius.get()) * 4),
+                                  int(xx) * 4 + (int(radius.get()) * 4),
+                                  int(yy) * 4 + (int(radius.get()) * 4),
+                                  outline="Green", tags=id)
+                    c.create_text(int(xx) * 4 + 15, int(yy) * 4 + 15,
+                                  font="Times 10 italic bold", text=id)
+                    id += 1;
+
+                def circle(x1, y1, x2, y2, r1, r2):
+                    distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
+                    radSumSq = (r1 + r2) * (r1 + r2)
+                    if (distSq == radSumSq):
+                        return 1
+                    elif (distSq > radSumSq):
+                        return -1
+                    else:
+                        return 0
+
+                ys = ""
+                counter = 1
+                for x in ListofNumbers:
+                    id = 1
+                    helper = 0
+                    for y in ListofNumbers:
+                        ListofNeighbour.append(str(id) + str(
+                            circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                                   int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                                   int(radius.get()), int(radius.get()))))
+                        xs = str(id) + str(
+                            circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                                   int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                                   int(radius.get()), int(radius.get())))
+                        beng = '-'
+                        if (beng in xs or str(counter) == xs[0:1]):
+                            donothing()
+                        else:
+                            if (len(xs) < 3):
+                                ys += xs[0] + " "
+                                helper = helper + 1
+                            else:
+                                ys += xs[0:2] + " "
+                                helper = helper + 1
+                        id = id + 1
+                    ListSensorneigh.append(str(counter) + "    " + str(helper) + "     " + ys)
+                    ys = " "
+                    ListofNeighbour.clear()
+                    counter = counter + 1
             StateListNeigh.clear()
 
 

@@ -587,6 +587,7 @@ def InitGui():
                                     file.write(s + '\n')
                         SaveFileSenss()
 
+
         def CalcSingleq():  # calc single q
             SensorStates=[]
             ListofNumbers.clear()
@@ -1006,6 +1007,14 @@ def InitGui():
             elif (len(ListofNumbersCalcSingleq) == 12):
                 for x in range(0, 4096):
                     Binary = '{:12b}'.format(x)
+                    BinaryList.append(Binary)
+            elif (len(ListofNumbersCalcSingleq) == 7):
+                for x in range(0, 128):
+                    Binary = '{:07b}'.format(x)
+                    BinaryList.append(Binary)
+            elif (len(ListofNumbersCalcSingleq) == 6):
+                for x in range(0, 64):
+                    Binary = '{:06b}'.format(x)
                     BinaryList.append(Binary)
                 #print(BinaryList)
             for x in BinaryList:
