@@ -544,7 +544,7 @@ def Mamut():
             stringRules += str(g.valuesRadiokCstate.get()) + "C "
         elif (x == 3):
             stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
-    ListSensorneighQresult.append("Strategies: " + stringRules)
+    #ListSensorneighQresult.append("Strategies: " + stringRules)
     ListSensorneighQ.append(
             "iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
         #HELPERS List
@@ -753,7 +753,7 @@ def DisplayBeutyful():
                 stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
             else:
                 stringRules += "OFF"
-        ListSensorneighQresult.append("Strategies: " + stringRules)
+        #ListSensorneighQresult.append("Strategies: " + stringRules)
         ListDebug.append("#run ")
 
         ListDebug.append("#iter  "+ debugstringstate+ "  "+debugstringrules + "           "+ debugstringstate)
@@ -991,12 +991,12 @@ def DisplayBeutyful():
                 stringstatedisplay=""
                 for x in STATE:
                     stringstatedisplay+= str(x) + "  "
-                helperStringwithTempDebugList=str(TempDebugList)
+                helperStringwithTempDebugList=str(tempListofNumbers)
                 if(".3"in helperStringwithTempDebugList ):
                     ListDebug.append(str(int(
-                        i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeighs)
+                        i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeigh)
                 else:
-                    ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeigh)
+                    ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeighs)
                 TempDebugList.clear() # Clear after add to table
                 def SaveFileSensss():
                     with open("CA_result.txt"
