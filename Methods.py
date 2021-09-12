@@ -1,7 +1,6 @@
 #POPRAWA WSZYSTKICH PLIKOW TEKSTOWYCH, STATE przepisanie z poprzedniego STATE WYLOSOWANEFO
 import os
 import sys
-
 import GUIs as g
 import csv
 import gui as gs
@@ -23,10 +22,9 @@ maxBatt=0
 Radius=''
 radiusTxt='' #Files which contain name of FIle
 STATE=[] # STATES
-RULES=[] #RULES
+RULES=[]#RULES
 K=[]
 BATTERY_STATE=[] # List with lifetime battery
-BATTERY_STATE_Debug=[]
 ALIVE_DEAD=[] #ALIVE OF SENSOR
 FreqOn=[] #PLOT FREQ ON
 FreqOff=[] #PLOT FREQ OFF
@@ -128,7 +126,6 @@ def Start():
     BATTERY_STATE.clear() # ZAMIENIONE Z []
     #NEigh every singe Sensor
     Neighb=[]
-    Neighbs=[]
     def OpenMYSensorNeighbour():  # find WSN grapph
         ListSensorneigh.clear()
         Neighb.clear()
@@ -607,7 +604,6 @@ def DisplayBeutyful():
     def OpenMYSensorNeighbour():  # find WSN grapph
         ListSensorneigh.clear()
         Neighb.clear()
-
         # LIST NEIGTBOUR
         ListSensorneigh.append("#parameters of run: ")
         ListSensorneigh.append("#Number of Sensors " + str(gs.amountReadWSN))
@@ -697,7 +693,6 @@ def DisplayBeutyful():
     for x in range(int(gs.amountReadWSN)):
         BATTERY_STATE.append(int(gs.battery.get()))
     # print(BATTERY_STATE)
-    BATTERY_STATE_Debug=BATTERY_STATE
     ListofAll.append("BATTERY STATE [1..N]" + str(RULES))
     # Read neighb of onn LIST
     # BEFORE START ASSIGN SOME VARIABLE
@@ -756,6 +751,8 @@ def DisplayBeutyful():
                 stringRules += str(g.valuesRadiokCstate.get()) + "C "
             elif (x == 3):
                 stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
+            else:
+                stringRules += "OFF"
         ListSensorneighQresult.append("Strategies: " + stringRules)
         ListDebug.append("#run ")
 
@@ -778,6 +775,8 @@ def DisplayBeutyful():
         SensorHelperPoiID = []
         ALLPOICOV = []
         global STATE
+        #global STATEDBUG
+        #STATEDBUG=STATE
         OpenMYSensorNeighbour()
         for i in range(int(g.labelIterationNumb.get())):
             iter = 0
@@ -798,7 +797,6 @@ def DisplayBeutyful():
                                 d += 1
                             i += 1
                     StateListNeigh.append(str(c) + " " + str(d))
-
             ReadState()
             # print("STATE LIST NEIGH")
             # print(StateListNeigh)
@@ -969,22 +967,37 @@ def DisplayBeutyful():
                 stringRules="" #String with help with debug txt
                 for x in RULES:
                     if(x==1):
-                        stringRules+= str(g.valuesRadiokDstate.get())+"D  "
+                        stringRules+= str(g.valuesRadiokDstate.get())+"D "
                     elif (x == 2):
-                        stringRules += str(g.valuesRadiokCstate.get()) + "C  "
+                        stringRules += str(g.valuesRadiokCstate.get()) + "C "
                     elif(x==3):
-                        stringRules += str(g.valuesRadiokDCstate.get()) + "DC  "
+                        stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
+                    else:
+                        stringRules += "OFF "
                 stringNeigh=""
                 hh=""
-                for x in Neighb:
+                for x in TempDebugList:
                     hh=str(x)
                     hh=hh.replace(" ", "")
-                    stringNeigh+= str(len(hh)) + " "
+                    stringNeigh+= str(hh) + "  "
+
+                #FOR FIRST ITERATION
+                stringNeighs = ""
+                hhs = ""
+                for x in Neighb:
+                    hhs = str(x)
+                    hhs = hhs.replace(" ", "")
+                    stringNeighs += str(len(hhs)) + "  "
                 stringstatedisplay=""
                 for x in STATE:
                     stringstatedisplay+= str(x) + "  "
-                ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"       "+ stringRules + "                 "+stringNeigh)
-
+                helperStringwithTempDebugList=str(TempDebugList)
+                if(".3"in helperStringwithTempDebugList ):
+                    ListDebug.append(str(int(
+                        i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeighs)
+                else:
+                    ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeigh)
+                TempDebugList.clear() # Clear after add to table
                 def SaveFileSensss():
                     with open("CA_result.txt"
                               "", 'w') as file:
@@ -1031,36 +1044,24 @@ def DisplayBeutyful():
                 # Battery STATE
                 if (1 == int(STATE[iterr])):
                     BATTERY_STATE[iterr] -= int(g.labelBattery.get())
+                    if(BATTERY_STATE[iterr]<0):
+                        BATTERY_STATE[iterr]=0
                 iterr += 1
-            # TESTOWE DEBUUG
-            '''
-            iterrek = 0
-            for xs in RULES:
-                # Battery STATE
-                if (1 == int(STATE[iterrek])):
-                    BATTERY_STATE_Debug[iterrek] -= int(g.labelBattery.get())
-                iterrek += 1
-            '''
-            # =====================================================================================
-            # QOVERAGE
-            # print("STATE")
-            # print(STATE)
             # ======================================================================ALL COV Q ##################################
             CalcALLq() # uruchomienie glownego algorytmu
-            # BATTERY ALIVE
-            # print("BATTERY STATE")
-            # print(BATTERY_STATE)
-            # ZAMIANA STATE PROBLEM
             STATE = NewState
-            StateEnd = []
             BatterY_STATE_SUM.append(sum(BATTERY_STATE))
             print("BATTERY STATE")
             print(BATTERY_STATE)
             increse=0
-            '''
-            def FindWSNGRAPH():  # find WSN grapph
+            for x in BATTERY_STATE:
+                if(x<=0):
+                    tempListofNumbers[increse]="3"+str(increse)+".3 33.3"
+                increse+=1
+
+
+            def FindWSNGRAPH():  # find WSN grapph #GO GO GO
                 #tempListofNumbers.clear()
-                TempDebugList.clear()
                 def circle(x1, y1, x2, y2, r1, r2):
                     distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
                     radSumSq = (r1 + r2) * (r1 + r2)
@@ -1072,19 +1073,31 @@ def DisplayBeutyful():
                         return 0
                 ys = ""
                 counter = 1
+                TempDebugList.clear()
                 for x in tempListofNumbers:
                     id = 1
                     helper = 0
                     for y in tempListofNumbers:
-                        ListofNeighbourse.append(str(id) + str(
+                        if(y[2:4]==".3"):
+                            ListofNeighbourse.append(str(id) + str(
+                                circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                                       int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                                       0, 0)))
+                            xs = str(id) + str(
+                                circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                                       int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                                       0, 0))
+                            beng = '-'
+                        else:
+                            ListofNeighbourse.append(str(id) + str(
                             circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
                                    int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
                                    int(gs.radius.get()), int(gs.radius.get()))))
-                        xs = str(id) + str(
+                            xs = str(id) + str(
                             circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
                                    int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
                                    int(gs.radius.get()), int(gs.radius.get())))
-                        beng = '-'
+                            beng = '-'
                         if (beng in xs or str(counter) == xs[0:1]):
                             donothing()
                         else:
@@ -1095,25 +1108,19 @@ def DisplayBeutyful():
                                 ys += xs[0:2] + " "
                                 helper = helper + 1
                         id = id + 1
-                    #ListSensorneightemp.append(str(counter) + "    " + str(helper) + "     " + ys)
                     TempDebugList.append(str(helper))
                     ys = " "
                     ListofNeighbourse.clear()
                     counter = counter + 1
             FindWSNGRAPH()
-            increse = 0
-            for x in BATTERY_STATE_Debug:
-                if (x<=0):
-                    BATTERY_STATE_Debug.pop(increse)
-                    tempListofNumbers.pop(increse)
-                increse+=1
-            '''
             StateListNeigh.clear()
-
 
     MainIter()
 
 def MamutDebug():
+    if(g.labelMuttiruns.get()>'1'):
+        ms.showerror("! ! !","Debug mode only for Mulituns = 1")
+    else:
         for i in range(int(g.labelMuttiruns.get())):
             DisplayBeutyful()
         if (int(g.labelMuttiruns.get()) > 1):

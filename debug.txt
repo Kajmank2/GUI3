@@ -2,39 +2,19 @@
 #Sensor Range: 35
 #POI: 441
 #Sensor for file: 
-Battery Unit : 1
+Battery Unit : 4
 Iterations: 8
-Multiruns: 3
+Multiruns: 1
 prob KD: 0.33
 prob KC: 0.33
 prob KDC: 0.34
 #run 
 #iter  s1 s2 s3 s4 s5   str1 str2 str3 str4 str5            s1 s2 s3 s4 s5 
-0       0  1  0  0  1         10D  10C  10DC  10C  10DC                   4 4 4 4 4 
-1       1  1  0  1  0         10D  10C  10DC  10C  10DC                   4 4 4 4 4 
-2       1  1  0  1  0         10D  10C  10DC  10C  10DC                   4 4 4 4 4 
-3       1  1  0  1  0         10D  10C  10DC  10C  10DC                   4 4 4 4 4 
-4       1  1  0  1  0         10D  10C  10DC  10C  10DC                   4 4 4 4 4 
-5       1  1  0  1  0         10D  10C  10DC  10C  10DC                   4 4 4 4 4 
-6       1  1  0  1  0         10D  10C  10DC  10C  10DC                   4 4 4 4 4 
-7       1  1  0  1  0         10D  10C  10DC  10C  10DC                   4 4 4 4 4 
-#run 
-#iter  s1 s2 s3 s4 s5   str1 str2 str3 str4 str5            s1 s2 s3 s4 s5 
-0       1  1  0  1  0         10D  10D  10C  10C  10DC                   4 4 4 4 4 
-1       1  1  1  1  0         10D  10D  10C  10C  10DC                   4 4 4 4 4 
-2       1  1  1  1  0         10D  10D  10C  10C  10DC                   4 4 4 4 4 
-3       1  1  1  1  0         10D  10D  10C  10C  10DC                   4 4 4 4 4 
-4       1  1  1  1  0         10D  10D  10C  10C  10DC                   4 4 4 4 4 
-5       1  1  1  1  0         10D  10D  10C  10C  10DC                   4 4 4 4 4 
-6       1  1  1  1  0         10D  10D  10C  10C  10DC                   4 4 4 4 4 
-7       1  1  1  1  0         10D  10D  10C  10C  10DC                   4 4 4 4 4 
-#run 
-#iter  s1 s2 s3 s4 s5   str1 str2 str3 str4 str5            s1 s2 s3 s4 s5 
-0       1  1  1  1  0         10DC  10C  10DC  10DC  10DC                   4 4 4 4 4 
-1       0  1  0  0  0         10DC  10C  10DC  10DC  10DC                   4 4 4 4 4 
-2       0  1  0  0  0         10DC  10C  10DC  10DC  10DC                   4 4 4 4 4 
-3       0  1  0  0  0         10DC  10C  10DC  10DC  10DC                   4 4 4 4 4 
-4       0  1  0  0  0         10DC  10C  10DC  10DC  10DC                   4 4 4 4 4 
-5       0  1  0  0  0         10DC  10C  10DC  10DC  10DC                   4 4 4 4 4 
-6       0  1  0  0  0         10DC  10C  10DC  10DC  10DC                   4 4 4 4 4 
-7       0  1  0  0  0         10DC  10C  10DC  10DC  10DC                   4 4 4 4 4 
+0       1  0  0  0  0     10D 10DC 10D 10D 10DC              
+1       1  0  1  1  0     10D 10DC 10D 10D 10DC              4  4  4  4  4  
+2       1  0  1  1  0     OFF 10DC 10D 10D 10DC              4  4  4  4  4  
+3       0  0  1  1  0     OFF 10DC 10D 10D 10DC              4  3  3  3  3  
+4       0  0  1  1  0     OFF 10DC OFF OFF 10DC              4  3  3  3  3  
+5       0  0  0  0  0     OFF OFF OFF OFF 10DC              2  2  2  1  1  
+6       0  0  0  0  0     OFF OFF OFF OFF 10DC              2  2  2  1  1  
+7       0  0  0  0  0     OFF OFF OFF OFF 10DC              2  2  2  1  1  
