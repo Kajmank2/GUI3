@@ -28,6 +28,7 @@ textsVariable=""
 ListofNumbers=[]
 amountReadWSN=0
 helpVal=0
+InitCounter=0 #Value HELPP OFF DOUBLE BUTTON
 def InitGui():
         main_window =tk.Tk()
         global ListofNumbers
@@ -106,10 +107,10 @@ def InitGui():
                                 c.create_text(int(xx)*4 + 8,
                                               int(yy)*4 + 8,
                                               font="Times 10 italic bold", text=id)
+                                id += 1
                         RadioVariable = variableRadio.get()
                         longb = 5
                         i = 0
-
                         if (RadioVariable == "36"):
                             for x in range(6):
                                 c.create_oval(0 + i, 0, 0 + i + longb, 5, fill="black")
@@ -373,12 +374,18 @@ def InitGui():
                 sensorId=0
                 listSens= []
                 global STATES
+                global InitCounter
                 global amountReadWSN
-                ExitButton = tk.Button(main_window, text="Next Page", command=Destroyer)
-                ExitButton.pack(side="right")
+                amountReadWSN = 0
+                STATES.clear()
+                if (InitCounter==0):
+                    ExitButton = tk.Button(main_window, text="Next Page", command=Destroyer)
+                    ExitButton.pack(side="right")
+                    SaveButton = tk.Button(main_window, text="cal sensor ID", command=SaveFileSens)
+                    SaveButton.pack(side="left")
+                    InitCounter=+1
                 #List which save param for
                 for x in ListofNumbers:
-                #    print(x)
                     amountReadWSN = amountReadWSN + 1
                 ListPOI.clear()
                 if (str(variableRadio.get()) == '441'):
@@ -439,7 +446,7 @@ def InitGui():
                                            font="Times 10 italic bold", text=sensorId)
                                     s = str(id) + " " + str(round(int(xval))) + ".00 " + str(round(int(yval))) + ".00 "
                                     calcSensorID.append(s)
-                                    print(calcSensorID)
+                                    #print(calcSensorID)
                                     id += 1;
                 RadioVariable = variableRadio.get()
                 longb = 5
@@ -494,8 +501,6 @@ def InitGui():
                                                 c.create_oval(0 + i, 400, 0 + i + longb, 402, fill="black")
                                                 i = i + 20
                 listSenss.extend(listSens)
-                SaveButton = tk.Button(main_window, text="cal sensor ID", command=SaveFileSens)
-                SaveButton.pack(side="left")
 
         def Exit():
                         python = sys.executable
@@ -513,10 +518,14 @@ def InitGui():
         POIVALUE=0
         def OpenMYSensorNeighbour(): #find WSN grapph
                         c.delete('all')
-                        ListofNumbers.clear()
-                        text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                        #ListofNumbers.clear()
+                        try:
+                            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
-                        text_file = open(text_file, 'r')
+                            text_file = open(text_file, 'r')
+                            ListofNumbers.clear()
+                        except:
+                            ms.showinfo("ERROR", "Please read file")
                         for x in text_file:
                                 ListofNumbers.append(x)
                         ListofNumbers.pop(0)
@@ -1101,8 +1110,11 @@ def InitGui():
             SaveFileSenss()
         def Destroyer():
             import GUIs as g
-            main_window.destroy()
-            g.InitGuis()
+            if(len(ListofNumbers)==0):
+                ms.showerror("ERORR","No this way list of your WSN is empty")
+            else:
+                main_window.destroy()
+                g.InitGuis()
 
         myButton = tk.Button(main_window, text="SHOW WSN", command=Init)
         myButton.pack()
