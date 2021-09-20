@@ -410,10 +410,11 @@ def Start():
                     KDCfreq = round(RULES.count(3) / len(RULES), 2)
                 freq_alive=float((len(BATTERY_STATE))-BatteryOFFcoun)/len(BATTERY_STATE)
                 #MIN BATTERY
-                BATTERY_STATE_SORT=BATTERY_STATE
-                BATTERY_STATE_SORT.sort()
+                FEJKERBATTERY=BATTERY_STATE
+                BATTERY_STATE_SORT=FEJKERBATTERY
+                #BATTERY_STATE_SORT.sort() # UNCOMENT FOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                 minBatt=BATTERY_STATE_SORT[0]
-                maxBatt=BATTERY_STATE_SORT[-1]
+                maxBatt=max(BATTERY_STATE_SORT)
                 avgBatt=sum(BATTERY_STATE_SORT)/len(BATTERY_STATE_SORT)
 
                 # BATTERY ======================================
@@ -926,10 +927,11 @@ def DisplayBeutyful():
                     KDCfreq = round(RULES.count(3) / len(RULES), 2)
                 freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
                 # MIN BATTERY
-                BATTERY_STATE_SORT = BATTERY_STATE
-                BATTERY_STATE_SORT.sort()
+                FEJKERBATTERY = BATTERY_STATE
+                BATTERY_STATE_SORT = FEJKERBATTERY
+                #BATTERY_STATE_SORT.sort()
                 minBatt = BATTERY_STATE_SORT[0]
-                maxBatt = BATTERY_STATE_SORT[-1]
+                maxBatt = max(BATTERY_STATE_SORT)
                 avgBatt = sum(BATTERY_STATE_SORT) / len(BATTERY_STATE_SORT)
 
                 # BATTERY ======================================
@@ -963,7 +965,7 @@ def DisplayBeutyful():
                 av_freqKDC.append(KDCfreq)
                 avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
                 freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
-                # DEBUG LIST ================!!!!!!!!!!!!!!++++++++++++++++++
+                # DEBUG LIST ================!!!!!!!!!!!!!!++++++++++++++++++ :)
                 stringRules="" #String with help with debug txt
                 for x in RULES:
                     if(x==1):
