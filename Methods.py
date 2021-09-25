@@ -579,11 +579,9 @@ def Mamut():
 
     Exit()
 def DisplayBeutyful():
-    # print(ListPOI)
-    # print(gs.radius.get())
-    # print(gs.amountReadWSN)
     global STATE
     global RULES
+    stringNeighs=""
     # print(STATE)
     av_q.clear()
     av_alive.clear()
@@ -639,7 +637,7 @@ def DisplayBeutyful():
                            int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
                            int(gs.radius.get()), int(gs.radius.get())))
                 beng = '-'
-                if (beng in xs or str(counter) == xs[0:1] or str(counter) == xs[0:2]):
+                if (beng in xs or str(counter) == xs[0:1]):
                     donothing()
                 else:
                     if (len(xs) < 3):
@@ -761,6 +759,9 @@ def DisplayBeutyful():
     else:
         ListDebug.append("#run ")
         ListDebug.append("#iter  "+ debugstringstate+ "  "+debugstringrules + "           "+ debugstringstate)
+
+
+        ############################MAIN FUNCTION #######################
     def MainIter():
         converted_ListData = []
         NewState = []
@@ -778,7 +779,7 @@ def DisplayBeutyful():
         global STATE
         #global STATEDBUG
         #STATEDBUG=STATE
-        OpenMYSensorNeighbour()
+        #OpenMYSensorNeighbour()
         for i in range(int(g.labelIterationNumb.get())):
             iter = 0
 
@@ -832,8 +833,7 @@ def DisplayBeutyful():
                 for x in converted_ListData:
                     helper = 0
                     for y in flaten_list:
-                        if (y[0] == '0' or y[0:2] == '5;' or y[
-                                                             0:2] == '8;'):  # SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
+                        if (y[0] == '0' or y[0:2] == '5;' or y[0:2] == '8;'):  # SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
                             SensorHelper.append(str(
                                 circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
                                        int(y[0]), int(y[2:]), int(gs.radius.get()), 1)))
@@ -987,8 +987,11 @@ def DisplayBeutyful():
                 stringNeighs = ""
                 hhs = ""
                 for x in Neighb:
-                    hhs = str(x)
+                    hhs = str(x) #tutaj zawyza liczbe bo traktuje 10
                     hhs = hhs.replace(" ", "")
+                    hhs=hhs.replace("10","0")
+                    hhs = hhs.replace("11", "0")
+                    hhs = hhs.replace("12", "0")
                     stringNeighs += str(len(hhs)) + "  "
                 stringstatedisplay=""
                 for x in STATE:
@@ -1025,24 +1028,36 @@ def DisplayBeutyful():
                         NewState.append(1)  # int(re.search(r'\d+', x[0:2]).group()
                         iter += 1
                     else:
-                        NewState.append(0)
-                        iter += 1
+                        if(BATTERY_STATE[iterr]>0 and Neighb[iter]==" "): # TESTOWEEEE DO DEBUGA
+                            NewState.append(1)
+                            iter += 1
+                        else:
+                            NewState.append(0)
+                            iter +=1
                 elif (x == 2):
                     if (int(re.search(r'\d+', StateListNeigh[iter][0:2]).group()) <= int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):
                         NewState.append(1)
                         iter += 1
                     else:
-                        NewState.append(0)
-                        iter += 1
+                        if(BATTERY_STATE[iterr]>0 and Neighb[iter]==" "): # TESTOWEEEE DO DEBUGA
+                            NewState.append(1)
+                            iter += 1
+                        else:
+                            NewState.append(0)
+                            iter +=1
                 else:
                     if (int(re.search(r'\d+', StateListNeigh[iter][2:4]).group()) >= int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):
                         NewState.append(1)
                         iter += 1
                     else:
-                        NewState.append(0)
-                        iter += 1
+                        if(BATTERY_STATE[iterr]>0 and Neighb[iter]==' '): # TESTOWEEEE DO DEBUGA
+                            NewState.append(1)
+                            iter += 1
+                        else:
+                            NewState.append(0)
+                            iter +=1
                 # Battery STATE
                 if (1 == int(STATE[iterr])):
                     BATTERY_STATE[iterr] -= int(g.labelBattery.get())
@@ -1055,6 +1070,8 @@ def DisplayBeutyful():
             BatterY_STATE_SUM.append(sum(BATTERY_STATE))
             print("BATTERY STATE")
             print(BATTERY_STATE)
+            print("Neigh")
+            print(Neighb)
             increse=0
             for x in BATTERY_STATE:
                 if(x<=0):
@@ -1073,14 +1090,31 @@ def DisplayBeutyful():
                         return -1
                     else:
                         return 0
-                ys = ""
+                ys = " " # zmiana ys na " " testowanie
                 counter = 1
                 TempDebugList.clear()
                 for x in tempListofNumbers:
                     id = 1
                     helper = 0
                     for y in tempListofNumbers:
-                        if(y[2:4]==".3"):
+                        if(y[2:4]==".3" or x[2:4] ==".3" or x[3:5]==".3"): # zmiana or z x
+                            '''
+                            if (x[3:5]==".3"):
+                                ListofNeighbourse.append(str(id) + str(
+                                    circle(int(re.search(r'\d+', x[0:3]).group()), # TESTOWANIE
+                                           int(re.search(r'\d+', x[6:8]).group()),
+                                           int(re.search(r'\d+', y[0:3]).group()),
+                                           int(re.search(r'\d+', y[5:7]).group()),
+                                           0, 0)))
+                                xs = str(id) + str(
+                                    circle(int(re.search(r'\d+', x[0:3]).group()),
+                                           int(re.search(r'\d+', x[6:8]).group()),
+                                           int(re.search(r'\d+', y[0:2]).group()),
+                                           int(re.search(r'\d+', y[5:7]).group()),
+                                           0, 0))
+                                beng = '-'
+                            else:
+                            '''
                             ListofNeighbourse.append(str(id) + str(
                                 circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
                                        int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
@@ -1100,10 +1134,10 @@ def DisplayBeutyful():
                                    int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
                                    int(gs.radius.get()), int(gs.radius.get())))
                             beng = '-'
-                        if (beng in xs or str(counter) == xs[0:1]):
+                        if (beng in xs or str(counter) == xs[0:1] or str(counter)+"1"==xs[0:3] or str(counter)+"0"==xs[0:3]): #or str(counter)==xs[0:2]): zmiana
                             donothing()
                         else:
-                            if (len(xs) < 3):
+                            if (len(xs) < 3): #100 6-1
                                 ys += xs[0] + " "
                                 helper = helper + 1
                             else:
@@ -1111,9 +1145,11 @@ def DisplayBeutyful():
                                 helper = helper + 1
                         id = id + 1
                     TempDebugList.append(str(helper))
+                    Neighb.append(ys)
                     ys = " "
                     ListofNeighbourse.clear()
                     counter = counter + 1
+            Neighb.clear() #CHANGE
             FindWSNGRAPH()
             StateListNeigh.clear()
 
