@@ -82,14 +82,15 @@ def InitGui():
                                 ListPOI.append(row)
                         id = 1
                         for x in ListofNumbers:
-                                xx=x[0:2]
-                                yy=x[5:7]
-                                try:
+                                if(x[0]!= ' '):
+                                    xx=x[0:2]
+                                    yy=x[5:7]
                                     state=x[10]
-                                except:
-                                    ms.showerror("ERROR","Read File with State ( STATIC) eg. 10001")
-                                    print("ERROR")
-                                    ListofNumbers.clear()
+                                else:
+                                    xx=x[1:3]
+                                    yy=x[6:8]
+                                    state=x[11]
+                                    print(state)
                                 STATES.append(int(state))
                                 if state=='0':
                                         colo="red"

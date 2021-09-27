@@ -1,21 +1,35 @@
 #Number of Sensors 10
-#Sensor Range: 20
+#Sensor Range: 35
 #POI: 441
 #Sensor for file: 
-Battery Unit : 5
-Iterations: 8
-Multiruns: 1
+Battery Unit : 2
+Iterations: 4
+Multiruns: 4
 prob KD: 0.33
 prob KC: 0.33
 prob KDC: 0.34
-Strategies: 4C 3DC 4D 4C 3DC 4C 3DC 3DC 3DC 4D 
+Strategies: 3D 3DC 3DC 3D 3D 3C 3D 3C 3DC 3D 
 #run 
 # iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC
-    0  0.5  1.0      10     7.5       10       0.2     0.3      0.5
-    1  0.62  0.6      5     4.5       10       0.0     0.2      0.4
-    2  0.35  0.4      0     3.0       10       0.0     0.0      0.4
-    3  0.26  0.3      0     2.0       10       0.0     0.0      0.3
-    4  0.13  0.2      0     1.5       10       0.0     0.0      0.2
-    5  0.0  0.2      0     1.5       10       0.0     0.0      0.2
-    6  0.0  0.2      0     1.5       10       0.0     0.0      0.2
-    7  0.0  0.2      0     1.5       10       0.0     0.0      0.2
+    0  0.67  1.0      10     9.4       10       0.5     0.2      0.3
+    1  0.91  1.0      8     8.0       10       0.5     0.2      0.3
+    2  0.91  1.0      6     6.6       10       0.5     0.2      0.3
+    3  0.91  1.0      4     5.2       10       0.5     0.2      0.3
+#run 
+# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC
+    0  0.95  1.0      8     8.8       10       0.5     0.2      0.3
+    1  1.0  1.0      6     7.6       10       0.5     0.2      0.3
+    2  0.87  1.0      4     6.4       10       0.5     0.2      0.3
+    3  1.0  1.0      2     5.2       10       0.5     0.2      0.3
+#run 
+# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC
+    0  0.76  1.0      10     9.0       10       0.5     0.2      0.3
+    1  0.91  1.0      8     7.8       10       0.5     0.2      0.3
+    2  0.89  1.0      6     6.8       8       0.5     0.2      0.3
+    3  0.74  1.0      4     6.0       8       0.5     0.2      0.3
+#run 
+# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC
+    0  0.95  1.0      8     8.4       10       0.5     0.2      0.3
+    1  0.81  1.0      6     7.4       10       0.5     0.2      0.3
+    2  0.74  1.0      4     6.6       10       0.5     0.2      0.3
+    3  0.87  1.0      2     5.4       10       0.5     0.2      0.3
