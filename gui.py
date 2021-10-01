@@ -17,7 +17,7 @@ ListPOI=[]
 battery=""
 radius=""
 ALLPOICOV=[]
-Poir=1
+Poir=1 # Zmiana z 1
 calcSensorID=[]
 calcSensorID.append(s)
 SquareArenas=40000
@@ -64,8 +64,12 @@ def InitGui():
                         text_file = open(text_file, 'r')
                         ListofNumbers.clear() #CLEAR LIST
                         for x in text_file:
+                            if(x[2]==" "):
+                                ListofNumbers.append(x[3:])
+                            else:
                                 ListofNumbers.append(x[2:])
                         ListofNumbers.pop(0)
+                        print(ListofNumbers)
                         for x in ListofNumbers:
                             amountReadWSN = amountReadWSN + 1
                         ListPOI.clear()
@@ -82,15 +86,9 @@ def InitGui():
                                 ListPOI.append(row)
                         id = 1
                         for x in ListofNumbers:
-                                if(x[0]!= ' '):
-                                    xx=x[0:2]
-                                    yy=x[5:7]
-                                    state=x[10]
-                                else:
-                                    xx=x[1:3]
-                                    yy=x[6:8]
-                                    state=x[11]
-                                    print(state)
+                                xx=x[0:2]
+                                yy=x[5:7]
+                                state=x[10]
                                 STATES.append(int(state))
                                 if state=='0':
                                         colo="red"
@@ -109,6 +107,7 @@ def InitGui():
                                               int(yy)*4 + 8,
                                               font="Times 10 italic bold", text=id)
                                 id += 1
+                        print(ListofNumbers)
                         RadioVariable = variableRadio.get()
                         longb = 5
                         i = 0
@@ -575,7 +574,7 @@ def InitGui():
                                     ListofNeighbour.append(str(id) + str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),int(radius.get()),int(radius.get()))))
                                     xs=str(id) + str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(re.search(r'\d+', y[0:2]).group()),int(re.search(r'\d+', y[5:7]).group()),int(radius.get()),int(radius.get())))
                                     beng='-'
-                                    if(beng in xs or  str(counter) == xs[0:1]):
+                                    if(beng in xs or  str(counter) == xs[0:1] or str(counter) == xs[0:2]):
                                         donothing()
                                     else:
                                         if(len(xs)<3):

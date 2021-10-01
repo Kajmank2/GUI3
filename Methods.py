@@ -80,17 +80,30 @@ def Start():
     if(len(RULESSTABLE)>0):
         donothing()
     else:
-        for x in range(int(gs.amountReadWSN)):
-            helper = random()
-            if (float(g.labelkDvalue.get()) > helper):
+        if(g.staticStrategies.get()!=""):
+            strategieslist = list(g.staticStrategies.get().split(","))
+            for x in strategieslist:
+                try:
+                    if(x=="KD" or x=="kd"):
+                        RULESSTABLE.append(1)
+                    elif(x=="KC" or x =="kc"):
+                        RULESSTABLE.append(2)
+                    elif (x == "KDC" or x == "kdc"):
+                        RULESSTABLE.append(3)
+                except:
+                    ms.ERROR("ERROR", "Please correct entry ")
+        else:
+            for x in range(int(gs.amountReadWSN)):
+                helper = random()
+                if (float(g.labelkDvalue.get()) > helper):
             # print("KD")
-                RULESSTABLE.append(1)
-            elif (float(g.labelkDvalue.get()) + (float(g.labelkCvalue.get())) > helper):
+                    RULESSTABLE.append(1)
+                elif (float(g.labelkDvalue.get()) + (float(g.labelkCvalue.get())) > helper):
             # print("KC")
-                RULESSTABLE.append(2)
-            else:
+                    RULESSTABLE.append(2)
+                else:
             # print('KDC')
-                RULESSTABLE.append(3)
+                    RULESSTABLE.append(3)
     RULES=RULESSTABLE.copy()
     # ZMIANA STATE# problem z gs list of numbers
     print(gs.ListofNumbers)
@@ -113,6 +126,64 @@ def Start():
     #NEigh every singe Sensor
     Neighb=[]
     #Neighb.clear()
+    def FindWSNGRAPH():  # find WSN grapph #GO GO GO
+        # tempListofNumbers.clear()
+        def circle(x1, y1, x2, y2, r1, r2):
+            distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
+            radSumSq = (r1 + r2) * (r1 + r2)
+            if (distSq == radSumSq):
+                return 1
+            elif (distSq > radSumSq):
+                return -1
+            else:
+                return 0
+
+        ys = " "  # zmiana ys na " " testowanie
+        counter = 1
+        TempDebugList.clear()
+        for x in gs.ListofNumbers:
+            id = 1
+            helper = 0
+            for y in gs.ListofNumbers:
+                if (y[2:4] == ".3" or x[2:4] == ".3" or x[3:5] == ".3"):  # zmiana or z x
+                    ListofNeighbourse.append(str(id) + str(
+                        circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                               int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                               0, 0)))
+                    xs = str(id) + str(
+                        circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                               int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                               0, 0))
+                    beng = '-'
+                else:
+                    ListofNeighbourse.append(str(id) + str(
+                        circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                               int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                               int(gs.radius.get()), int(gs.radius.get()))))
+                    xs = str(id) + str(
+                        circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                               int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                               int(gs.radius.get()), int(gs.radius.get())))
+                    beng = '-'
+                if (beng in xs or str(counter) == xs[0:1] or str(counter) == xs[
+                                                                             0:2]):  # or str(counter)==xs[0:2]): zmiana
+                    donothing()
+                else:
+                    if (len(xs) < 3):  # 100 6-1
+                        ys += xs[0] + " "
+                        helper = helper + 1
+                    else:
+                        ys += xs[0:2] + " "
+                        helper = helper + 1
+                id = id + 1
+            TempDebugList.append(str(helper))
+            Neighb.append(ys)
+            ys = " "
+            ListofNeighbourse.clear()
+            counter = counter + 1
+    FindWSNGRAPH()
+
+    '''
     def OpenMYSensorNeighbour():  # find WSN grapph
         ListSensorneigh.clear()
         Neighb.clear()
@@ -176,6 +247,7 @@ def Start():
         SaveFileSenss()
     #Call Neighbour
     OpenMYSensorNeighbour() #
+    '''
     ListofAll.append("FIRST STATE :  " + str(STATE))
     #RULES LIST => Values [1-3]
     #print(RULES)
@@ -193,6 +265,13 @@ def Start():
     for x in range(int(gs.amountReadWSN)):
         BATTERY_STATE.append(int(gs.battery.get()))
     #print(BATTERY_STATE)
+    iterr=0
+    for x in RULES:
+        if (1 == int(STATE[iterr])):
+            BATTERY_STATE[iterr] -= int(g.labelBattery.get())
+            if (BATTERY_STATE[iterr] < int(g.labelBattery.get())):
+                BATTERY_STATE[iterr] = 0
+        iterr += 1
     ListofAll.append("BATTERY STATE [1..N]" + str(RULES))
     #Read neighb of onn LIST
     #BEFORE START ASSIGN SOME VARIABLE
@@ -225,7 +304,7 @@ def Start():
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     def MainIter():
         converted_ListData = []
-        NewState = []
+        #NewState = []
         StateListNeigh = []
         SensorHelper = []  # HELPER LIST
         if (len(gs.ListPOI) > 300):
@@ -259,7 +338,8 @@ def Start():
             ReadState()
             #print("STATE LIST NEIGH")
             #print(StateListNeigh)
-            NewState.clear()
+            #NewState.clear()
+            #STATE.clear()
         #=====================================================================
             def CalcALLq(): # WRITE COVERAGE METHOD
                 def circle(x1, y1, x2, y2, r1, r2):
@@ -405,7 +485,7 @@ def Start():
                                               +str(maxBatt)+"       " +str(KDfreq)+ "     "+str(KCfreq) + "      "+ str(KDCfreq))
                                                #str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
                 ListQ.append(round(coverageQ, 2))
-                print("LISTQ",ListQ)
+                #print("LISTQ",ListQ)
                 ListF.append(round(freq_alive,2))
                 ListminBatt.append(minBatt)
                 lisavBatt.append(round(avgBatt,2))
@@ -438,52 +518,59 @@ def Start():
                             file.write(s + '\n')
                 SaveFileSensss()
         #FIrst ITeration
+            CalcALLq()
             iterr = 0
             for x in RULES:
                 if (x == 1):  # StateListNeigh[iter][2]<K[iter]
                     if (int(re.search(r'\d+', StateListNeigh[iter][2:4]).group()) <= int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):  # int(re.search(r'\d+', x[0:2]).group())
-                        NewState.append(1)  # int(re.search(r'\d+', x[0:2]).group()
+                        STATE.append(1)  # int(re.search(r'\d+', x[0:2]).group()
                         iter += 1
                     else:
                         if(BATTERY_STATE[iterr]>0 and Neighb[iter]==" "): # TESTOWEEEE DO DEBUGA
-                            NewState.append(1)
+                            STATE.append(1)
                             iter += 1
                         else:
-                            NewState.append(0)
+                            STATE.append(0)
                             iter +=1
                 elif (x == 2):
                     if (int(re.search(r'\d+', StateListNeigh[iter][0:2]).group()) <= int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):
-                        NewState.append(1)
+                        STATE.append(1)
                         iter += 1
                     else:
                         if(BATTERY_STATE[iterr]>0 and Neighb[iter]==" "): # TESTOWEEEE DO DEBUGA
-                            NewState.append(1)
+                            STATE.append(1)
                             iter += 1
                         else:
-                            NewState.append(0)
+                            STATE.append(0)
                             iter +=1
                 else:
-                    if (int(re.search(r'\d+', StateListNeigh[iter][2:4]).group()) >= int(K[iter]) and BATTERY_STATE[
+                    if (int(re.search(r'\d+', StateListNeigh[iter][2:4]).group()) > int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):
-                        NewState.append(1)
+                        STATE.append(1)
                         iter += 1
                     else:
                         if(BATTERY_STATE[iterr]>0 and Neighb[iter]==' '): # TESTOWEEEE DO DEBUGA
-                            NewState.append(1)
+                            STATE.append(1)
                             iter += 1
                         else:
-                            NewState.append(0)
+                            STATE.append(0)
                             iter +=1
                 #Battery STATE
                 if (1 == int(STATE[iterr])):
                     BATTERY_STATE[iterr] -= int(g.labelBattery.get())
-                    if(BATTERY_STATE[iterr]<0):
+                    if(BATTERY_STATE[iterr]<int(g.labelBattery.get())):
                         BATTERY_STATE[iterr]=0
                 iterr+=1
-            CalcALLq()
-            STATE=NewState
+                '''
+            print("STATE")
+            print(STATE)
+            print("STATE LIST NEIG")
+            print(StateListNeigh)
+            print("Neigh")
+            print(Neighb)
+            '''
             BatterY_STATE_SUM.append(sum(BATTERY_STATE))
             increse = 0
             for x in BATTERY_STATE:
@@ -530,8 +617,7 @@ def Start():
                                        int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
                                        int(gs.radius.get()), int(gs.radius.get())))
                             beng = '-'
-                        if (beng in xs or str(counter) == xs[0:1] or str(counter) + "1" == xs[0:3] or str(
-                                counter) + "0" == xs[0:3]):  # or str(counter)==xs[0:2]): zmiana
+                        if (beng in xs or str(counter) == xs[0:1] or str(counter) == xs[0:2]):  # or str(counter)==xs[0:2]): zmiana
                             donothing()
                         else:
                             if (len(xs) < 3):  # 100 6-1
@@ -589,7 +675,7 @@ def Mamut():
     ListSensorneighQ.append(
             "iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
     #HELPER VALUE FOR ITERATION
-    ax=int(g.labelMuttiruns.get())
+    ax=int(g.labelIterationNumb.get())
     for i in range(int(g.labelIterationNumb.get())):
         avqhelper = float(sum(ListQ[i::ax])/ (len(ListQ[i::ax])))
         #print(str(avqhelper) + " " + str(ListQ[i::8]))# Z KAZDEJ ITERACJI JEST LICZONA SREDNIA -> Dac for dzielacego na liczbe multirunow
@@ -639,6 +725,62 @@ def DisplayBeutyful():
     # NEigh every singe Sensor
     Neighb = []
 
+    def FindWSNGRAPH():  # find WSN grapph #GO GO GO
+        # tempListofNumbers.clear()
+        def circle(x1, y1, x2, y2, r1, r2):
+            distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
+            radSumSq = (r1 + r2) * (r1 + r2)
+            if (distSq == radSumSq):
+                return 1
+            elif (distSq > radSumSq):
+                return -1
+            else:
+                return 0
+
+        ys = " "  # zmiana ys na " " testowanie
+        counter = 1
+        TempDebugList.clear()
+        for x in tempListofNumbers:
+            id = 1
+            helper = 0
+            for y in tempListofNumbers:
+                if (y[2:4] == ".3" or x[2:4] == ".3" or x[3:5] == ".3"):  # zmiana or z x
+                    ListofNeighbourse.append(str(id) + str(
+                        circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                               int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                               0, 0)))
+                    xs = str(id) + str(
+                        circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                               int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                               0, 0))
+                    beng = '-'
+                else:
+                    ListofNeighbourse.append(str(id) + str(
+                        circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                               int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                               int(gs.radius.get()), int(gs.radius.get()))))
+                    xs = str(id) + str(
+                        circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
+                               int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
+                               int(gs.radius.get()), int(gs.radius.get())))
+                    beng = '-'
+                if (beng in xs or str(counter) == xs[0:1] or str(counter) == xs[0:2]):  # or str(counter)==xs[0:2]): zmiana
+                    donothing()
+                else:
+                    if (len(xs) < 3):  # 100 6-1
+                        ys += xs[0] + " "
+                        helper = helper + 1
+                    else:
+                        ys += xs[0:2] + " "
+                        helper = helper + 1
+                id = id + 1
+            TempDebugList.append(str(helper))
+            Neighb.append(ys)
+            ys = " "
+            ListofNeighbourse.clear()
+            counter = counter + 1
+    FindWSNGRAPH()
+    '''
     def OpenMYSensorNeighbour():  # find WSN grapph
         ListSensorneigh.clear()
         Neighb.clear()
@@ -676,7 +818,7 @@ def DisplayBeutyful():
                            int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
                            int(gs.radius.get()), int(gs.radius.get())))
                 beng = '-'
-                if (beng in xs or str(counter) == xs[0:1]):
+                if (beng in xs or str(counter) == xs[0:1] or str(counter) == xs[0:2]):
                     donothing()
                 else:
                     if (len(xs) < 3):
@@ -703,19 +845,33 @@ def DisplayBeutyful():
 
     # Call Neighbour
     OpenMYSensorNeighbour()  #
+    '''
     ListofAll.append("FIRST STATE :  " + str(STATE))
     # RULES LIST => Values [1-3]
-    for x in range(int(gs.amountReadWSN)):
-        helper = random()
-        if (float(g.labelkDvalue.get()) > helper):
+    if (g.staticStrategies.get() != ""):
+        strategieslist = list(g.staticStrategies.get().split(","))
+        for x in strategieslist:
+            try:
+                if (x == "KD" or x == "kd"):
+                    RULES.append(1)
+                elif (x == "KC" or x == "kc"):
+                    RULES.append(2)
+                elif (x == "KDC" or x == "kdc"):
+                    RULES.append(3)
+            except:
+                ms.ERROR("ERROR", "Please correct entry ")
+    else:
+        for x in range(int(gs.amountReadWSN)):
+            helper = random()
+            if (float(g.labelkDvalue.get()) > helper):
             # print("KD")
-            RULES.append(1)
-        elif (float(g.labelkDvalue.get()) + (float(g.labelkCvalue.get())) > helper):
+                RULES.append(1)
+            elif (float(g.labelkDvalue.get()) + (float(g.labelkCvalue.get())) > helper):
             # print("KC")
-            RULES.append(2)
-        else:
+                RULES.append(2)
+            else:
             # print('KDC')
-            RULES.append(3)
+                RULES.append(3)
     # print(RULES)
     ListofAll.append("RULES 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
     # K -APPROACH [1..N]
@@ -730,6 +886,13 @@ def DisplayBeutyful():
     # Battery State [1..N]
     for x in range(int(gs.amountReadWSN)):
         BATTERY_STATE.append(int(gs.battery.get()))
+    iterr = 0
+    for x in RULES:
+        if (1 == int(STATE[iterr])):
+            BATTERY_STATE[iterr] -= int(g.labelBattery.get())
+            if (BATTERY_STATE[iterr] < int(g.labelBattery.get())):
+                BATTERY_STATE[iterr] = 0
+        iterr += 1
     # print(BATTERY_STATE)
     ListofAll.append("BATTERY STATE [1..N]" + str(RULES))
     # Read neighb of onn LIST
@@ -803,7 +966,7 @@ def DisplayBeutyful():
         ############################MAIN FUNCTION #######################
     def MainIter():
         converted_ListData = []
-        NewState = []
+        #NewState = []
         StateListNeigh = []
         SensorHelper = []  # HELPER LIST
         if (len(gs.ListPOI) > 300):
@@ -821,7 +984,8 @@ def DisplayBeutyful():
         #OpenMYSensorNeighbour()
         for i in range(int(g.labelIterationNumb.get())):
             iter = 0
-
+            print("STATE FROM START")
+            print(STATE)
             def ReadState():
                 for x in Neighb:
                     c = 0
@@ -839,11 +1003,6 @@ def DisplayBeutyful():
                             i += 1
                     StateListNeigh.append(str(c) + " " + str(d))
             ReadState()
-            # print("STATE LIST NEIGH")
-            # print(StateListNeigh)
-            NewState.clear()
-
-            # =====================================================================
             def CalcALLq():  # WRITE COVERAGE METHOD
                 def circle(x1, y1, x2, y2, r1, r2):
                     distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
@@ -1027,10 +1186,10 @@ def DisplayBeutyful():
                 hhs = ""
                 for x in Neighb:
                     hhs = str(x) #tutaj zawyza liczbe bo traktuje 10
-                    hhs = hhs.replace(" ", "")
                     hhs=hhs.replace("10","0")
                     hhs = hhs.replace("11", "0")
-                    hhs = hhs.replace("12", "0")
+                    hhs = hhs.replace("12", "0") #ZMIANA REPLACE -{}-
+                    hhs = hhs.replace(" ", "")
                     stringNeighs += str(len(hhs)) + "  "
                 stringstatedisplay=""
                 for x in STATE:
@@ -1057,67 +1216,75 @@ def DisplayBeutyful():
 
                 SaveFileSensss()
                 SaveFileDebug()
-
-            # FIrst ITeration
+            # print("STATE LIST NEIGH")
+            # print(StateListNeigh)
+            #NewState.clear()
+            # =====================================================================
+            CalcALLq()
+            STATE.clear()
             iterr = 0
             for x in RULES:
                 if (x == 1):  # StateListNeigh[iter][2]<K[iter]
                     if (int(re.search(r'\d+', StateListNeigh[iter][2:4]).group()) <= int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):  # int(re.search(r'\d+', x[0:2]).group())
-                        NewState.append(1)  # int(re.search(r'\d+', x[0:2]).group()
+                        STATE.append(1)  # int(re.search(r'\d+', x[0:2]).group()
                         iter += 1
                     else:
                         if(BATTERY_STATE[iterr]>0 and Neighb[iter]==" "): # TESTOWEEEE DO DEBUGA
-                            NewState.append(1)
+                            STATE.append(1)
                             iter += 1
                         else:
-                            NewState.append(0)
+                            STATE.append(0)
                             iter +=1
                 elif (x == 2):
                     if (int(re.search(r'\d+', StateListNeigh[iter][0:2]).group()) <= int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):
-                        NewState.append(1)
+                        STATE.append(1)
                         iter += 1
                     else:
                         if(BATTERY_STATE[iterr]>0 and Neighb[iter]==" "): # TESTOWEEEE DO DEBUGA
-                            NewState.append(1)
+                            STATE.append(1)
                             iter += 1
                         else:
-                            NewState.append(0)
+                            STATE.append(0)
                             iter +=1
                 else:
                     if (int(re.search(r'\d+', StateListNeigh[iter][2:4]).group()) >= int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):
-                        NewState.append(1)
+                        STATE.append(1)
                         iter += 1
                     else:
                         if(BATTERY_STATE[iterr]>0 and Neighb[iter]==' '): # TESTOWEEEE DO DEBUGA
-                            NewState.append(1)
+                            STATE.append(1)
                             iter += 1
                         else:
-                            NewState.append(0)
+                            STATE.append(0)
                             iter +=1
                 # Battery STATE
                 if (1 == int(STATE[iterr])):
                     BATTERY_STATE[iterr] -= int(g.labelBattery.get())
-                    if(BATTERY_STATE[iterr]<0):
+                    if(BATTERY_STATE[iterr]<int(g.labelBattery.get())):
                          BATTERY_STATE[iterr]=0
                 iterr += 1
-            # ======================================================================ALL COV Q ##################################
-            CalcALLq() # uruchomienie glownego algorytmu
-            STATE = NewState
-            BatterY_STATE_SUM.append(sum(BATTERY_STATE))
-            print("BATTERY STATE")
-            print(BATTERY_STATE)
+            print("STATE")
+            print(STATE)
+            print("STATE LIST NEIG")
+            print(StateListNeigh)
             print("Neigh")
             print(Neighb)
+            #print("NEW STATE")
+            #print(NewState)
+            # ======================================================================ALL COV Q ##################################
+            #CalcALLq() # uruchomienie glownego algorytmu
+            #
+            BatterY_STATE_SUM.append(sum(BATTERY_STATE))
+            #print("BATTERY STATE")
+            #print(BATTERY_STATE)
             increse=0
             for x in BATTERY_STATE:
                 if(x<=0):
                     tempListofNumbers[increse]="3"+str(increse)+".3 33.3"
                 increse+=1
-
-
             def FindWSNGRAPH():  # find WSN grapph #GO GO GO
                 #tempListofNumbers.clear()
                 def circle(x1, y1, x2, y2, r1, r2):
@@ -1137,23 +1304,6 @@ def DisplayBeutyful():
                     helper = 0
                     for y in tempListofNumbers:
                         if(y[2:4]==".3" or x[2:4] ==".3" or x[3:5]==".3"): # zmiana or z x
-                            '''
-                            if (x[3:5]==".3"):
-                                ListofNeighbourse.append(str(id) + str(
-                                    circle(int(re.search(r'\d+', x[0:3]).group()), # TESTOWANIE
-                                           int(re.search(r'\d+', x[6:8]).group()),
-                                           int(re.search(r'\d+', y[0:3]).group()),
-                                           int(re.search(r'\d+', y[5:7]).group()),
-                                           0, 0)))
-                                xs = str(id) + str(
-                                    circle(int(re.search(r'\d+', x[0:3]).group()),
-                                           int(re.search(r'\d+', x[6:8]).group()),
-                                           int(re.search(r'\d+', y[0:2]).group()),
-                                           int(re.search(r'\d+', y[5:7]).group()),
-                                           0, 0))
-                                beng = '-'
-                            else:
-                            '''
                             ListofNeighbourse.append(str(id) + str(
                                 circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
                                        int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
@@ -1173,7 +1323,7 @@ def DisplayBeutyful():
                                    int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
                                    int(gs.radius.get()), int(gs.radius.get())))
                             beng = '-'
-                        if (beng in xs or str(counter) == xs[0:1] or str(counter)+"1"==xs[0:3] or str(counter)+"0"==xs[0:3]): #or str(counter)==xs[0:2]): zmiana
+                        if (beng in xs or str(counter) == xs[0:1] or str(counter)==xs[0:2]): #or str(counter)==xs[0:2]): zmiana
                             donothing()
                         else:
                             if (len(xs) < 3): #100 6-1
@@ -1188,10 +1338,10 @@ def DisplayBeutyful():
                     ys = " "
                     ListofNeighbourse.clear()
                     counter = counter + 1
+            #STATE = NewState
             Neighb.clear() #CHANGE
             FindWSNGRAPH()
             StateListNeigh.clear()
-
     MainIter()
 
 def MamutDebug():

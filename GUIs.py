@@ -14,8 +14,9 @@ labelSetSeed=""
 valuesRadiokCstate=""
 valuesRadiokDstate=""
 valuesRadiokDCstate=""
+staticStrategies=""
 #BAttery STATE
-labelBattery=""
+labelBattery="kc,kd,kdc,kd,kc,kc,kd,kdc,kc,kc"
 def InitGuis():
     #GLOVAL VALUE TO METHODS
     global labelkCvalue
@@ -28,7 +29,9 @@ def InitGuis():
     global labelIterationNumb
     global labelSetSeed
     global labelMuttiruns
+    global staticStrategies
     main_windower=tk.Tk()
+    staticStrategies=tk.StringVar()
     labelkDvalue = tk.StringVar()
     labelkCvalue = tk.StringVar()
     labelkDCvalue = tk.StringVar()
@@ -39,6 +42,7 @@ def InitGuis():
     labelkDvalue.set("0.33")
     labelkCvalue.set("0.33")
     labelkDCvalue.set("0.34")
+    #staticStrategies.set("kc,kd,kdc,kd,kc,kc,kd,kdc,kc,kc")
     labelBattery.set("1")
     labelIterationNumb.set("8")
     labelMuttiruns.set("1")
@@ -100,6 +104,9 @@ def InitGuis():
     tk.Button(main_windower,text="Start",command=m.Mamut).grid(row=20,column=1)
     tk.Button(main_windower, text="Start by iter", command=m.Mamut).grid(row=21, column=1)
     tk.Button(main_windower, text="DEBUG", command=m.MamutDebug).grid(row=22, column=1)
+    tk.Label(text="Entry e.g:kc,kd,kdc,kd,kc,kc,kd,kdc,kc,kc").grid(row=23, column=1)
+    tk.Entry(main_windower, textvariable=staticStrategies, width=20, borderwidth=5).grid(row=24,column =1 )
+
     #tk.Button(main_window, text="Start ", command=m.Startstandard).grid(row=19, column=1)
     #==========================================================#
     #GUI DATA - > #READ POI #READ DATA X,Y
