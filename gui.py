@@ -590,14 +590,15 @@ def InitGui():
                             counter=counter+1
                         #print(ListSensorneigh)
                         def SaveFileSenss():
-                            with open("sensor-neighbours .txt", 'w') as file:
+                            with open("sensor-neighbours"+str(len(ListofNumbers))+".txt", 'w') as file:
                                 for row in ListSensorneigh:
                                     s = "".join(map(str, row))
                                     file.write(s + '\n')
                         SaveFileSenss()
 
 
-        def CalcSingleq():  # calc single q
+        def CalcSingleq():
+            # calc single q
             SensorStates=[]
             ListofNumbers.clear()
             IdPOICOV.clear()
@@ -881,7 +882,7 @@ def InitGui():
 
 
             def SaveFileSenss():
-                with open("creates cov-5-WSN-5d-test-1.txt"
+                with open("creates cov-5-WSN-"+str(len(ListofNumbersCalcSingleqState))+"d.txt"
                           "", 'w') as file:
                     for row in ListSensorneigh:
                         s = "".join(map(str, row))
@@ -1025,7 +1026,20 @@ def InitGui():
                 for x in range(0, 64):
                     Binary = '{:06b}'.format(x)
                     BinaryList.append(Binary)
-                #print(BinaryList)
+            elif (len(ListofNumbersCalcSingleq) == 8):
+                for x in range(0, 256):
+                    Binary = '{:08b}'.format(x)
+                    BinaryList.append(Binary)
+            elif (len(ListofNumbersCalcSingleq) == 9):
+                for x in range(0, 512):
+                    Binary = '{:09b}'.format(x)
+                    BinaryList.append(Binary)
+            elif (len(ListofNumbersCalcSingleq) == 11):
+                for x in range(0, 2048):
+                    Binary = '{:11b}'.format(x)
+                    BinaryList.append(Binary)
+            else:
+                ms.showerror("Error", "This option is for WSN x> 5 and x <12. If you choose 45 a program spends a lot of time computing ")
             for x in BinaryList:
              abde=x
              arubaCloud.clear()
@@ -1101,7 +1115,7 @@ def InitGui():
 
 
             def SaveFileSenss():
-                with open("creates all-WSN-5d-test-1.txt"
+                with open("creates all-WSN-"+str(len(ListofNumbersCalcSingleq))+".txt"
                           "", 'w') as file:
                     for row in ListSensorneigh:
                         s = "".join(map(str, row))
@@ -1115,6 +1129,16 @@ def InitGui():
             else:
                 main_window.destroy()
                 g.InitGuis()
+        def Clear():
+            ListPOI.clear()
+            ListofNumbers.clear()
+            ListSensorneigh.clear()
+            converted_listCalcSingleq.clear()
+            ListofNumbersCalcSingleq.clear()
+            ListofNumbersCalcSingleqState.clear()
+            IdPOICOV.clear()
+            STATES.clear()
+
 
         myButton = tk.Button(main_window, text="SHOW WSN", command=Init)
         myButton.pack()
@@ -1125,6 +1149,8 @@ def InitGui():
         SaveButton = tk.Button(main_window, text="calc single q", command=CalcSingleq)
         SaveButton.pack(side="left")
         SaveButton = tk.Button(main_window, text="calc all q", command=CalcALLq)
+        SaveButton.pack(side="left")
+        SaveButton = tk.Button(main_window, text="Clear", command=Clear)
         SaveButton.pack(side="left")
 
 #########################################################################################################################

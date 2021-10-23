@@ -6,7 +6,7 @@ import csv
 import gui as gs
 from random import *
 import re
-import numpy as np
+import nump as np
 from functools import reduce
 from tkinter import filedialog
 from  tkinter import messagebox as ms

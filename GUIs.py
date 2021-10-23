@@ -1,5 +1,5 @@
 import Methods as m
-import tkinter as tk
+import tkinter as tk #Python3.7.8
 Pi=3.14
 ListPOI=[] #List which contains POI #X #Y
 #LABELS VALUE
