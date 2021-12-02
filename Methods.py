@@ -1380,26 +1380,27 @@ def MamutDebug():
         # ListSensorneighQ.append(
         #    "       av_falive std f_alive " + str(round(avhelper, 2)) + " " + str(round(np.std(av_alive), 2)))
         # avhelper = float(sum(av_minBatt) / (len(BatterY_STATE_SUM)))
+        ax = int(g.labelIterationNumb.get())
         for i in range(int(g.labelIterationNumb.get())):
-            avqhelper = float(sum(ListQ[i::8]) / (len(ListQ[i::8])))
+            avqhelper = float(sum(ListQ[i::ax]) / (len(ListQ[i::ax])))
             #print(str(avqhelper) + " " + str(
             #    ListQ[i::8]))  # Z KAZDEJ ITERACJI JEST LICZONA SREDNIA -> Dac for dzielacego na liczbe multirunow
-            avalife = float(sum(ListF[i::8]) / (len(ListF[i::8])))
-            minhelper = float(sum(ListminBatt[i::8]) / (len(ListminBatt[i::8])))
-            avbathelperr = float(sum(lisavBatt[i::8]) / (len(lisavBatt[i::8])))
-            maxbathelperr = float(sum(ListmaxBatt[i::8]) / (len(ListmaxBatt[i::8])))
-            listkdhelperr = float(sum(listfreqKD[i::8]) / (len(listfreqKD[i::8])))
-            listkchelper = float(sum(listfreqKC[i::8]) / (len(listfreqKC[i::8])))
-            listkdchelper = float(sum(listfreqKDC[i::8]) / (len(listfreqKDC[i::8])))
+            avalife = float(sum(ListF[i::ax]) / (len(ListF[i::ax])))
+            minhelper = float(sum(ListminBatt[i::ax]) / (len(ListminBatt[i::ax])))
+            avbathelperr = float(sum(lisavBatt[i::ax]) / (len(lisavBatt[i::ax])))
+            maxbathelperr = float(sum(ListmaxBatt[i::ax]) / (len(ListmaxBatt[i::ax])))
+            listkdhelperr = float(sum(listfreqKD[i::ax]) / (len(listfreqKD[i::ax])))
+            listkchelper = float(sum(listfreqKC[i::ax]) / (len(listfreqKC[i::ax])))
+            listkdchelper = float(sum(listfreqKDC[i::ax]) / (len(listfreqKDC[i::ax])))
             ListSensorneighQ.append(
-                str(i) + "     " + str(round(avqhelper, 2)) + "    " + str(round(np.std(ListQ[i::8]), 2)) +
-                "      " + str(round(avalife, 2)) + "       " + str(round(np.std(ListF[i::8]), 2)) +
-                "         " + str(round(minhelper, 2)) + "           " + str(round(np.std(ListminBatt[i::8]), 2)) +
-                "        " + str(round(avbathelperr, 2)) + "        " + str(round(np.std(lisavBatt[i::8]), 2)) +
-                "         " + str(round(maxbathelperr, 2)) + "          " + str(round(np.std(ListmaxBatt[i::8]), 2)) +
-                "       " + str(round(listkdhelperr, 2)) + "         " + str(round(np.std(listfreqKD[i::8]), 2)) +
-                "        " + str(round(listkchelper, 2)) + "           " + str(round(np.std(listfreqKC[i::8]), 2)) +
-                "        " + str(round(listkdchelper, 2)) + "          " + str(round(np.std(listfreqKDC[i::8]), 2)))
+                str(i) + "     " + str(round(avqhelper, 2)) + "    " + str(round(np.std(ListQ[i::ax]), 2)) +
+                "      " + str(round(avalife, 2)) + "       " + str(round(np.std(ListF[i::ax]), 2)) +
+                "         " + str(round(minhelper, 2)) + "           " + str(round(np.std(ListminBatt[i::ax]), 2)) +
+                "        " + str(round(avbathelperr, 2)) + "        " + str(round(np.std(lisavBatt[i::ax]), 2)) +
+                "         " + str(round(maxbathelperr, 2)) + "          " + str(round(np.std(ListmaxBatt[i::ax]), 2)) +
+                "       " + str(round(listkdhelperr, 2)) + "         " + str(round(np.std(listfreqKD[i::ax]), 2)) +
+                "        " + str(round(listkchelper, 2)) + "           " + str(round(np.std(listfreqKC[i::ax]), 2)) +
+                "        " + str(round(listkdchelper, 2)) + "          " + str(round(np.std(listfreqKDC[i::ax]), 2)))
         SaveFileSenss()
         def Exit():
                         python = sys.executable

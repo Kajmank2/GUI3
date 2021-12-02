@@ -58,8 +58,7 @@ def InitGui():
                         c.delete('all')
                         ExitButton = tk.Button(main_window, text="Next Page", command=Destroyer)
                         ExitButton.pack(side="right")
-                        listSens=[]
-                        text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                        text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
                         text_file = open(text_file, 'r')
                         ListofNumbers.clear() #CLEAR LIST
@@ -82,15 +81,24 @@ def InitGui():
                         with open("POI" + str(POIVALUE) + '.csv') as file:  # CHANGE TO PO 4412 /36
                             reader = csv.reader(file)
                             for row in reader:
-                                # print(row)
                                 ListPOI.append(row)
                         id = 1
                         for x in ListofNumbers:
-                                xx=x[0:2]
-                                yy=x[5:7]
-                                state=x[10]
+                                try:
+                                    xx=int(x[0:2])
+                                except ValueError:
+                                    xx =int(x[0:1])
+                                try:
+                                    yy=100 - int(x[5:7])
+                                except ValueError:
+                                    yy=100 - int(x[4:6])
+                                try:
+                                    state=(x[10])
+                                except ValueError:
+                                    state=(x[9])
                                 STATES.append(int(state))
-                                if state=='0':
+                                print(state)
+                                if state=='0': # CHange '' char to int
                                         colo="red"
                                 else:
                                         colo="green"
@@ -162,15 +170,6 @@ def InitGui():
                                 i = i + 20
                         id+=1
 
-                        '''
-                        for x in ListofNumbers:
-                            strs = ""
-                            strs=x
-                            strs=[e[1:]for e in strs]
-                            ListofNumbers.append(strs)
-                        '''
-
-
 
         def OpenSensorWSN():
                     try:
@@ -178,16 +177,30 @@ def InitGui():
                             ms.showinfo(title="Error", message="you have already loaded this file ! ! !")
 
                         else:
-                            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+                            counter=0
+                            text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
                             text_file = open(text_file, 'r')
                             # DELETE FIRST PARAMETER
                             for x in text_file:
-                                ListofNumbers.append(x)
+                                if (counter>0):
+                                    ad = 100 - int(x[5:7])
+                                    string_list = list(x)
+                                    string_list[5:7] = str(ad)
+                                    new_string = "".join(string_list)
+                                    ListofNumbers.append(new_string)
+                                else:
+                                    ListofNumbers.append(x)
+                                counter=+1
                             ListofNumbers.pop(0)
+                                #circle(int(re.search(r'\d+', x[0:2])
+                                #if (x[2] == " "):
+                                #    ListofNumbers.append(x[3:])
+                                #else:
+                                #    ListofNumbers.append(x[2:])
                             for x in ListofNumbers:
                                     print(x)
-                            textsVariable=text_file.name
+                        textsVariable=text_file.name
                     except:
                         ms.showinfo(title="ERROR",message="Read one more time")
 
@@ -519,24 +532,13 @@ def InitGui():
         def OpenMYSensorNeighbour(): #find WSN grapph
                         c.delete('all')
                         #ListofNumbers.clear()
-                        try:
-                            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
-                                                               filetypes=(("Text Files", "*.txt"),))
-                            text_file = open(text_file, 'r')
-                            ListofNumbers.clear()
-                        except:
-                            ms.showinfo("ERROR", "Please read file")
-                        for x in text_file:
-                                ListofNumbers.append(x)
-                        ListofNumbers.pop(0)
-                        for x in ListofNumbers:
-                                print(x)
+                        #
                         # LIST NEIGTBOUR
                         ListSensorneigh.append("#parameters of run: ")
                         ListSensorneigh.append("#Number of Sensors " + str(amountReadWSN))
                         ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
                         ListSensorneigh.append("#POI: "+str(variableRadio.get()))
-                        ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
+                        #ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
                         ListSensorneigh.append("#id num_of_neighb neigb-ID")
                         id = 1
 
@@ -620,7 +622,7 @@ def InitGui():
                     ListPOI.append(row)
 
             ms.showinfo(title=None, message="Read Sensor States -> \"sensor-states-10\" ")
-            text_fileq = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+            text_fileq = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
                                                   filetypes=(("Text Files", "*.txt"),))
             text_fileq = open(text_fileq, 'r')
 
@@ -635,7 +637,7 @@ def InitGui():
             #print(state)
 
             ms.showinfo(title=None, message="Read WSN FILE ->\"WSN-5d\"")
-            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+            text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
                                                     filetypes=(("Text Files", "*.txt"),))
             text_file = open(text_file, 'r')
 
@@ -749,7 +751,7 @@ def InitGui():
             #POI TO 1d ARRAY
             flaten_list=reduce(lambda z, y :z + y,ListPOI)
             ids = 1
-            # OBLICZANIE POKRYCIE KAŻDEGO SENSORA
+            # Coverage each sensor POI
             for x in converted_listCalcSingleq:
                 helper = 0
                 for y in flaten_list:
@@ -911,7 +913,7 @@ def InitGui():
                     #print(row)
                     ListPOI.append(row)
             ms.showinfo(title=None, message="READ WSN FILE")
-            text_file = filedialog.askopenfilename(initialdir="C:/", title="Open TextFile",
+            text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
                                                    filetypes=(("Text Files", "*.txt"),))
             variableAm = 0
             text_file = open(text_file, 'r')
