@@ -24,6 +24,7 @@ SquareArenas=40000
 Pi=3.14
 STATES=[]
 AmountWSN=0
+filename = ""
 textsVariable=""
 ListofNumbers=[]
 amountReadWSN=0
@@ -68,6 +69,8 @@ def InitGui():
                             else:
                                 ListofNumbers.append(x[2:])
                         ListofNumbers.pop(0)
+                        global  filename
+                        filename = text_file.name
                         print(ListofNumbers)
                         for x in ListofNumbers:
                             amountReadWSN = amountReadWSN + 1
@@ -93,9 +96,9 @@ def InitGui():
                                 except ValueError:
                                     yy=100 - int(x[4:6])
                                 try:
-                                    state=(x[10])
+                                    state=int(x[10])
                                 except ValueError:
-                                    state=(x[9])
+                                    state=int(x[9])
                                 STATES.append(int(state))
                                 print(state)
                                 if state=='0': # CHange '' char to int
@@ -175,7 +178,6 @@ def InitGui():
                     try:
                         if(len(ListofNumbers)>0):
                             ms.showinfo(title="Error", message="you have already loaded this file ! ! !")
-
                         else:
                             counter=0
                             text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
@@ -184,23 +186,26 @@ def InitGui():
                             # DELETE FIRST PARAMETER
                             for x in text_file:
                                 if (counter>0):
-                                    ad = 100 - int(x[5:7])
-                                    string_list = list(x)
-                                    string_list[5:7] = str(ad)
-                                    new_string = "".join(string_list)
-                                    ListofNumbers.append(new_string)
+                                    if(x[5:7]=="0."):
+                                        ad = 100 - int(x[4:6])
+                                        string_list = list(x)
+                                        string_list[4:6] = str(ad)
+                                        new_string = "".join(string_list)
+                                        ListofNumbers.append(new_string)
+                                    else:
+                                        ad = 100 - int(x[5:7])
+                                        string_list = list(x)
+                                        string_list[5:7] = str(ad)
+                                        new_string = "".join(string_list)
+                                        ListofNumbers.append(new_string)
                                 else:
                                     ListofNumbers.append(x)
                                 counter=+1
                             ListofNumbers.pop(0)
-                                #circle(int(re.search(r'\d+', x[0:2])
-                                #if (x[2] == " "):
-                                #    ListofNumbers.append(x[3:])
-                                #else:
-                                #    ListofNumbers.append(x[2:])
                             for x in ListofNumbers:
                                     print(x)
-                        textsVariable=text_file.name
+                            global filename
+                            filename = text_file.name
                     except:
                         ms.showinfo(title="ERROR",message="Read one more time")
 
@@ -435,7 +440,7 @@ def InitGui():
                                     s3 = c.create_text(xval*4 + 8,
                                                    yval*4 + 8,
                                                    font="Times 10 italic bold", text=sensorId)
-                                    s = str(id) + " " + str(round(int(xval))) + ".00 " + str(round(int(yval))) + ".00 "
+                                    s = str(id) + " " + str(round(int(xval))) + ".0 " + str(round(int(yval))) + ".0 "+ "1" # STATE - green = 1
                                     calcSensorID.append(s)
                                     #print(calcSensorID)
                                     id += 1;
@@ -457,7 +462,7 @@ def InitGui():
                                     s3 = c.create_text(xval * 4 + 8,
                                            yval * 4 + 8,
                                            font="Times 10 italic bold", text=sensorId)
-                                    s = str(id) + " " + str(round(int(xval))) + ".00 " + str(round(int(yval))) + ".00 "
+                                    s = str(id) + " " + str(round(int(xval))) + ".0 " + str(round(int(yval))) + ".0 " + "0"
                                     calcSensorID.append(s)
                                     #print(calcSensorID)
                                     id += 1;
@@ -533,15 +538,16 @@ def InitGui():
                         c.delete('all')
                         #ListofNumbers.clear()
                         #
+                        if (len(ListofNumbers) == 0):
+                            ms.showinfo(title="Error", message="failed to load the WSN file -> Read WSN first ...")
                         # LIST NEIGTBOUR
                         ListSensorneigh.append("#parameters of run: ")
                         ListSensorneigh.append("#Number of Sensors " + str(amountReadWSN))
                         ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
                         ListSensorneigh.append("#POI: "+str(variableRadio.get()))
-                        #ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
+                        ListSensorneigh.append("#Sensor for file: " + str(filename))
                         ListSensorneigh.append("#id num_of_neighb neigb-ID")
                         id = 1
-
                         for x in ListofNumbers:
                                 xx = int(re.search(r'\d+', x[0:2]).group())
                                 yy = int(re.search(r'\d+', x[5:7]).group())
@@ -601,6 +607,7 @@ def InitGui():
 
         def CalcSingleq():
             # calc single q
+            counter = 0
             SensorStates=[]
             ListofNumbers.clear()
             IdPOICOV.clear()
@@ -609,6 +616,7 @@ def InitGui():
             ListSensorneigh.clear()
             converted_listCalcSingleq.clear()
             ListofNumbersCalcSingleq.clear()
+            ListofNumbersCalcSingleqState.clear()
             if (str(variableRadio.get())=='441'):
                 POIVALUE=441
             elif (str(variableRadio.get()) == '144'):
@@ -633,19 +641,17 @@ def InitGui():
                 state.append(x[12])
             ListofNumbersCalcSingleqState.pop(0)
             state.pop(0)
-            #print(ListofNumbersCalcSingleqState)
-            #print(state)
+            # print(ListofNumbersCalcSingleqState)
+            # print(state)
 
             ms.showinfo(title=None, message="Read WSN FILE ->\"WSN-5d\"")
             text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
-                                                    filetypes=(("Text Files", "*.txt"),))
+                                                   filetypes=(("Text Files", "*.txt"),))
             text_file = open(text_file, 'r')
-
             variableAm = 0
             #text_file = open("FILES/WSN-5d.txt")
             for x in text_file:
-                ListofNumbersCalcSingleq.append(x)
-                #print(ListofNumbersCalcSingleq)
+                    ListofNumbersCalcSingleq.append(x)
             ListofNumbersCalcSingleq.pop(0)
             for x in ListofNumbersCalcSingleq:
                 converted_listCalcSingleq.append(x.strip())
@@ -889,7 +895,6 @@ def InitGui():
                     for row in ListSensorneigh:
                         s = "".join(map(str, row))
                         file.write(s + '\n')
-
             SaveFileSenss()
                 ###########################################################################################
 
@@ -897,6 +902,7 @@ def InitGui():
             SensorStates=[]
             ListPOI.clear()
             IdPOICOV.clear()
+            counter = 0
             ListofNumbers.clear()
             ListSensorneigh.clear()
             converted_listCalcSingleq.clear()
@@ -912,18 +918,34 @@ def InitGui():
                 for row in reader:
                     #print(row)
                     ListPOI.append(row)
+
             ms.showinfo(title=None, message="READ WSN FILE")
             text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
                                                    filetypes=(("Text Files", "*.txt"),))
             variableAm = 0
             text_file = open(text_file, 'r')
             for x in text_file:
-                ListofNumbersCalcSingleq.append(x)
-                #print(ListofNumbersCalcSingleq)
+                if (counter > 0):
+                    if (x[5:7] == "0."):
+                        ad = 100 - int(x[4:6])
+                        string_list = list(x)
+                        string_list[4:6] = str(ad)
+                        new_string = "".join(string_list)
+                        ListofNumbers.append(new_string)
+                    else:
+                        ad = 100 - int(x[5:7])
+                        string_list = list(x)
+                        string_list[5:7] = str(ad)
+                        new_string = "".join(string_list)
+                        ListofNumbers.append(new_string)
+                else:
+                    ListofNumbersCalcSingleq.append(x)
+                counter = +1
             ListofNumbersCalcSingleq.pop(0)
             for x in ListofNumbersCalcSingleq:
                 converted_listCalcSingleq.append(x.strip())
-                variableAm+=1
+                variableAm += 1
+
             ListSensorneigh.clear()
             # LIST NEIGTBOUR
             ListSensorneigh.append("#parameters of run: ")

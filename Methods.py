@@ -2,15 +2,13 @@
 import os
 import sys
 import GUIs as g
-import csv
 import gui as gs
 from random import *
 import re
 import numpy as np
 from functools import reduce
-from tkinter import filedialog
 from  tkinter import messagebox as ms
-import tkinter as tk
+
 #VALUE TO SAVE
 q=0
 f_alavie=0
@@ -77,9 +75,7 @@ def Start():
         for x in gs.ListofNumbers:
             rand = randint(0,1)
             STATE.append(rand)
-    if(len(RULESSTABLE)>0):
-        donothing()
-    else:
+    def Strategiesinput(): # METHOD
         if(g.staticStrategies.get()!=""):
             strategieslist = list(g.staticStrategies.get().split(","))
             for x in strategieslist:
@@ -90,20 +86,32 @@ def Start():
                         RULESSTABLE.append(2)
                     elif (x == "KDC" or x == "kdc"):
                         RULESSTABLE.append(3)
+                    else:
+                        ms.showinfo(title="Error", message="you entred bad value: Program random  generates strategies")
+                        for x in range(int(gs.amountReadWSN)):
+                            helper = random()
+                            if (float(g.labelkDvalue.get()) > helper):
+                                RULESSTABLE.append(1)
+                            elif (float(g.labelkDvalue.get()) + (float(g.labelkCvalue.get())) > helper):
+                                RULESSTABLE.append(2)
+                            else:
+                                RULESSTABLE.append(3)
                 except:
+                    ms.showinfo(title="Error", message="Something was wrong ...")
                     ms.ERROR("ERROR", "Please correct entry ")
         else:
             for x in range(int(gs.amountReadWSN)):
                 helper = random()
                 if (float(g.labelkDvalue.get()) > helper):
-            # print("KD")
                     RULESSTABLE.append(1)
                 elif (float(g.labelkDvalue.get()) + (float(g.labelkCvalue.get())) > helper):
-            # print("KC")
                     RULESSTABLE.append(2)
                 else:
-            # print('KDC')
                     RULESSTABLE.append(3)
+    if(len(RULESSTABLE)>0):
+        donothing()
+    else:
+        Strategiesinput()
     RULES=RULESSTABLE.copy()
     # ZMIANA STATE# problem z gs list of numbers
     print(gs.ListofNumbers)
@@ -446,6 +454,7 @@ def Start():
                 finalStates = dict.fromkeys(arubaCloud)  # DELETE DUPLICATE
                 # COVERAGE Q
                 coverageQ = len(finalStates) / POIVALUE
+                print(STATE)
                 # CALC SENSOR ID TO TXT
                 #helper Values
                 #BATTERY ======================================
@@ -519,6 +528,7 @@ def Start():
                 SaveFileSensss()
         #FIrst ITeration
             CalcALLq()
+            STATE.clear()
             iterr = 0
             for x in RULES:
                 if (x == 1):  # StateListNeigh[iter][2]<K[iter]
@@ -636,6 +646,7 @@ def Start():
             FindWSNGRAPH()
             StateListNeigh.clear()
     MainIter()  # ZMIANA
+
 def Mamut():
     for i in range(int(g.labelMuttiruns.get())):
         Start()

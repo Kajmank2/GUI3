@@ -1,0 +1,8 @@
+#parameters of run: 
+#Number of Sensors 10
+#Sensor Range: 35
+#POI: 441
+#Sensor for file: C:/Users/PC/Desktop/AD HOc/GUI3/FILES/WSN-10d-irreg-r20.txt
+Sensor for file: :WSN-5d-test0.txt
+#q    s    1 2 3 4 5   q1   q2   q3   q4   q5
+0.91  10   1 1 1 1 1 1 0 0 1 0   1.0  1.0  1.0  1.0  1.0  1.0  0.7  0.8  1.0  0.8
