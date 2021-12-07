@@ -1,5 +1,0 @@
-#parameters of run: 
-#Number of Sensors 0
-#Sensor Range: 35
-#POI: 441
-#id num_of_neighb neigb-ID
