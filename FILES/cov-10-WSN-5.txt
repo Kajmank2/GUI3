@@ -1,9 +1,0 @@
-#parameters of run: 
-#Number of Sensors 5
-#Sensor Range: 35
-#POI: 441
-#Sensor from file: :WSN-5d.txt
-#Sensor states from file: sensor-states-10.txt
-#Sensor for file: :WSN-5d-test0.txt
-#q    s    1 2 3 4 5   q1   q2   q3   q4   q5 
-0.64  10   0 1 0 1 0   0.55 1.00 0.89 1.00 0.55 

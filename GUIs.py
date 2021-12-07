@@ -104,8 +104,10 @@ def InitGuis():
     tk.Button(main_windower,text="Start",command=m.Mamut).grid(row=20,column=1)
     tk.Button(main_windower, text="Start by iter", command=m.Mamut).grid(row=21, column=1)
     tk.Button(main_windower, text="DEBUG", command=m.MamutDebug).grid(row=22, column=1)
-    tk.Label(text="Entry e.g:kc,kd,kdc,kd,kc,kc,kd,kdc,kc,kc").grid(row=23, column=1)
-    tk.Entry(main_windower, textvariable=staticStrategies, width=20, borderwidth=5).grid(row=24,column =1 )
+    tk.Label(text="For file WSN-5d: \n"
+                  "If you choose file with 5 sensors you have to write \n correctly amount of strategies equal 5").grid(row=23, column=1)
+    tk.Label(text="INPUT -> kc,kd,kdc,kd,kdc").grid(row=24, column=1)
+    tk.Entry(main_windower, textvariable=staticStrategies, width=20, borderwidth=5).grid(row=25,column =1 )
 
     #tk.Button(main_window, text="Start ", command=m.Startstandard).grid(row=19, column=1)
     #==========================================================#

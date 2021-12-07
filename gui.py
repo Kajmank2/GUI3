@@ -347,7 +347,7 @@ def InitGui():
                 # ENTRY
 
         def SaveFile():
-                        with open("MYPOI .txt", 'w') as file:
+                        with open("RESULT/MYPOI .txt", 'w') as file:
                                 for row in ListPOI:
                                         s = "".join(map(str, row))
                                         file.write(s + '\n')
@@ -525,7 +525,7 @@ def InitGui():
                         os.execl(python, python, *sys.argv)
 
         def SaveFileSens():
-                        with open("sensorId.txt", 'w') as file:
+                        with open("RESULT/sensorId.txt", 'w') as file:
                                 for row in calcSensorID:
                                         s = "".join(map(str, row))
                                         file.write(s + '\n')
@@ -598,7 +598,7 @@ def InitGui():
                             counter=counter+1
                         #print(ListSensorneigh)
                         def SaveFileSenss():
-                            with open("sensor-neighbours"+str(len(ListofNumbers))+".txt", 'w') as file:
+                            with open("RESULT/sensor-neighbours"+str(len(ListofNumbers))+".txt", 'w') as file:
                                 for row in ListSensorneigh:
                                     s = "".join(map(str, row))
                                     file.write(s + '\n')
@@ -890,7 +890,7 @@ def InitGui():
 
 
             def SaveFileSenss():
-                with open("creates cov-5-WSN-"+str(len(ListofNumbersCalcSingleqState))+"d.txt"
+                with open("RESULT/creates cov-5-WSN-"+str(len(ListofNumbersCalcSingleqState))+"d.txt"
                           "", 'w') as file:
                     for row in ListSensorneigh:
                         s = "".join(map(str, row))
@@ -1139,7 +1139,7 @@ def InitGui():
 
 
             def SaveFileSenss():
-                with open("creates all-WSN-"+str(len(ListofNumbersCalcSingleq))+".txt"
+                with open("RESULT/creates all-WSN-"+str(len(ListofNumbersCalcSingleq))+".txt"
                           "", 'w') as file:
                     for row in ListSensorneigh:
                         s = "".join(map(str, row))

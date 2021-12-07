@@ -87,7 +87,8 @@ def Start():
                     elif (x == "KDC" or x == "kdc"):
                         RULESSTABLE.append(3)
                     else:
-                        ms.showinfo(title="Error", message="you entred bad value: Program random  generates strategies")
+                        RULESSTABLE.clear()
+                        ms.showinfo(title="Error", message="you entred bad value: Program choose random strategies")
                         for x in range(int(gs.amountReadWSN)):
                             helper = random()
                             if (float(g.labelkDvalue.get()) > helper):
@@ -247,7 +248,7 @@ def Start():
         #print(Neighb)
 
         def SaveFileSenss():
-            with open("sensor-neighbours .txt", 'w') as file:
+            with open("RESULT/sensor-neighbours .txt", 'w') as file:
                 for row in ListSensorneigh:
                     s = "".join(map(str, row))
                     file.write(s + '\n')
@@ -520,7 +521,7 @@ def Start():
                 #av_std=np.std(coverageQ) #np.std(arr)
                 #ListSensorneighQ.append("av_q std_q" +str(avq))
                 def SaveFileSensss():
-                    with open("CA_result.txt"
+                    with open("RESULT/CA_result.txt"
                               "", 'w') as file:
                         for row in ListSensorneighQresult:
                             s = "".join(map(str, row))
@@ -652,7 +653,7 @@ def Mamut():
         Start()
     if(int(g.labelMuttiruns.get())>1):
         def SaveFileSenss():
-            with open("Ca_result_std.txt"
+            with open("RESULT/Ca_result_std.txt"
                       "", 'w') as file:
                 for row in ListSensorneighQ:
                     s = "".join(map(str, row))
@@ -1213,13 +1214,13 @@ def DisplayBeutyful():
                     ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeighs)
                 TempDebugList.clear() # Clear after add to table
                 def SaveFileSensss():
-                    with open("CA_result.txt"
+                    with open("RESULT/CA_result.txt"
                               "", 'w') as file:
                         for row in ListSensorneighQresult:
                             s = "".join(map(str, row))
                             file.write(s + '\n')
                 def SaveFileDebug():
-                    with open("Debug.txt"
+                    with open("RESULT/Debug.txt"
                               "", 'w') as file:
                         for row in ListDebug:
                             s = "".join(map(str, row))
@@ -1363,7 +1364,7 @@ def MamutDebug():
             DisplayBeutyful()
         if (int(g.labelMuttiruns.get()) > 1):
             def SaveFileSenss():
-                with open("Ca_result_std.txt"
+                with open("RESULT/Ca_result_std.txt"
                           "", 'w') as file:
                     for row in ListSensorneighQ:
                         s = "".join(map(str, row))
