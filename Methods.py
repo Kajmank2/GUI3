@@ -14,6 +14,7 @@ q=0
 f_alavie=0
 minBatt=0
 avBatt=0
+sensorMethod=""
 maxBatt=0
 #ListData = []  # Reading List Of Data #X #Y
 #ListPOI = []  # List which contains POI #X #Y
@@ -263,12 +264,16 @@ def Start():
     ListofAll.append("RULES 1-KD , 2 -KC ,3 KDC ->" + str(RULES) )
     # K -APPROACH [1..N]
     for x in range(int(gs.amountReadWSN)):
-        if(RULES[x]==1):
-            K.append(g.valuesRadiokDstate.get())
-        elif (RULES[x] == 2):
-            K.append(g.valuesRadiokCstate.get())
-        else:
-            K.append(g.valuesRadiokDCstate.get())
+        try:
+            if(RULES[x]==1):
+                K.append(g.valuesRadiokDstate.get())
+            elif (RULES[x] == 2):
+                K.append(g.valuesRadiokCstate.get())
+            else:
+                K.append(g.valuesRadiokDCstate.get())
+        except:
+            ms.showinfo(title="Error", message="Something was wrong ...")
+            ms.ERROR("ERROR", "Please correct entry ")
     #print(K)
     # Battery State [1..N]
     for x in range(int(gs.amountReadWSN)):
@@ -288,9 +293,10 @@ def Start():
     #info about run
     if (len(ListSensorneighQresult)==0):
         ListSensorneighQresult.append("#Number of Sensors " + str(gs.amountReadWSN))
+        ListSensorneighQresult.append("METHOD" + gs.sensorMethod)
         ListSensorneighQresult.append("#Sensor Range: " + str(gs.radius.get()))
         ListSensorneighQresult.append("#POI: " + str(len(gs.ListPOI)))
-        ListSensorneighQresult.append("#Sensor for file: " + str(gs.textsVariable))  # radiusTxt) CHANGE
+        ListSensorneighQresult.append("#Sensor for file: " + gs.filename)  # radiusTxt) CHANGE
         ListSensorneighQresult.append("Battery Unit : " + str(g.labelBattery.get()))
         ListSensorneighQresult.append("Iterations: " + str(g.labelIterationNumb.get()))
         ListSensorneighQresult.append("Multiruns: " + str(g.labelMuttiruns.get()))
@@ -668,7 +674,7 @@ def Mamut():
     ListSensorneighQ.append("#Number of Sensors " + str(gs.amountReadWSN))
     ListSensorneighQ.append("#Sensor Range: " + str(gs.radius.get()))
     ListSensorneighQ.append("#POI: " + str(len(gs.ListPOI)))
-    ListSensorneighQ.append("#Sensor for file: " + str(gs.textsVariable))  # radiusTxt) CHANGE
+    ListSensorneighQ.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
     ListSensorneighQ.append("Battery Unit : " + str(g.labelBattery.get()))
     ListSensorneighQ.append("Iterations: " + str(g.labelIterationNumb.get()))
     ListSensorneighQ.append("Multiruns: " + str(g.labelMuttiruns.get()))
@@ -913,9 +919,10 @@ def DisplayBeutyful():
     # info about run
     if (len(ListSensorneighQresult) == 0):
         ListSensorneighQresult.append("#Number of Sensors " + str(gs.amountReadWSN))
+        ListSensorneighQresult.append("METHOD"+ gs.sensorMethod)
         ListSensorneighQresult.append("#Sensor Range: " + str(gs.radius.get()))
         ListSensorneighQresult.append("#POI: " + str(len(gs.ListPOI)))
-        ListSensorneighQresult.append("#Sensor for file: " + str(gs.textsVariable))  # radiusTxt) CHANGE
+        ListSensorneighQresult.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
         ListSensorneighQresult.append("Battery Unit : " + str(g.labelBattery.get()))
         ListSensorneighQresult.append("Iterations: " + str(g.labelIterationNumb.get()))
         ListSensorneighQresult.append("Multiruns: " + str(g.labelMuttiruns.get()))
@@ -949,7 +956,7 @@ def DisplayBeutyful():
         ListDebug.append("#Number of Sensors " + str(gs.amountReadWSN))
         ListDebug.append("#Sensor Range: " + str(gs.radius.get()))
         ListDebug.append("#POI: " + str(len(gs.ListPOI)))
-        ListDebug.append("#Sensor for file: " + str(gs.textsVariable))  # radiusTxt) CHANGE
+        ListDebug.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
         ListDebug.append("Battery Unit : " + str(g.labelBattery.get()))
         ListDebug.append("Iterations: " + str(g.labelIterationNumb.get()))
         ListDebug.append("Multiruns: " + str(g.labelMuttiruns.get()))
@@ -996,8 +1003,8 @@ def DisplayBeutyful():
         #OpenMYSensorNeighbour()
         for i in range(int(g.labelIterationNumb.get())):
             iter = 0
-            print("STATE FROM START")
-            print(STATE)
+            #print("STATE FROM START")
+            #print(STATE)
             def ReadState():
                 for x in Neighb:
                     c = 0
@@ -1278,12 +1285,12 @@ def DisplayBeutyful():
                     if(BATTERY_STATE[iterr]<int(g.labelBattery.get())):
                          BATTERY_STATE[iterr]=0
                 iterr += 1
-            print("STATE")
-            print(STATE)
-            print("STATE LIST NEIG")
-            print(StateListNeigh)
-            print("Neigh")
-            print(Neighb)
+            #print("STATE")
+            ##print(STATE)
+            #print("STATE LIST NEIG")
+            #print(StateListNeigh)
+            #print("Neigh")
+            #print(Neighb)
             #print("NEW STATE")
             #print(NewState)
             # ======================================================================ALL COV Q ##################################
@@ -1377,7 +1384,7 @@ def MamutDebug():
         ListSensorneighQ.append("#Number of Sensors " + str(gs.amountReadWSN))
         ListSensorneighQ.append("#Sensor Range: " + str(gs.radius.get()))
         ListSensorneighQ.append("#POI: " + str(len(gs.ListPOI)))
-        ListSensorneighQ.append("#Sensor for file: " + str(gs.textsVariable))  # radiusTxt) CHANGE
+        ListSensorneighQ.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
         ListSensorneighQ.append("Battery Unit : " + str(g.labelBattery.get()))
         ListSensorneighQ.append("Iterations: " + str(g.labelIterationNumb.get()))
         ListSensorneighQ.append("Multiruns: " + str(g.labelMuttiruns.get()))

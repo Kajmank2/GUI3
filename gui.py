@@ -11,6 +11,7 @@ import miner as mn
 s="#id x y"
 listSenss = []
 ListXySensCov=[]
+sensorMethod=""
 ListSensorneigh=[]
 ListCover=[]
 ListPOI=[]
@@ -53,12 +54,12 @@ def InitGui():
         def OpenMYSensorStates(): #SENSOR ID FILE
                     global STATES
                     global amountReadWSN
+                    global sensorMethod
                     if(len(ListofNumbers)>0):
                         ms.showinfo(title="Error", message="you have already loaded this file ! ! !")
                     else:
                         c.delete('all')
-                        ExitButton = tk.Button(main_window, text="Next Page", command=Destroyer)
-                        ExitButton.pack(side="right")
+                        sensorMethod = "ACTIVE Sensor probabilistic"
                         text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
                         text_file = open(text_file, 'r')
@@ -101,7 +102,7 @@ def InitGui():
                                     state=int(x[9])
                                 STATES.append(int(state))
                                 print(state)
-                                if state=='0': # CHange '' char to int
+                                if state==0: # CHange '' char to int
                                         colo="red"
                                 else:
                                         colo="green"
@@ -172,13 +173,15 @@ def InitGui():
                                 c.create_oval(0 + i, 400, 0 + i + longb, 402, fill="black")
                                 i = i + 20
                         id+=1
-
+                        ExitButton = tk.Button(main_window, text="Next Page", command=Destroyer)
+                        ExitButton.pack(side="right")
 
         def OpenSensorWSN():
                     try:
                         if(len(ListofNumbers)>0):
                             ms.showinfo(title="Error", message="you have already loaded this file ! ! !")
                         else:
+                            global sensorMethod
                             counter=0
                             text_file = filedialog.askopenfilename(initialdir=os.getcwd(), title="Open TextFile",
                                                                filetypes=(("Text Files", "*.txt"),))
@@ -206,6 +209,7 @@ def InitGui():
                                     print(x)
                             global filename
                             filename = text_file.name
+                            sensorMethod = "ACTIVE Sensor probabilistic"
                     except:
                         ms.showinfo(title="ERROR",message="Read one more time")
 
@@ -420,7 +424,7 @@ def InitGui():
                 # COLOR FOR CIRCLE
                 id = 1
                 calcSensorID.clear()
-                calcSensorID.append("#id x y")
+                calcSensorID.append("#id x y     state")
                 for x in ListofNumbers:
                     rand = random.uniform(0, 1)
                     if (rand < float(color.get())):
@@ -638,7 +642,10 @@ def InitGui():
             #text_fileq = open("FILES/sensor-states-10.txt") #do usuniecia potem STEJTY
             for x in text_fileq:
                 ListofNumbersCalcSingleqState.append(x)
-                state.append(x[12])
+                try:
+                    state.append(x[12])
+                except IndexError:
+                    state.append(x[11])
             ListofNumbersCalcSingleqState.pop(0)
             state.pop(0)
             # print(ListofNumbersCalcSingleqState)
@@ -931,13 +938,13 @@ def InitGui():
                         string_list = list(x)
                         string_list[4:6] = str(ad)
                         new_string = "".join(string_list)
-                        ListofNumbers.append(new_string)
+                        ListofNumbersCalcSingleq.append(new_string)
                     else:
                         ad = 100 - int(x[5:7])
                         string_list = list(x)
                         string_list[5:7] = str(ad)
                         new_string = "".join(string_list)
-                        ListofNumbers.append(new_string)
+                        ListofNumbersCalcSingleq.append(new_string)
                 else:
                     ListofNumbersCalcSingleq.append(x)
                 counter = +1
@@ -1012,11 +1019,6 @@ def InitGui():
             ########################################## END POI AMOUNT####################
             chunkser = [ALLPOICOV[x:x + POIVALUE] for x in range(0, len(ALLPOICOV), POIVALUE)] # ZMIANA Z 411
             chunkserPoi=[SensorHelperPoiID[x:x + POIVALUE] for x in range(0, len(SensorHelperPoiID), POIVALUE)] # POI in EVERY SENSEOR
-            #print(chunkser)
-            #rint("POI COV")
-            #print(ALLPOICOV)
-            #print("COVEREGE SENSOR BY POI")
-            #print(IdPOICOV)
             idstates=0
             arubaCloud=[]
             counterchuk=0
