@@ -45,6 +45,7 @@ def InitGui():
         SensorHelperPoiID=[]
         ListofNeighbour=[]
         global ListPOI
+        tk.Label(text="If something not works press clear",font=10).pack()
         tk.Label(text="X 0-100").pack(side="bottom")
         tk.Label(text="Y 0-100").pack(side="left")
         c = tk.Canvas(main_window, width=400, height=400, bg="white")
@@ -430,7 +431,8 @@ def InitGui():
                     if (rand < float(color.get())):
                                     xval = int(re.search(r'\d+', x[0:2]).group())
                                     STATES.append(1) # ADD OF SENSOR
-                                    yval = int(re.search(r'\d+', x[5:7]).group())
+                                    yval = int(re.search(r'\d+', x[4:7]).group())
+                                    print(str(xval) + " " + str(yval))
                                     sensorId +=1
                                     s2 = c.create_oval(xval*4 + int(radius.get()) * 4,
                                                    yval*4 + int(radius.get()) * 4,
@@ -452,8 +454,9 @@ def InitGui():
                     else :
                                     xval = int(re.search(r'\d+', x[0:2]).group())
                                     STATES.append(0) # ADD OFF SENSOR
-                                    yval = int(re.search(r'\d+', x[5:7]).group())
+                                    yval = int(re.search(r'\d+', x[4:7]).group())
                                     sensorId += 1
+                                    print(str(xval) + " " + str(yval))
                                     s2 = c.create_oval(xval * 4 + int(radius.get()) * 4,
                                            yval * 4 + int(radius.get()) * 4,
                                            xval * 4 - int(radius.get()) * 4,
@@ -533,7 +536,14 @@ def InitGui():
                                 for row in calcSensorID:
                                         s = "".join(map(str, row))
                                         file.write(s + '\n')
+                        strState=""
+                        for x in STATES:
+                            strState+=str(x)
 
+                        with open("FILES/sensorId "+str(strState)+".txt", 'w') as file:
+                                for row in calcSensorID:
+                                        s = "".join(map(str, row))
+                                        file.write(s + '\n')
         def donothing():  # HELPER
                         x = 0
 
@@ -554,7 +564,7 @@ def InitGui():
                         id = 1
                         for x in ListofNumbers:
                                 xx = int(re.search(r'\d+', x[0:2]).group())
-                                yy = int(re.search(r'\d+', x[5:7]).group())
+                                yy = int(re.search(r'\d+', x[4:7]).group())
                                 c.create_oval(int(xx) * 4-2, int(yy) * 4-2, int(xx) * 4 + 2,
                                               int(yy) * 4 + 2, stipple="gray50",
                                               outline="green",fill="green", width=1)
@@ -583,8 +593,8 @@ def InitGui():
                             id=1
                             helper = 0
                             for y in ListofNumbers:
-                                    ListofNeighbour.append(str(id) + str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),int(radius.get()),int(radius.get()))))
-                                    xs=str(id) + str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(re.search(r'\d+', y[0:2]).group()),int(re.search(r'\d+', y[5:7]).group()),int(radius.get()),int(radius.get())))
+                                    ListofNeighbour.append(str(id) + str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[4:7]).group()), int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[4:7]).group()),int(radius.get()),int(radius.get()))))
+                                    xs=str(id) + str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[4:7]).group()), int(re.search(r'\d+', y[0:2]).group()),int(re.search(r'\d+', y[4:7]).group()),int(radius.get()),int(radius.get())))
                                     beng='-'
                                     if(beng in xs or  str(counter) == xs[0:1] or str(counter) == xs[0:2]):
                                         donothing()
@@ -729,8 +739,8 @@ def InitGui():
                     i = i + 20
             for x in converted_listCalcSingleq:
                 xx = int(re.search(r'\d+', x[0:2]).group())
-                yy = int(re.search(r'\d+', x[5:7]).group())
-                state=(str(int(re.search(r'\d+', x[8:]).group())))
+                yy = int(re.search(r'\d+', x[4:7]).group())
+                state=(str(int(re.search(r'\d+', x[7:]).group())))
                 #print(state)
                 if state == '0':
                     colo = "red"
@@ -769,24 +779,24 @@ def InitGui():
                 helper = 0
                 for y in flaten_list:
                     if(y[0]=='0'or y[0:2]=='5;' or y[0:2]=='8;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
-                        SensorHelper.append(str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
-                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
+                        SensorHelper.append(str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[4:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[4:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
                         if (ys[0] == '0'):
                             donothing()
                         else:
                             helper += 1 #VALUE WHEN SENSOR STATE IS 1
                     elif(y[0:3]=='100'):
                         SensorHelper.append(
-                            str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
-                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
+                            str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[4:7]).group()) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[4:7]).group()),int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
                         if (ys[0] == '0'):
                             donothing()
                         else:
                             helper += 1
                     else:
                         SensorHelper.append(
-                            str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[5:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
-                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[5:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
+                            str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[4:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[4:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
                         if(ys[0]=='0'):
                             donothing()
                         else:
@@ -897,7 +907,7 @@ def InitGui():
 
 
             def SaveFileSenss():
-                with open("RESULT/creates cov-5-WSN-"+str(len(ListofNumbersCalcSingleqState))+"d.txt"
+                with open("RESULT/creates cov-"+str(len(ListofNumbersCalcSingleqState))+"-WSN-"+str(len(ListofNumbersCalcSingleqState))+"d.txt"
                           "", 'w') as file:
                     for row in ListSensorneigh:
                         s = "".join(map(str, row))
@@ -983,24 +993,24 @@ def InitGui():
                 helper = 0
                 for y in flaten_list:
                     if(y[0]=='0'or y[0:2]=='5;' or y[0:2]=='8;'): #SOLUCJA ZAPISAC CSV JAKO CIĄG STRINGÓW NIE OSOBNĄ LISTE
-                        SensorHelper.append(str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
-                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[5:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
+                        SensorHelper.append(str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[4:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),int(re.search(r'\d+', x[4:7]).group()), int(y[0]),  int(y[2:]), int(radius.get()),Poir))
                         if (ys[0] == '0'):
                             donothing()
                         else:
                             helper += 1 #VALUE WHEN SENSOR STATE IS 1
                     elif(y[0:3]=='100'):
                         SensorHelper.append(
-                            str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
-                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
+                            str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[4:7]).group()) ,int(y[0:3]),  int(y[4:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[4:7]).group()),int(y[0:3]),  int(y[4:]), int(radius.get()), Poir))
                         if (ys[0] == '0'):
                             donothing()
                         else:
                             helper += 1
                     else:
                         SensorHelper.append(
-                            str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[5:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
-                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[5:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
+                            str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[4:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir)))
+                        ys=str(circle(int(re.search(r'\d+', x[0:2]).group()),  int(re.search(r'\d+', x[4:7]).group()), int(y[0:2]), int(y[3:]), int(radius.get()), Poir))
                         if(ys[0]=='0'):
                             donothing()
                         else:
@@ -1042,7 +1052,7 @@ def InitGui():
                 #print(BinaryList)
             elif (len(ListofNumbersCalcSingleq) == 12):
                 for x in range(0, 4096):
-                    Binary = '{:12b}'.format(x)
+                    Binary = '{:012b}'.format(x)
                     BinaryList.append(Binary)
             elif (len(ListofNumbersCalcSingleq) == 7):
                 for x in range(0, 128):
@@ -1082,7 +1092,7 @@ def InitGui():
                                 if(trucrypt[printerek]==z):
                                     if(z=='0' ): #and trucrypt != y
                                         amount=amount+1
-                                        arubaCloud.append(str(printerek)) # USUNIECIE PRINTERKA
+                                        arubaCloud.append(str(printerek))
                                 else:
                                     donothing()
                                 printerek=printerek+1
@@ -1176,7 +1186,7 @@ def InitGui():
         SaveButton.pack(side="left")
         SaveButton = tk.Button(main_window, text="calc all q", command=CalcALLq)
         SaveButton.pack(side="left")
-        SaveButton = tk.Button(main_window, text="Clear", command=Clear)
+        SaveButton = tk.Button(main_window,bg='yellow', text="Clear", command=Clear)
         SaveButton.pack(side="left")
 
 #########################################################################################################################
