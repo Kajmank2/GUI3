@@ -7,7 +7,6 @@
       <change beforePath="$PROJECT_DIR$/RESULT/CA_result.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/CA_result.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RESULT/Ca_result_std.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/Ca_result_std.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RESULT/Debug.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/Debug.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESULT/sensorId.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/sensorId.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,13 +119,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1302</line>
-          <option name="timeStamp" value="35" />
+          <line>1504</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1303</line>
-          <option name="timeStamp" value="36" />
+          <line>497</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Methods.py</url>
+          <line>496</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Methods.py</url>
+          <line>495</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

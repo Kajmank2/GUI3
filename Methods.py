@@ -471,25 +471,26 @@ def Start():
                 KDfreq = 0
                 KCfreq =0
                 KDCfreq =0
-                if (i == 0):
-                    print('')
-                    KDfreqStart = round(RULES.count(1) / len(RULES), 2)
-                    KCfreqStart = round(RULES.count(2) / len(RULES), 2)
-                    KDCfreqStart = round(RULES.count(3) / len(RULES), 2)
-                else:
-                    for x in BATTERY_STATE:
+                KDfreqStart = round(RULES.count(1) / len(RULES), 2)
+                KCfreqStart = round(RULES.count(2) / len(RULES), 2)
+                KDCfreqStart = round(RULES.count(3) / len(RULES), 2)
+                for x in BATTERY_STATE:
                         if (BATTERY_STATE[helpnis] == 0):
                             BatteryOFFcoun += 1
                             RULES[helpnis] = 4
                             helpnis += 1
                         else:
                             helpnis += 1
-                        KDfreq = round(RULES.count(1) / len(RULES), 2)
-                        KCfreq = round(RULES.count(2) / len(RULES), 2)
-                        KDCfreq = round(RULES.count(3) / len(RULES), 2)
+                            KDfreq = round(RULES.count(1) / len(RULES), 2)
+                            KCfreq = round(RULES.count(2) / len(RULES), 2)
+                            KDCfreq = round(RULES.count(3) / len(RULES), 2)
                 freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
                 #MIN BATTERY
-                FEJKERBATTERY=BATTERY_STATE
+
+                FEJKERBATTERY=[]
+                for x in BATTERY_STATE:
+                    FEJKERBATTERY.append(x)
+                    FEJKERBATTERY.sort()
                 BATTERY_STATE_SORT=FEJKERBATTERY
                 #BATTERY_STATE_SORT.sort() # UNCOMENT FOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                 minBatt=BATTERY_STATE_SORT[0]
@@ -533,33 +534,32 @@ def Start():
                     # "iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
                     avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
                     freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
-                else:
-                    ListSensorneighQresult.append("    " + str(int(i))+ "  "+str(round(coverageQ, 2)) + "  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
+                ListSensorneighQresult.append("    " + str(int(i+1))+ "  "+str(round(coverageQ, 2)) + "  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
                                               +str(maxBatt)+"       " +str(KDfreq)+ "     "+str(KCfreq) + "      "+ str(KDCfreq))
                                                #str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
-                    ListQ.append(round(coverageQ, 2))
-                    #print("LISTQ",ListQ)
-                    ListF.append(round(freq_alive,2))
-                    ListminBatt.append(minBatt)
-                    lisavBatt.append(round(avgBatt,2))
-                    ListmaxBatt.append(maxBatt)
-                    listfreqKD.append(KDfreq)
-                    listfreqKC.append(KCfreq)
-                    listfreqKDC.append(KDCfreq)
+                ListQ.append(round(coverageQ, 2))
+                #print("LISTQ",ListQ)
+                ListF.append(round(freq_alive,2))
+                ListminBatt.append(minBatt)
+                lisavBatt.append(round(avgBatt,2))
+                ListmaxBatt.append(maxBatt)
+                listfreqKD.append(KDfreq)
+                listfreqKC.append(KCfreq)
+                listfreqKDC.append(KDCfreq)
                     # CA RESULT _ STD
                     #av_q.append(round(float((1-coverageQ)/1),2))
                     #std_q.append(round())
-                    av_q.append(round(coverageQ, 2))
-                    av_alive.append(round(freq_alive,2))
-                    av_minBatt.append(minBatt)
-                    av_Batt.append(round(avgBatt,2))
-                    av_maxBatt.append(maxBatt)
-                    av_freqKD.append(KDfreq)
-                    av_freqKC.append(KCfreq)
-                    av_freqKDC.append(KDCfreq)
+                av_q.append(round(coverageQ, 2))
+                av_alive.append(round(freq_alive,2))
+                av_minBatt.append(minBatt)
+                av_Batt.append(round(avgBatt,2))
+                av_maxBatt.append(maxBatt)
+                av_freqKD.append(KDfreq)
+                av_freqKC.append(KCfreq)
+                av_freqKDC.append(KDCfreq)
                     #"iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
-                    avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
-                    freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
+                avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
+                freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
                     #avq=round(float((1-coverageQ)/1),2)
                     #av_std=np.std(coverageQ) #np.std(arr)
                     #ListSensorneighQ.append("av_q std_q" +str(avq))
@@ -732,8 +732,8 @@ def Mamut():
     ListSensorneighQ.append(
             "#iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
     #HELPER VALUE FOR ITERATION
-    ax=int(g.labelIterationNumb.get())
-    for i in range(int(g.labelIterationNumb.get())):
+    ax=int(g.labelIterationNumb.get())+1
+    for i in range(int(g.labelIterationNumb.get())+1):
         avqhelper = float(sum(ListQ[i::ax])/ (len(ListQ[i::ax])))
         #print(str(avqhelper) + " " + str(ListQ[i::8]))# Z KAZDEJ ITERACJI JEST LICZONA SREDNIA -> Dac for dzielacego na liczbe multirunow
         avalife= float(sum(ListF[i::ax]) / (len(ListF[i::ax])))
@@ -1175,22 +1175,25 @@ def DisplayBeutyful():
                 KDfreq = 0
                 KCfreq = 0
                 KDCfreq = 0
-                if(i==0):
-                    print()
-                else:
-                    for x in BATTERY_STATE:
+                KDfreqS = round(RULES.count(1) / len(RULES), 2)
+                KCfreqS = round(RULES.count(2) / len(RULES), 2)
+                KDCfreqS = round(RULES.count(3) / len(RULES), 2)
+                for x in BATTERY_STATE:
                         if (BATTERY_STATE[helpnis] == 0):
                             BatteryOFFcoun += 1
                             RULES[helpnis] = 4
                             helpnis += 1
                         else:
                             helpnis += 1
-                        KDfreq = round(RULES.count(1) / len(RULES), 2)
-                        KCfreq = round(RULES.count(2) / len(RULES), 2)
-                        KDCfreq = round(RULES.count(3) / len(RULES), 2)
+                            KDfreq = round(RULES.count(1) / len(RULES), 2)
+                            KCfreq = round(RULES.count(2) / len(RULES), 2)
+                            KDCfreq = round(RULES.count(3) / len(RULES), 2)
                 freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
                 # MIN BATTERY
-                FEJKERBATTERY = BATTERY_STATE
+                FEJKERBATTERY = []
+                for x in BATTERY_STATE:
+                    FEJKERBATTERY.append(x)
+                    FEJKERBATTERY.sort()
                 BATTERY_STATE_SORT = FEJKERBATTERY
                 #BATTERY_STATE_SORT.sort()
                 minBatt = BATTERY_STATE_SORT[0]
@@ -1210,7 +1213,7 @@ def DisplayBeutyful():
                         "    " + str(int(i)) + "  " + str(round(coverageQ, 2)) + "  " + str(
                             round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
                             round(BatteryStart)) + "       "
-                        + str(BatteryStart) + "       " + str(KDfreq) + "     " + str(KCfreq) + "      " + str(KDCfreq))
+                        + str(BatteryStart) + "       " + str(KDfreqS) + "     " + str(KCfreqS) + "      " + str(KDCfreqS))
                     ListQ.append(round(coverageQ, 2))
                     # print("LISTQ",ListQ)
                     ListF.append(round(freq_alive, 2))
@@ -1234,36 +1237,35 @@ def DisplayBeutyful():
                     # "iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
                     avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
                     freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
-                else:
-                    ListSensorneighQresult.append(
+                ListSensorneighQresult.append(
                         "    " + str(int(i + 1)) + "  " + str(round(coverageQ, 2)) + "  " + str(
                             round(freq_alive, 2)) + "      " + str(minBatt) + "     " + str(
                             round(avgBatt, 2)) + "       "
                         + str(maxBatt) + "       " + str(KDfreq) + "     " + str(KCfreq) + "      " + str(KDCfreq))
                     # str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
-                    ListQ.append(round(coverageQ, 2))
+                ListQ.append(round(coverageQ, 2))
                     # print("LISTQ",ListQ)
-                    ListF.append(round(freq_alive, 2))
-                    ListminBatt.append(minBatt)
-                    lisavBatt.append(round(avgBatt, 2))
-                    ListmaxBatt.append(maxBatt)
-                    listfreqKD.append(KDfreq)
-                    listfreqKC.append(KCfreq)
-                    listfreqKDC.append(KDCfreq)
+                ListF.append(round(freq_alive, 2))
+                ListminBatt.append(minBatt)
+                lisavBatt.append(round(avgBatt, 2))
+                ListmaxBatt.append(maxBatt)
+                listfreqKD.append(KDfreq)
+                listfreqKC.append(KCfreq)
+                listfreqKDC.append(KDCfreq)
                     # CA RESULT _ STD
                     # av_q.append(round(float((1-coverageQ)/1),2))
                     # std_q.append(round())
-                    av_q.append(round(coverageQ, 2))
-                    av_alive.append(round(freq_alive, 2))
-                    av_minBatt.append(minBatt)
-                    av_Batt.append(round(avgBatt, 2))
-                    av_maxBatt.append(maxBatt)
-                    av_freqKD.append(KDfreq)
-                    av_freqKC.append(KCfreq)
-                    av_freqKDC.append(KDCfreq)
+                av_q.append(round(coverageQ, 2))
+                av_alive.append(round(freq_alive, 2))
+                av_minBatt.append(minBatt)
+                av_Batt.append(round(avgBatt, 2))
+                av_maxBatt.append(maxBatt)
+                av_freqKD.append(KDfreq)
+                av_freqKC.append(KCfreq)
+                av_freqKDC.append(KDCfreq)
                     # "iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
-                    avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
-                    freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
+                avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
+                freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
                     # avq=round(float((1-coverageQ)/1),2)
                     # av_std=np.std(coverageQ) #np.std(arr)
                     # ListSensorneighQ.append("av_q std_q" +str(avq))
@@ -1313,13 +1315,12 @@ def DisplayBeutyful():
                     else:
                         ListDebug.append(str(int(
                             i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeighs + '      ' + batteryStartState)
-                else:
-                    if(".3"in helperStringwithTempDebugList ):
+                if(".3"in helperStringwithTempDebugList ):
                         ListDebug.append(str(int(
-                        i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeigh+"          "+ batterystate)
-                    else:
-                        ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeighs+ '      '+ batterystate)
-                    TempDebugList.clear() # Clear after add to table
+                        i)+1) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeigh+"          "+ batterystate)
+                else:
+                        ListDebug.append(str(int(i)+1) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeighs+ '      '+ batterystate)
+                TempDebugList.clear() # Clear after add to table
                 def SaveFileSensss():
                     with open("RESULT/CA_result.txt"
                               "", 'w') as file:
@@ -1499,8 +1500,8 @@ def MamutDebug():
         # ListSensorneighQ.append(
         #    "       av_falive std f_alive " + str(round(avhelper, 2)) + " " + str(round(np.std(av_alive), 2)))
         # avhelper = float(sum(av_minBatt) / (len(BatterY_STATE_SUM)))
-        ax = int(g.labelIterationNumb.get())
-        for i in range(int(g.labelIterationNumb.get())):
+        ax = int(g.labelIterationNumb.get())+1
+        for i in range(int(g.labelIterationNumb.get())+1):
             avqhelper = float(sum(ListQ[i::ax]) / (len(ListQ[i::ax])))
             #print(str(avqhelper) + " " + str(
             #    ListQ[i::8]))  # Z KAZDEJ ITERACJI JEST LICZONA SREDNIA -> Dac for dzielacego na liczbe multirunow
