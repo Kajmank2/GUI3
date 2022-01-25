@@ -1,20 +1,19 @@
-#Number of Sensors 12
-#Sensor Range: 20
+#Number of Sensors 10
+#Sensor Range: 35
 #POI: 441
-#Sensor for file: C:/Users/PC/Desktop/AD HOc/GUI3/FILES/WSN-12dd-irreg-r20 11111111111.txt
-Battery Unit : 1
-Iterations: 8
-Multiruns: 1
-prob KD: 0.33
-prob KC: 0.33
-prob KDC: 0.34
-#run 
-#iter  s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12   str1 str2 str3 str4 str5 str6 str7 str8 str9 str10 str11 str12            s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 
-0       1  1  1  1  1  1  1  1  1  1  1  1     4C 2DC 4C 4C 2DC 2D 2DC 4C 2D 4C 4C 4C              2  3  3  5  4  1  6  4  3  4  4  3  
-1       1  0  1  0  0  1  0  0  1  0  0  1     4C 2DC 4C 4C 2DC 2D 2DC 4C 2D 4C 4C 4C              2  3  3  5  4  1  6  4  3  4  4  3  
-2       1  1  1  1  1  1  1  1  1  1  1  1     OFF 2DC OFF 4C 2DC OFF 2DC 4C OFF 4C 4C OFF              0  3  0  3  4  0  4  3  0  3  3  0  
-3       0  0  0  1  0  0  0  1  0  0  1  0     OFF 2DC OFF OFF 2DC OFF 2DC OFF OFF 4C OFF OFF              0  1  0  0  2  0  2  0  0  3  1  1  
-4       0  0  0  0  1  0  1  0  0  1  0  0     OFF 2DC OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF              0  0  0  0  0  0  0  0  0  0  1  1  
-5       0  1  0  0  0  0  0  0  0  0  0  0     OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF              0  0  0  0  0  0  0  0  0  0  1  1  
-6       0  0  0  0  0  0  0  0  0  0  0  0     OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF              0  0  0  0  0  0  0  0  0  0  1  1  
-7       0  0  0  0  0  0  0  0  0  0  0  0     OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF OFF              0  0  0  0  0  0  0  0  0  0  1  1  
+#Sensor for file: C:/Users/PC/Desktop/AD HOc/GUI3/FILES/WSN-10d-irreg.txt
+#Battery Unit : 1
+#Iterations: 8
+#Multiruns: 1
+#prob KD: 0.33
+#prob KC: 0.33
+#prob KDC: 0.34
+#iter      sensor id                 			assigned strategy                   num of neighbours                      battery state
+0       0  1  0  1  1  0  1  1  1  1     2D 3C 2D 3C 2D 2D 2DC 2D 2D 2DC              4  8  7  9  9  8  7  8  8  6        10 9 10 9 9 10 9 9 9 9 
+1       1  0  1  0  0  1  0  1  1  0     2D 3C 2D 3C 2D 2D 2DC 2D 2D 2DC              4  8  7  9  9  8  7  8  8  6        9 9 9 9 9 9 9 8 8 9 
+2       0  0  0  0  0  0  1  0  0  1     2D 3C 2D 3C 2D 2D 2DC 2D 2D 2DC              4  8  7  9  9  8  7  8  8  6        9 9 9 9 9 9 8 8 8 8 
+3       0  1  0  1  0  0  1  0  0  1     2D 3C 2D 3C 2D 2D 2DC 2D 2D 2DC              4  8  7  9  9  8  7  8  8  6        9 8 9 8 9 9 7 8 8 7 
+4       1  1  0  1  0  0  1  0  0  1     2D 3C 2D 3C 2D 2D 2DC 2D 2D 2DC              4  8  7  9  9  8  7  8  8  6        8 7 9 7 9 9 6 8 8 6 
+5       1  1  0  0  0  0  1  0  0  1     2D 3C 2D 3C 2D 2D 2DC 2D 2D 2DC              4  8  7  9  9  8  7  8  8  6        7 6 9 7 9 9 5 8 8 5 
+6       0  1  0  0  0  0  1  0  0  1     2D 3C 2D 3C 2D 2D 2DC 2D 2D 2DC              4  8  7  9  9  8  7  8  8  6        7 5 9 7 9 9 4 8 8 4 
+7       0  1  0  1  0  0  1  0  0  1     2D 3C 2D 3C 2D 2D 2DC 2D 2D 2DC              4  8  7  9  9  8  7  8  8  6        7 4 9 6 9 9 3 8 8 3 

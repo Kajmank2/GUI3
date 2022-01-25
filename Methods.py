@@ -293,16 +293,16 @@ def Start():
     #info about run
     if (len(ListSensorneighQresult)==0):
         ListSensorneighQresult.append("#Number of Sensors " + str(gs.amountReadWSN))
-        ListSensorneighQresult.append("METHOD" + gs.sensorMethod)
+        ListSensorneighQresult.append("#METHOD" + gs.sensorMethod)
         ListSensorneighQresult.append("#Sensor Range: " + str(gs.radius.get()))
         ListSensorneighQresult.append("#POI: " + str(len(gs.ListPOI)))
         ListSensorneighQresult.append("#Sensor for file: " + gs.filename)  # radiusTxt) CHANGE
-        ListSensorneighQresult.append("Battery Unit : " + str(g.labelBattery.get()))
-        ListSensorneighQresult.append("Iterations: " + str(g.labelIterationNumb.get()))
-        ListSensorneighQresult.append("Multiruns: " + str(g.labelMuttiruns.get()))
-        ListSensorneighQresult.append("prob KD: " + str(g.labelkDvalue.get()))
-        ListSensorneighQresult.append("prob KC: " + str(g.labelkCvalue.get()))
-        ListSensorneighQresult.append("prob KDC: " + str(g.labelkDCvalue.get()))
+        ListSensorneighQresult.append("#Battery Unit : " + str(g.labelBattery.get()))
+        ListSensorneighQresult.append("#Iterations: " + str(g.labelIterationNumb.get()))
+        ListSensorneighQresult.append("#Multiruns: " + str(g.labelMuttiruns.get()))
+        ListSensorneighQresult.append("#prob KD: " + str(g.labelkDvalue.get()))
+        ListSensorneighQresult.append("#prob KC: " + str(g.labelkCvalue.get()))
+        ListSensorneighQresult.append("#prob KDC: " + str(g.labelkDCvalue.get()))
         stringRules = ""  # String with help with debug txt
         for x in RULES:
             if (x == 1):
@@ -311,7 +311,7 @@ def Start():
                 stringRules += str(g.valuesRadiokCstate.get()) + "C "
             elif (x == 3):
                 stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
-        ListSensorneighQresult.append("Strategies: " + stringRules)
+        ListSensorneighQresult.append("#Strategies: " + stringRules)
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     else:
@@ -467,6 +467,7 @@ def Start():
                 #BATTERY ======================================
                 helpnis=0 #Helper to battery ALIVE
                 BatteryOFFcoun=0
+                BatteryStart=int(gs.battery.get())
                 KDfreq = 0
                 KCfreq =0
                 KDCfreq =0
@@ -496,36 +497,67 @@ def Start():
                 FreqOff.append(round(sensOff / amountSens, 2))
                 FreqOn.append(round(sensOn / amountSens, 2))
                 iters.append(str(round(coverageQ, 2)))
-                ListSensorneighQresult.append("    " + str(int(i))+ "  "+
-                    str(round(coverageQ, 2)) + "  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
+                if(i==0):
+                    ListSensorneighQresult.append(
+                        "    " + str(int(i)) + "  " + str(round(coverageQ, 2)) + "  " + str(
+                            round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
+                            round(BatteryStart)) + "       "
+                        + str(BatteryStart) + "       " + str(KDfreq) + "     " + str(KCfreq) + "      " + str(KDCfreq))
+                    ListQ.append(round(coverageQ, 2))
+                    # print("LISTQ",ListQ)
+                    ListF.append(round(freq_alive, 2))
+                    ListminBatt.append(BatteryStart)
+                    lisavBatt.append(round(BatteryStart, 2))
+                    ListmaxBatt.append(BatteryStart)
+                    listfreqKD.append(KDfreq)
+                    listfreqKC.append(KCfreq)
+                    listfreqKDC.append(KDCfreq)
+                    # CA RESULT _ STD
+                    # av_q.append(round(float((1-coverageQ)/1),2))
+                    # std_q.append(round())
+                    av_q.append(round(coverageQ, 2))
+                    av_alive.append(round(freq_alive, 2))
+                    av_minBatt.append(BatteryStart)
+                    av_Batt.append(round(BatteryStart, 2))
+                    av_maxBatt.append(BatteryStart)
+                    av_freqKD.append(KDfreq)
+                    av_freqKC.append(KCfreq)
+                    av_freqKDC.append(KDCfreq)
+                    # "iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
+                    avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
+                    freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
+                else:
+                    ListSensorneighQresult.append("    " + str(int(i+1))+ "  "+str(round(coverageQ, 2)) + "  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
                                               +str(maxBatt)+"       " +str(KDfreq)+ "     "+str(KCfreq) + "      "+ str(KDCfreq))
                                                #str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
-                ListQ.append(round(coverageQ, 2))
-                #print("LISTQ",ListQ)
-                ListF.append(round(freq_alive,2))
-                ListminBatt.append(minBatt)
-                lisavBatt.append(round(avgBatt,2))
-                ListmaxBatt.append(maxBatt)
-                listfreqKD.append(KDfreq)
-                listfreqKC.append(KCfreq)
-                listfreqKDC.append(KDCfreq)
-                # CA RESULT _ STD
-                #av_q.append(round(float((1-coverageQ)/1),2))
-                #std_q.append(round())
-                av_q.append(round(coverageQ, 2))
-                av_alive.append(round(freq_alive,2))
-                av_minBatt.append(minBatt)
-                av_Batt.append(round(avgBatt,2))
-                av_maxBatt.append(maxBatt)
-                av_freqKD.append(KDfreq)
-                av_freqKC.append(KCfreq)
-                av_freqKDC.append(KDCfreq)
-                #"iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
-                avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
-                freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
-                #avq=round(float((1-coverageQ)/1),2)
-                #av_std=np.std(coverageQ) #np.std(arr)
-                #ListSensorneighQ.append("av_q std_q" +str(avq))
+                    ListQ.append(round(coverageQ, 2))
+                    #print("LISTQ",ListQ)
+                    ListF.append(round(freq_alive,2))
+                    ListminBatt.append(minBatt)
+                    lisavBatt.append(round(avgBatt,2))
+                    ListmaxBatt.append(maxBatt)
+                    listfreqKD.append(KDfreq)
+                    listfreqKC.append(KCfreq)
+                    listfreqKDC.append(KDCfreq)
+                    # CA RESULT _ STD
+                    #av_q.append(round(float((1-coverageQ)/1),2))
+                    #std_q.append(round())
+                    av_q.append(round(coverageQ, 2))
+                    av_alive.append(round(freq_alive,2))
+                    av_minBatt.append(minBatt)
+                    av_Batt.append(round(avgBatt,2))
+                    av_maxBatt.append(maxBatt)
+                    av_freqKD.append(KDfreq)
+                    av_freqKC.append(KCfreq)
+                    av_freqKDC.append(KDCfreq)
+                    #"iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
+                    avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
+                    freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
+                    #avq=round(float((1-coverageQ)/1),2)
+                    #av_std=np.std(coverageQ) #np.std(arr)
+                    #ListSensorneighQ.append("av_q std_q" +str(avq))
+
+
                 def SaveFileSensss():
                     with open("RESULT/CA_result.txt"
                               "", 'w') as file:
@@ -675,12 +707,12 @@ def Mamut():
     ListSensorneighQ.append("#Sensor Range: " + str(gs.radius.get()))
     ListSensorneighQ.append("#POI: " + str(len(gs.ListPOI)))
     ListSensorneighQ.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
-    ListSensorneighQ.append("Battery Unit : " + str(g.labelBattery.get()))
-    ListSensorneighQ.append("Iterations: " + str(g.labelIterationNumb.get()))
-    ListSensorneighQ.append("Multiruns: " + str(g.labelMuttiruns.get()))
-    ListSensorneighQ.append("prob KD: " + str(g.labelkDvalue.get()))
-    ListSensorneighQ.append("prob KC: " + str(g.labelkCvalue.get()))
-    ListSensorneighQ.append("prob KDC: " + str(g.labelkDCvalue.get()))
+    ListSensorneighQ.append("#Battery Unit : " + str(g.labelBattery.get()))
+    ListSensorneighQ.append("#Iterations: " + str(g.labelIterationNumb.get()))
+    ListSensorneighQ.append("#Multiruns: " + str(g.labelMuttiruns.get()))
+    ListSensorneighQ.append("#prob KD: " + str(g.labelkDvalue.get()))
+    ListSensorneighQ.append("#prob KC: " + str(g.labelkCvalue.get()))
+    ListSensorneighQ.append("#prob KDC: " + str(g.labelkDCvalue.get()))
     stringRules = ""  # String with help with debug txt
     for x in RULES:
         if (x == 1):
@@ -691,7 +723,7 @@ def Mamut():
             stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
     #ListSensorneighQresult.append("Strategies: " + stringRules)
     ListSensorneighQ.append(
-            "iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
+            "#iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
     #HELPER VALUE FOR ITERATION
     ax=int(g.labelIterationNumb.get())
     for i in range(int(g.labelIterationNumb.get())):
@@ -919,16 +951,16 @@ def DisplayBeutyful():
     # info about run
     if (len(ListSensorneighQresult) == 0):
         ListSensorneighQresult.append("#Number of Sensors " + str(gs.amountReadWSN))
-        ListSensorneighQresult.append("METHOD"+ gs.sensorMethod)
+        ListSensorneighQresult.append("#METHOD"+ gs.sensorMethod)
         ListSensorneighQresult.append("#Sensor Range: " + str(gs.radius.get()))
         ListSensorneighQresult.append("#POI: " + str(len(gs.ListPOI)))
         ListSensorneighQresult.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
-        ListSensorneighQresult.append("Battery Unit : " + str(g.labelBattery.get()))
-        ListSensorneighQresult.append("Iterations: " + str(g.labelIterationNumb.get()))
-        ListSensorneighQresult.append("Multiruns: " + str(g.labelMuttiruns.get()))
-        ListSensorneighQresult.append("prob KD: " + str(g.labelkDvalue.get()))
-        ListSensorneighQresult.append("prob KC: " + str(g.labelkCvalue.get()))
-        ListSensorneighQresult.append("prob KDC: " + str(g.labelkDCvalue.get()))
+        ListSensorneighQresult.append("#Battery Unit : " + str(g.labelBattery.get()))
+        ListSensorneighQresult.append("#Iterations: " + str(g.labelIterationNumb.get()))
+        ListSensorneighQresult.append("#Multiruns: " + str(g.labelMuttiruns.get()))
+        ListSensorneighQresult.append("#prob KD: " + str(g.labelkDvalue.get()))
+        ListSensorneighQresult.append("#prob KC: " + str(g.labelkCvalue.get()))
+        ListSensorneighQresult.append("#prob KDC: " + str(g.labelkDCvalue.get()))
         stringRules = ""
         for x in RULES:
             if (x == 1):
@@ -937,7 +969,7 @@ def DisplayBeutyful():
                 stringRules += str(g.valuesRadiokCstate.get()) + "C "
             elif (x == 3):
                 stringRules += str(g.valuesRadiokDCstate.get()) + "DC "
-        ListSensorneighQresult.append("Strategies: " + stringRules)
+        ListSensorneighQresult.append("#Strategies: " + stringRules)
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     else:
@@ -957,12 +989,12 @@ def DisplayBeutyful():
         ListDebug.append("#Sensor Range: " + str(gs.radius.get()))
         ListDebug.append("#POI: " + str(len(gs.ListPOI)))
         ListDebug.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
-        ListDebug.append("Battery Unit : " + str(g.labelBattery.get()))
-        ListDebug.append("Iterations: " + str(g.labelIterationNumb.get()))
-        ListDebug.append("Multiruns: " + str(g.labelMuttiruns.get()))
-        ListDebug.append("prob KD: " + str(g.labelkDvalue.get()))
-        ListDebug.append("prob KC: " + str(g.labelkCvalue.get()))
-        ListDebug.append("prob KDC: " + str(g.labelkDCvalue.get()))
+        ListDebug.append("#Battery Unit : " + str(g.labelBattery.get()))
+        ListDebug.append("#Iterations: " + str(g.labelIterationNumb.get()))
+        ListDebug.append("#Multiruns: " + str(g.labelMuttiruns.get()))
+        ListDebug.append("#prob KD: " + str(g.labelkDvalue.get()))
+        ListDebug.append("#prob KC: " + str(g.labelkCvalue.get()))
+        ListDebug.append("#prob KDC: " + str(g.labelkDCvalue.get()))
         stringRules = ""
         for x in RULES:
             if (x == 1):
@@ -974,12 +1006,14 @@ def DisplayBeutyful():
             else:
                 stringRules += "OFF"
         #ListSensorneighQresult.append("Strategies: " + stringRules)
-        ListDebug.append("#run ")
 
-        ListDebug.append("#iter  "+ debugstringstate+ "  "+debugstringrules + "           "+ debugstringstate)
+        ListDebug.append("#iter      sensor id                 			assigned strategy                   num of neighbours                      battery state")
+        #ListDebug.append("#iter  "+ debugstringstate+ "  "+debugstringrules + "           "+ debugstringstate + "            "+  debugstringstate)
     else:
-        ListDebug.append("#run ")
-        ListDebug.append("#iter  "+ debugstringstate+ "  "+debugstringrules + "           "+ debugstringstate)
+        ListDebug.append(
+            "#iter      sensor id                 			assigned strategy                   num of neighbours                      battery state")
+        #ListDebug.append(
+         #   "#iter  " + debugstringstate + "  " + debugstringrules + "           " + debugstringstate + "            " + debugstringstate)
 
 
         ############################MAIN FUNCTION #######################
@@ -1001,7 +1035,7 @@ def DisplayBeutyful():
         #global STATEDBUG
         #STATEDBUG=STATE
         #OpenMYSensorNeighbour()
-        for i in range(int(g.labelIterationNumb.get())):
+        for i in range(int(g.labelIterationNumb.get())): ###IMPORTANT i
             iter = 0
             #print("STATE FROM START")
             #print(STATE)
@@ -1214,11 +1248,15 @@ def DisplayBeutyful():
                 for x in STATE:
                     stringstatedisplay+= str(x) + "  "
                 helperStringwithTempDebugList=str(tempListofNumbers)
+                batterystate=''
+                for x in BATTERY_STATE:
+                    batterystate+=str(x) + ' '
+
                 if(".3"in helperStringwithTempDebugList ):
                     ListDebug.append(str(int(
-                        i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeigh)
+                        i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeigh+"          "+ batterystate)
                 else:
-                    ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeighs)
+                    ListDebug.append(str(int(i)) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeighs+ '      '+ batterystate)
                 TempDebugList.clear() # Clear after add to table
                 def SaveFileSensss():
                     with open("RESULT/CA_result.txt"
@@ -1386,14 +1424,14 @@ def MamutDebug():
         ListSensorneighQ.append("#POI: " + str(len(gs.ListPOI)))
         ListSensorneighQ.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
         ListSensorneighQ.append("Battery Unit : " + str(g.labelBattery.get()))
-        ListSensorneighQ.append("Iterations: " + str(g.labelIterationNumb.get()))
-        ListSensorneighQ.append("Multiruns: " + str(g.labelMuttiruns.get()))
-        ListSensorneighQ.append("prob KD: " + str(g.labelkDvalue.get()))
-        ListSensorneighQ.append("prob KC: " + str(g.labelkCvalue.get()))
-        ListSensorneighQ.append("prob KDC: " + str(g.labelkDCvalue.get()))
-        ListSensorneighQ.append("Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
+        ListSensorneighQ.append("#Iterations: " + str(g.labelIterationNumb.get()))
+        ListSensorneighQ.append("#Multiruns: " + str(g.labelMuttiruns.get()))
+        ListSensorneighQ.append("#prob KD: " + str(g.labelkDvalue.get()))
+        ListSensorneighQ.append("#prob KC: " + str(g.labelkCvalue.get()))
+        ListSensorneighQ.append("#prob KDC: " + str(g.labelkDCvalue.get()))
+        ListSensorneighQ.append("#Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
         ListSensorneighQ.append(
-            "iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
+            "#iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
         # HELPERS List
         # avhelper = float((len((av_alive)) - sum(av_alive)) / (len(av_alive)))
         # ListSensorneighQ.append(

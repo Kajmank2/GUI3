@@ -1,15 +1,19 @@
-#Number of Sensors 12
+#Number of Sensors 10
 #Sensor Range: 35
 #POI: 441
-#Sensor for file: C:/Users/PC/Desktop/AD HOc/GUI3/FILES/sensorId010000111010.txt
-Battery Unit : 1
-Iterations: 4
-Multiruns: 4
-prob KD: 0.33
-prob KC: 0.33
-prob KDC: 0.34
-iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC
-0     0.85    0.04      1.0       0.0         9.75           0.43        9.58        0.06         10.0          0.0       0.33         0.0        0.33           0.0        0.33          0.0
-1     0.84    0.04      1.0       0.0         9.5           0.87        9.08        0.06         10.0          0.0       0.33         0.0        0.33           0.0        0.33          0.0
-2     0.81    0.01      1.0       0.0         8.75           0.43        8.62        0.04         10.0          0.0       0.33         0.0        0.33           0.0        0.33          0.0
-3     0.75    0.05      1.0       0.0         8.5           0.87        8.17        0.06         10.0          0.0       0.33         0.0        0.33           0.0        0.33          0.0
+#Sensor for file: C:/Users/PC/Desktop/AD HOc/GUI3/FILES/WSN-10d-irreg.txt
+#Battery Unit : 1
+#Iterations: 8
+#Multiruns: 3
+#prob KD: 0.33
+#prob KC: 0.33
+#prob KDC: 0.34
+#iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC
+0     0.67    0.17      1.0       0.0         10.0           0.0        10.0        0.0         10.0          0.0       0.6         0.0        0.2           0.0        0.2          0.0
+1     0.65    0.17      1.0       0.0         9.0           0.0        9.27        0.29         10.0          0.0       0.6         0.0        0.2           0.0        0.2          0.0
+2     0.68    0.19      1.0       0.0         8.0           0.0        8.83        0.52         10.0          0.0       0.6         0.0        0.2           0.0        0.2          0.0
+3     0.74    0.13      1.0       0.0         7.0           0.0        8.4        0.71         10.0          0.0       0.6         0.0        0.2           0.0        0.2          0.0
+4     0.74    0.13      1.0       0.0         6.0           0.0        7.97        0.9         10.0          0.0       0.6         0.0        0.2           0.0        0.2          0.0
+5     0.74    0.13      1.0       0.0         5.0           0.0        7.53        1.09         10.0          0.0       0.6         0.0        0.2           0.0        0.2          0.0
+6     0.74    0.13      1.0       0.0         4.0           0.0        7.1        1.28         10.0          0.0       0.6         0.0        0.2           0.0        0.2          0.0
+7     0.74    0.13      1.0       0.0         3.0           0.0        6.67        1.46         10.0          0.0       0.6         0.0        0.2           0.0        0.2          0.0

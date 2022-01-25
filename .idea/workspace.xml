@@ -3,11 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="7ed02f6d-6c03-4ab7-90ca-939360c3aafe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESULT/creates all-WSN-5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/creates all-WSN-5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESULT/creates cov-5-WSN-10d.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/creates cov-5-WSN-10d.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESULT/creates cov-5-WSN-12d.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/creates cov-5-WSN-12d.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESULT/CA_result.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/CA_result.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESULT/Ca_result_std.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/Ca_result_std.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESULT/Debug.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/Debug.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESULT/sensor-neighbours12.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/sensor-neighbours12.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RESULT/sensorId.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/sensorId.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +36,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -117,6 +119,26 @@
           <url>file://$PROJECT_DIR$/gui.py</url>
           <line>1045</line>
           <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Methods.py</url>
+          <line>1251</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Methods.py</url>
+          <line>1252</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Methods.py</url>
+          <line>529</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Methods.py</url>
+          <line>473</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

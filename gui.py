@@ -970,7 +970,7 @@ def InitGui():
             ListSensorneigh.append("#Sensor Range: " + str(radius.get()))
             ListSensorneigh.append("#POI: " + str(variableRadio.get()))
             ListSensorneigh.append("#Sensor for file: " + str(text_file.name))
-            ListSensorneigh.append("Sensor states for file: not appiled")
+            ListSensorneigh.append("#Sensor states for file: not appiled")
             ListSensorneigh.append("#id q    s    1 2 3 4 5   q1   q2   q3   q4   q5 ...")
             id = 1
 
