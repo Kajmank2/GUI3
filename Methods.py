@@ -837,72 +837,6 @@ def DisplayBeutyful():
             ListofNeighbourse.clear()
             counter = counter + 1
     FindWSNGRAPH()
-    '''
-    def OpenMYSensorNeighbour():  # find WSN grapph
-        ListSensorneigh.clear()
-        Neighb.clear()
-        # LIST NEIGTBOUR
-        ListSensorneigh.append("#parameters of run: ")
-        ListSensorneigh.append("#Number of Sensors " + str(gs.amountReadWSN))
-        ListSensorneigh.append("#Sensor Range: " + str(gs.radius.get()))
-        ListSensorneigh.append("#POI: 36")
-        ListSensorneigh.append("#Sensor for file: ")  # + radiusTxt) # CHANGEEE
-        ListSensorneigh.append("#id num_of_neighb neigb-ID")
-        id = 1
-
-        def circle(x1, y1, x2, y2, r1, r2):
-            distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
-            radSumSq = (r1 + r2) * (r1 + r2)
-            if (distSq == radSumSq):
-                return 1
-            elif (distSq > radSumSq):
-                return -1
-            else:
-                return 0
-
-        ys = ""
-        counter = 1
-        for x in gs.ListofNumbers:
-            id = 1
-            helper = 0
-            for y in gs.ListofNumbers:
-                ListofNeighbour.append(str(id) + str(
-                    circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
-                           int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
-                           int(gs.radius.get()), int(gs.radius.get()))))
-                xs = str(id) + str(
-                    circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
-                           int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
-                           int(gs.radius.get()), int(gs.radius.get())))
-                beng = '-'
-                if (beng in xs or str(counter) == xs[0:1] or str(counter) == xs[0:2]):
-                    donothing()
-                else:
-                    if (len(xs) < 3):
-                        ys += xs[0] + " "
-                        helper = helper + 1
-                    else:
-                        ys += xs[0:2] + " "
-                        helper = helper + 1
-                id = id + 1
-            ListSensorneigh.append(str(counter) + "    " + str(helper) + "     " + ys)
-            Neighb.append(ys)
-            ys = ""
-            counter = counter + 1
-
-        # print(Neighb)
-
-        def SaveFileSenss():
-            with open("sensor-neighbours .txt", 'w') as file:
-                for row in ListSensorneigh:
-                    s = "".join(map(str, row))
-                    file.write(s + '\n')
-
-        SaveFileSenss()
-
-    # Call Neighbour
-    OpenMYSensorNeighbour()  #
-    '''
     ListofAll.append("FIRST STATE :  " + str(STATE))
     # RULES LIST => Values [1-3]
     if (g.staticStrategies.get() != ""):
@@ -1041,13 +975,8 @@ def DisplayBeutyful():
         SensorHelperPoiID = []
         ALLPOICOV = []
         global STATE
-        #global STATEDBUG
-        #STATEDBUG=STATE
-        #OpenMYSensorNeighbour()
         for i in range(int(g.labelIterationNumb.get())): ###IMPORTANT i
             iter = 0
-            #print("STATE FROM START")
-            #print(STATE)
             def ReadState():
                 for x in Neighb:
                     c = 0
@@ -1336,8 +1265,6 @@ def DisplayBeutyful():
 
                 SaveFileSensss()
                 SaveFileDebug()
-            # print("STATE LIST NEIGH")
-            # print(StateListNeigh)
             #NewState.clear()
             # =====================================================================
             CalcALLq()
@@ -1369,7 +1296,7 @@ def DisplayBeutyful():
                             STATE.append(0)
                             iter +=1
                 else:
-                    if (int(re.search(r'\d+', StateListNeigh[iter][2:4]).group()) >= int(K[iter]) and BATTERY_STATE[
+                    if (int(re.search(r'\d+', StateListNeigh[iter][2:4]).group()) > int(K[iter]) and BATTERY_STATE[
                         iterr] > 0):
                         STATE.append(1)
                         iter += 1
@@ -1386,20 +1313,7 @@ def DisplayBeutyful():
                     if(BATTERY_STATE[iterr]<int(g.labelBattery.get())):
                          BATTERY_STATE[iterr]=0
                 iterr += 1
-            #print("STATE")
-            ##print(STATE)
-            #print("STATE LIST NEIG")
-            #print(StateListNeigh)
-            #print("Neigh")
-            #print(Neighb)
-            #print("NEW STATE")
-            #print(NewState)
-            # ======================================================================ALL COV Q ##################################
-            #CalcALLq() # uruchomienie glownego algorytmu
-            #
             BatterY_STATE_SUM.append(sum(BATTERY_STATE))
-            #print("BATTERY STATE")
-            #print(BATTERY_STATE)
             increse=0
             for x in BATTERY_STATE:
                 if(x<=0):
