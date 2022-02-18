@@ -1,6 +1,9 @@
 #POPRAWA WSZYSTKICH PLIKOW TEKSTOWYCH, STATE przepisanie z poprzedniego STATE WYLOSOWANEFO
 import os
 import sys
+
+from h5py.h5d import DatasetID
+
 import GUIs as g
 import gui as gs
 from random import *
@@ -120,6 +123,9 @@ def Start():
     print(gs.ListofNumbers)
     print(STATE)
     print(RULES)
+    DisplayCaresultFirst=[]
+    DisplayCaresultSecond=[]
+    DisplayCaresult=[]
     #print(STATE)
     av_q.clear()
     av_alive.clear()
@@ -194,71 +200,6 @@ def Start():
             counter = counter + 1
     FindWSNGRAPH()
 
-    '''
-    def OpenMYSensorNeighbour():  # find WSN grapph
-        ListSensorneigh.clear()
-        Neighb.clear()
-
-        # LIST NEIGTBOUR
-        ListSensorneigh.append("#parameters of run: ")
-        ListSensorneigh.append("#Number of Sensors " + str(gs.amountReadWSN))
-        ListSensorneigh.append("#Sensor Range: " + str(gs.radius.get()))
-        ListSensorneigh.append("#POI: 36")
-        ListSensorneigh.append("#Sensor for file: " )#+ radiusTxt) # CHANGEEE
-        ListSensorneigh.append("#id num_of_neighb neigb-ID")
-        id = 1
-
-        def circle(x1, y1, x2, y2, r1, r2):
-            distSq = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)
-            radSumSq = (r1 + r2) * (r1 + r2)
-            if (distSq == radSumSq):
-                return 1
-            elif (distSq > radSumSq):
-                return -1
-            else:
-                return 0
-
-        ys = ""
-        counter = 1
-        for x in gs.ListofNumbers:
-            id = 1
-            helper=0
-            for y in gs.ListofNumbers:
-                ListofNeighbour.append(str(id) + str(
-                    circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
-                           int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
-                           int(gs.radius.get()), int(gs.radius.get()))))
-                xs = str(id) + str(
-                    circle(int(re.search(r'\d+', x[0:2]).group()), int(re.search(r'\d+', x[5:7]).group()),
-                           int(re.search(r'\d+', y[0:2]).group()), int(re.search(r'\d+', y[5:7]).group()),
-                           int(gs.radius.get()), int(gs.radius.get())))
-                beng = '-'
-                if (beng in xs or str(counter) == xs[0:1] or str(counter) == xs[0:2] ):
-                    donothing()
-                else:
-                    if (len(xs) < 3):
-                        ys += xs[0] + " "
-                        helper = helper + 1
-                    else:
-                        ys += xs[0:2] + " "
-                        helper = helper + 1
-                id = id + 1
-            ListSensorneigh.append(str(counter) + "    " + str(helper) + "     " + ys)
-            Neighb.append(ys)
-            ys = ""
-            counter = counter + 1
-        #print(Neighb)
-
-        def SaveFileSenss():
-            with open("RESULT/sensor-neighbours .txt", 'w') as file:
-                for row in ListSensorneigh:
-                    s = "".join(map(str, row))
-                    file.write(s + '\n')
-
-        SaveFileSenss()
-    #Call Neighbour
-    OpenMYSensorNeighbour() #
-    '''
     ListofAll.append("FIRST STATE :  " + str(STATE))
     #RULES LIST => Values [1-3]
     #print(RULES)
@@ -506,8 +447,13 @@ def Start():
                 iters.append(str(round(coverageQ, 2)))
                 BatteryStart = int(gs.battery.get())
                 if(i==0):
-                    ListSensorneighQresult.append(
-                        "    " + str(int(i)) + "  " + str(round(coverageQ, 2)) + "  " + str(
+                    #ListSensorneighQresult.append(
+                    #    "    " + str(int(i)) + "  " + str(round(coverageQ, 2)) + "  " + str(
+                    #        round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
+                    #        round(BatteryStart)) + "       "
+                    #    + str(BatteryStart) + "       " + str(KDfreqStart) + "     " + str(KCfreqStart) + "      " + str(KDCfreqStart))
+                    DisplayCaresultFirst.append(str(round(coverageQ, 2)))
+                    DisplayCaresultSecond.append("  " + str(
                             round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
                             round(BatteryStart)) + "       "
                         + str(BatteryStart) + "       " + str(KDfreqStart) + "     " + str(KCfreqStart) + "      " + str(KDCfreqStart))
@@ -534,8 +480,12 @@ def Start():
                     # "iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
                     avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
                     freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
-                ListSensorneighQresult.append("    " + str(int(i+1))+ "  "+str(round(coverageQ, 2)) + "  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
-                                              +str(maxBatt)+"       " +str(KDfreq)+ "     "+str(KCfreq) + "      "+ str(KDCfreq))
+                #ListSensorneighQresult.append("    " + str(int(i+1))+ "  "+str(round(coverageQ, 2)) + "  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
+                #                             +str(maxBatt)+"       " +str(KDfreq)+ "     "+str(KCfreq) + "      "+ str(KDCfreq))
+                #                               #str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
+                DisplayCaresultFirst.append(str(round(coverageQ, 2)))
+                DisplayCaresultSecond.append("  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
+                                             +str(maxBatt)+"       " +str(KDfreq)+ "     "+str(KCfreq) + "      "+ str(KDCfreq))
                                                #str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
                 ListQ.append(round(coverageQ, 2))
                 #print("LISTQ",ListQ)
@@ -565,13 +515,6 @@ def Start():
                     #ListSensorneighQ.append("av_q std_q" +str(avq))
 
 
-                def SaveFileSensss():
-                    with open("RESULT/CA_result.txt"
-                              "", 'w') as file:
-                        for row in ListSensorneighQresult:
-                            s = "".join(map(str, row))
-                            file.write(s + '\n')
-                SaveFileSensss()
         #FIrst ITeration
             CalcALLq()
             STATE.clear()
@@ -693,6 +636,28 @@ def Start():
             StateListNeigh.clear()
     MainIter()  # ZMIANA
 
+    #=============================CA==================
+    iterca = 0
+    DisplayCaresultFirst.pop(0)
+    DisplayCaresultSecond.pop()
+    for y in DisplayCaresultSecond:
+        try:
+            DisplayCaresult.append(str(iterca)+"       "+DisplayCaresultFirst[iterca]+DisplayCaresultSecond[iterca])
+            ListSensorneighQresult.append(str(iterca)+"       "+DisplayCaresultFirst[iterca]+DisplayCaresultSecond[iterca])
+        except:
+            continue
+        iterca+=1
+    for x in DisplayCaresult:
+        print(x)
+    def SaveFileSensss():
+        with open("RESULT/CA_result.txt"
+                  "", 'w') as file:
+            for row in ListSensorneighQresult:
+                s = "".join(map(str, row))
+                file.write(s + '\n')
+
+    SaveFileSensss()
+
 def Mamut():
     for i in range(int(g.labelMuttiruns.get())):
         Start()
@@ -733,6 +698,10 @@ def Mamut():
             "#iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
     #HELPER VALUE FOR ITERATION
     ax=int(g.labelIterationNumb.get())+1
+    #DISPLAY STD List
+    DisplayStd=[]
+    DisplayStdF=[]
+    DisplayStdS=[]
     for i in range(int(g.labelIterationNumb.get())+1):
         avqhelper = float(sum(ListQ[i::ax])/ (len(ListQ[i::ax])))
         #print(str(avqhelper) + " " + str(ListQ[i::8]))# Z KAZDEJ ITERACJI JEST LICZONA SREDNIA -> Dac for dzielacego na liczbe multirunow
@@ -743,14 +712,34 @@ def Mamut():
         listkdhelperr = float(sum(listfreqKD[i::ax]) / (len(listfreqKD[i::ax])))
         listkchelper=float(sum(listfreqKC[i::ax]) / (len(listfreqKC[i::ax])))
         listkdchelper=float(sum(listfreqKDC[i::ax]) / (len(listfreqKDC[i::ax])))
-        ListSensorneighQ.append(str(i) + "     " +str(round(avqhelper,2 )) + "    " + str(round(np.std(ListQ[i::ax]),2)) +
-                                 "      "+ str(round(avalife,2  )) + "       "+ str(round(np.std(ListF[i::ax]),2)) +
+        #ListSensorneighQ.append(str(i) + "     " +str(round(avqhelper,2 )) + "    " + str(round(np.std(ListQ[i::ax]),2)) +
+        #                         "      "+ str(round(avalife,2  )) + "       "+ str(round(np.std(ListF[i::ax]),2)) +
+        #                         "         "+ str(round(minhelper,2 )) + "           "+ str(round(np.std(ListminBatt[i::ax]),2)) +
+        #                         "        "+ str(round(avbathelperr,2 )) + "        "+ str(round(np.std(lisavBatt[i::ax]),2)) +
+        #                         "         "+ str(round(maxbathelperr,2 )) + "          "+ str(round(np.std(ListmaxBatt[i::ax]),2)) +
+        #                         "       "+ str(round(listkdhelperr,2 )) + "         "+ str(round(np.std(listfreqKD[i::ax]),2)) +
+        #                         "        "+ str(round(listkchelper,2 )) + "           "+ str(round(np.std(listfreqKC[i::ax]),2)) +
+        #                         "        "+ str(round(listkdchelper,2 )) + "          "+ str(round(np.std(listfreqKDC[i::ax]),2)))
+        DisplayStdF.append(str(round(avqhelper,2 )) + "    " + str(round(np.std(ListQ[i::ax]),2)))
+        DisplayStdS.append("      "+ str(round(avalife,2  )) + "       "+ str(round(np.std(ListF[i::ax]),2)) +
                                  "         "+ str(round(minhelper,2 )) + "           "+ str(round(np.std(ListminBatt[i::ax]),2)) +
                                  "        "+ str(round(avbathelperr,2 )) + "        "+ str(round(np.std(lisavBatt[i::ax]),2)) +
                                  "         "+ str(round(maxbathelperr,2 )) + "          "+ str(round(np.std(ListmaxBatt[i::ax]),2)) +
                                  "       "+ str(round(listkdhelperr,2 )) + "         "+ str(round(np.std(listfreqKD[i::ax]),2)) +
                                  "        "+ str(round(listkchelper,2 )) + "           "+ str(round(np.std(listfreqKC[i::ax]),2)) +
                                  "        "+ str(round(listkdchelper,2 )) + "          "+ str(round(np.std(listfreqKDC[i::ax]),2)))
+    iterstd = 0
+    DisplayStdF.pop(0)
+    DisplayStdS.pop()
+    for y in DisplayStdS:
+        try:
+            DisplayStd.append(
+                str(iterstd) + "       " + DisplayStdF[iterstd] + DisplayStdS[iterstd])
+            ListSensorneighQ.append(
+                str(iterstd) + "       " + DisplayStdF[iterstd] + DisplayStdS[iterstd])
+        except:
+            continue
+        iterstd += 1
     SaveFileSenss()
 
     def Exit():
@@ -762,6 +751,14 @@ def DisplayBeutyful():
     global STATE
     STATE=gs.STATES
     global RULES
+    #FInish Display For DEBUG
+    DisplayState = []
+    DisplayStateFirst=[]
+    DisplayStateSecond=[]
+    #Finish Display for Ca_result
+    DisplayCaresult=[]
+    DisplayCaresultFirst = []
+    DisplayCaresultSecond = []
     tempListofNumbers = gs.ListofNumbers
     stringNeighs=""
     # print(STATE)
@@ -962,7 +959,6 @@ def DisplayBeutyful():
         ############################MAIN FUNCTION #######################
     def MainIter():
         converted_ListData = []
-        #NewState = []
         StateListNeigh = []
         SensorHelper = []  # HELPER LIST
         if (len(gs.ListPOI) > 300):
@@ -1138,8 +1134,13 @@ def DisplayBeutyful():
                 iters.append(str(round(coverageQ, 2)))
                 BatteryStart = int(gs.battery.get())
                 if (i == 0):
-                    ListSensorneighQresult.append(
-                        "    " + str(int(i)) + "  " + str(round(coverageQ, 2)) + "  " + str(
+                    #ListSensorneighQresult.append(
+                    #    "    " + str(int(i)) + "  " + str(round(coverageQ, 2)) + "  " + str(
+                    #        round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
+                    #        round(BatteryStart)) + "       "
+                    #    + str(BatteryStart) + "       " + str(KDfreqS) + "     " + str(KCfreqS) + "      " + str(KDCfreqS))
+                    DisplayCaresultFirst.append(str(round(coverageQ, 2)))
+                    DisplayCaresultSecond.append( "  " + str(
                             round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
                             round(BatteryStart)) + "       "
                         + str(BatteryStart) + "       " + str(KDfreqS) + "     " + str(KCfreqS) + "      " + str(KDCfreqS))
@@ -1166,11 +1167,17 @@ def DisplayBeutyful():
                     # "iter av_q std_q  av_falive std f_alive av minBatt std minBatt av avBatt std avBatt av maxBatt std maxBatt av freq_kD std freq_kD av freq_kC std freq_kC av freq_kDC std freq_kDC"
                     avhelper = float((len((av_q)) - sum(av_q)) / (len(av_q)))
                     freq_alive = float((len(BATTERY_STATE)) - BatteryOFFcoun) / len(BATTERY_STATE)
-                ListSensorneighQresult.append(
-                        "    " + str(int(i + 1)) + "  " + str(round(coverageQ, 2)) + "  " + str(
+                #ListSensorneighQresult.append(
+                #        "    " + str(int(i + 1)) + "  " + str(round(coverageQ, 2)) + "  " + str(
+                #            round(freq_alive, 2)) + "      " + str(minBatt) + "     " + str(
+                #            round(avgBatt, 2)) + "       "
+                #        + str(maxBatt) + "       " + str(KDfreq) + "     " + str(KCfreq) + "      " + str(KDCfreq))
+                DisplayCaresultFirst.append(str(round(coverageQ, 2)))
+                DisplayCaresultSecond.append("  " + str(
                             round(freq_alive, 2)) + "      " + str(minBatt) + "     " + str(
                             round(avgBatt, 2)) + "       "
                         + str(maxBatt) + "       " + str(KDfreq) + "     " + str(KCfreq) + "      " + str(KDCfreq))
+
                     # str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
                 ListQ.append(round(coverageQ, 2))
                     # print("LISTQ",ListQ)
@@ -1239,32 +1246,27 @@ def DisplayBeutyful():
 
                 if(i==0):
                     if (".3" in helperStringwithTempDebugList):
-                        ListDebug.append(str(int(
-                            i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeigh + "          " + batteryStartState)
-                    else:
-                        ListDebug.append(str(int(
-                            i)) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeighs + '      ' + batteryStartState)
-                if(".3"in helperStringwithTempDebugList ):
-                        ListDebug.append(str(int(
-                        i)+1) + "       " + stringstatedisplay + "   " + stringRules + "             " + stringNeigh+"          "+ batterystate)
-                else:
-                        ListDebug.append(str(int(i)+1) + "       "+ stringstatedisplay +"   "+ stringRules + "             "+stringNeighs+ '      '+ batterystate)
-                TempDebugList.clear() # Clear after add to table
-                def SaveFileSensss():
-                    with open("RESULT/CA_result.txt"
-                              "", 'w') as file:
-                        for row in ListSensorneighQresult:
-                            s = "".join(map(str, row))
-                            file.write(s + '\n')
-                def SaveFileDebug():
-                    with open("RESULT/Debug.txt"
-                              "", 'w') as file:
-                        for row in ListDebug:
-                            s = "".join(map(str, row))
-                            file.write(s + '\n')
 
-                SaveFileSensss()
-                SaveFileDebug()
+                        DisplayStateSecond.append("   " + stringRules + "             " + stringNeigh + "          " + batteryStartState)
+                        DisplayStateFirst.append(stringstatedisplay)
+                    else:
+
+                        DisplayStateSecond.append(
+                            "   " + stringRules + "             " + stringNeigh + "          " + batteryStartState)
+                        DisplayStateFirst.append(stringstatedisplay)
+                if(".3"in helperStringwithTempDebugList ):
+
+                        DisplayStateSecond.append(
+                            "   " + stringRules + "             " + stringNeigh + "          " + batterystate)
+                        DisplayStateFirst.append(stringstatedisplay)
+                else:
+
+                        DisplayStateSecond.append(
+                            "   " + stringRules + "             " + stringNeigh + "          " + batterystate)
+                        DisplayStateFirst.append(stringstatedisplay)
+                TempDebugList.clear() # Clear after add to table
+
+
             #NewState.clear()
             # =====================================================================
             CalcALLq()
@@ -1377,6 +1379,45 @@ def DisplayBeutyful():
             FindWSNGRAPH()
             StateListNeigh.clear()
     MainIter()
+    iterfirst=0
+    DisplayStateFirst.pop(0)
+    DisplayStateSecond.pop()
+    for y in DisplayStateSecond:
+        try:
+            DisplayState.append(str(iterfirst)+"       "+DisplayStateFirst[iterfirst]+DisplayStateSecond[iterfirst])
+            ListDebug.append(str(iterfirst)+"       "+DisplayStateFirst[iterfirst]+DisplayStateSecond[iterfirst])
+        except:
+            continue
+        iterfirst+=1
+
+    #=============================CA==================
+    iterca = 0
+    DisplayCaresultFirst.pop(0)
+    DisplayCaresultSecond.pop()
+    for y in DisplayCaresultSecond:
+        try:
+            DisplayCaresult.append(str(iterca)+"       "+DisplayCaresultFirst[iterca]+DisplayCaresultSecond[iterca])
+            ListSensorneighQresult.append(str(iterca)+"       "+DisplayCaresultFirst[iterca]+DisplayCaresultSecond[iterca])
+        except:
+            continue
+        iterca+=1
+    for x in DisplayCaresult:
+        print(x)
+    def SaveFileSensss():
+        with open("RESULT/CA_result.txt"
+                  "", 'w') as file:
+            for row in ListSensorneighQresult:
+                s = "".join(map(str, row))
+                file.write(s + '\n')
+
+    def SaveFileDebug():
+        with open("RESULT/Debug.txt"
+                  "", 'w') as file:
+            for row in ListDebug:
+                s = "".join(map(str, row))
+                file.write(s + '\n')
+    SaveFileSensss()
+    SaveFileDebug()
 
 def MamutDebug():
     if(g.labelMuttiruns.get()>'1'):

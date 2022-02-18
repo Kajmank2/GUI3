@@ -1,23 +1,22 @@
-#Number of Sensors 10
+#Number of Sensors 5
 #METHODACTIVE Sensor probabilistic
 #Sensor Range: 35
 #POI: 441
-#Sensor for file: C:/Users/PC/Desktop/AD HOc/GUI3/FILES/WSN-10d-irreg.txt
+#Sensor for file: C:/Users/PC/Desktop/AD HOc/GUI3/FILES/WSN-5d.txt
 #Battery Unit : 1
 #Iterations: 8
 #Multiruns: 1
 #prob KD: 0.33
 #prob KC: 0.33
 #prob KDC: 0.34
-#Strategies: 5C 3D 3D 3D 3D 4DC 4DC 4DC 3D 3D 
+#Strategies: 1C 2D 2D 0DC 0DC 
 #run 
 # iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC
-    0  0.71  1.0      10     10       10       0.6     0.1      0.3
-    1  0.71  1.0      8     9.2       10       0.6     0.1      0.3
-    2  0.83  1.0      8     8.8       10       0.6     0.1      0.3
-    3  0.86  1.0      7     8.3       10       0.6     0.1      0.3
-    4  0.75  1.0      6     7.9       10       0.6     0.1      0.3
-    5  0.72  1.0      5     7.6       10       0.6     0.1      0.3
-    6  0.83  1.0      4     7.2       10       0.6     0.1      0.3
-    7  0.86  1.0      3     6.7       10       0.6     0.1      0.3
-    8  0.75  1.0      2     6.3       10       0.6     0.1      0.3
+0       0.66  1.0      10     10       10       0.4     0.2      0.4
+1       0.95  1.0      9     9.6       10       0.4     0.2      0.4
+2       0.53  1.0      8     8.6       9       0.4     0.2      0.4
+3       0.58  1.0      8     8.2       9       0.4     0.2      0.4
+4       0.82  1.0      7     7.8       8       0.4     0.2      0.4
+5       0.82  1.0      6     7.0       8       0.4     0.2      0.4
+6       0.82  1.0      5     6.2       8       0.4     0.2      0.4
+7       0.82  1.0      4     5.4       8       0.4     0.2      0.4
