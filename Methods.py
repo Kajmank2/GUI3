@@ -2,8 +2,6 @@
 import os
 import sys
 
-from h5py.h5d import DatasetID
-
 import GUIs as g
 import gui as gs
 from random import *
@@ -452,11 +450,13 @@ def Start():
                     #        round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
                     #        round(BatteryStart)) + "       "
                     #    + str(BatteryStart) + "       " + str(KDfreqStart) + "     " + str(KCfreqStart) + "      " + str(KDCfreqStart))
-                    DisplayCaresultFirst.append(str(round(coverageQ, 2)))
-                    DisplayCaresultSecond.append("  " + str(
-                            round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
-                            round(BatteryStart)) + "       "
-                        + str(BatteryStart) + "       " + str(KDfreqStart) + "     " + str(KCfreqStart) + "      " + str(KDCfreqStart))
+
+                    DisplayCaresultFirst.append('{0:.2f}'.format(round(coverageQ, 2)))
+                    DisplayCaresultSecond.append("  " + '{0:.2f}'.format(
+                            round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + '{0:.2f}'.format(
+                            BatteryStart) + "       " + str(BatteryStart) + "       " + '{0:.2f}'.format(
+                            KDfreqStart) + "     " + '{0:.2f}'.format(KCfreqStart) + "      " + '{0:.2f}'.format(
+                            KDCfreqStart))
                     ListQ.append(round(coverageQ, 2))
                     # print("LISTQ",ListQ)
                     ListF.append(round(freq_alive, 2))
@@ -483,10 +483,15 @@ def Start():
                 #ListSensorneighQresult.append("    " + str(int(i+1))+ "  "+str(round(coverageQ, 2)) + "  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
                 #                             +str(maxBatt)+"       " +str(KDfreq)+ "     "+str(KCfreq) + "      "+ str(KDCfreq))
                 #                               #str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
-                DisplayCaresultFirst.append(str(round(coverageQ, 2)))
-                DisplayCaresultSecond.append("  "+str(round(freq_alive,2))+"      "+ str(minBatt) +"     " +str(round(avgBatt,2))+"       "
-                                             +str(maxBatt)+"       " +str(KDfreq)+ "     "+str(KCfreq) + "      "+ str(KDCfreq))
-                                               #str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
+                #DispalyBeuty
+
+
+                DisplayCaresultFirst.append('{0:.2f}'.format(round(coverageQ, 2)))
+                DisplayCaresultSecond.append("  " + '{0:.2f}'.format(round(freq_alive, 2)) + "      " + str(
+                        minBatt) + "     " + '{0:.2f}'.format(round(avgBatt, 2)) + "       "
+                                                 + str(maxBatt) + "       " + '{0:.2f}'.format(
+                        KDfreq) + "     " + '{0:.2f}'.format(KCfreq) + "      " + '{0:.2f}'.format(KDCfreq))
+                    # str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
                 ListQ.append(round(coverageQ, 2))
                 #print("LISTQ",ListQ)
                 ListF.append(round(freq_alive,2))
@@ -720,14 +725,22 @@ def Mamut():
         #                         "       "+ str(round(listkdhelperr,2 )) + "         "+ str(round(np.std(listfreqKD[i::ax]),2)) +
         #                         "        "+ str(round(listkchelper,2 )) + "           "+ str(round(np.std(listfreqKC[i::ax]),2)) +
         #                         "        "+ str(round(listkdchelper,2 )) + "          "+ str(round(np.std(listfreqKDC[i::ax]),2)))
-        DisplayStdF.append(str(round(avqhelper,2 )) + "    " + str(round(np.std(ListQ[i::ax]),2)))
-        DisplayStdS.append("      "+ str(round(avalife,2  )) + "       "+ str(round(np.std(ListF[i::ax]),2)) +
-                                 "         "+ str(round(minhelper,2 )) + "           "+ str(round(np.std(ListminBatt[i::ax]),2)) +
-                                 "        "+ str(round(avbathelperr,2 )) + "        "+ str(round(np.std(lisavBatt[i::ax]),2)) +
-                                 "         "+ str(round(maxbathelperr,2 )) + "          "+ str(round(np.std(ListmaxBatt[i::ax]),2)) +
-                                 "       "+ str(round(listkdhelperr,2 )) + "         "+ str(round(np.std(listfreqKD[i::ax]),2)) +
-                                 "        "+ str(round(listkchelper,2 )) + "           "+ str(round(np.std(listfreqKC[i::ax]),2)) +
-                                 "        "+ str(round(listkdchelper,2 )) + "          "+ str(round(np.std(listfreqKDC[i::ax]),2)))
+        DisplayStdF.append(
+                '{0:.2f}'.format(round(avqhelper, 2)) + "    " + '{0:.2f}'.format(round(np.std(ListQ[i::ax]), 2)))
+        DisplayStdS.append("      " + '{0:.2f}'.format(round(avalife, 2)) + "       " + '{0:.2f}'.format(
+                round(np.std(ListF[i::ax]), 2)) +
+                               "         " + '{0:.2f}'.format(round(minhelper, 2)) + "           " + '{0:.2f}'.format(
+                round(np.std(ListminBatt[i::ax]), 2)) +
+                               "        " + '{0:.2f}'.format(round(avbathelperr, 2)) + "       " + '{0:.2f}'.format(
+                round(np.std(lisavBatt[i::ax]), 2)) +
+                               "         " + '{0:.2f}'.format(
+                round(maxbathelperr, 2)) + "          " + '{0:.2f}'.format(round(np.std(ListmaxBatt[i::ax]), 2)) +
+                               "       " + '{0:.2f}'.format(round(listkdhelperr, 2)) + "         " + '{0:.2f}'.format(
+                round(np.std(listfreqKD[i::ax]), 2)) +
+                               "        " + '{0:.2f}'.format(round(listkchelper, 2)) + "           " + '{0:.2f}'.format(
+                round(np.std(listfreqKC[i::ax]), 2)) +
+                               "        " + '{0:.2f}'.format(round(listkdchelper, 2)) + "          " + '{0:.2f}'.format(
+                round(np.std(listfreqKDC[i::ax]), 2)))
     iterstd = 0
     DisplayStdF.pop(0)
     DisplayStdS.pop()
@@ -1139,11 +1152,11 @@ def DisplayBeutyful():
                     #        round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
                     #        round(BatteryStart)) + "       "
                     #    + str(BatteryStart) + "       " + str(KDfreqS) + "     " + str(KCfreqS) + "      " + str(KDCfreqS))
-                    DisplayCaresultFirst.append(str(round(coverageQ, 2)))
-                    DisplayCaresultSecond.append( "  " + str(
-                            round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + str(
+                    DisplayCaresultFirst.append('{0:.2f}'.format(round(coverageQ, 2)))
+                    DisplayCaresultSecond.append( "  " + '{0:.2f}'.format(
+                            round(freq_alive, 2)) + "      " + str(BatteryStart) + "     " + '{0:.2f}'.format(
                             round(BatteryStart)) + "       "
-                        + str(BatteryStart) + "       " + str(KDfreqS) + "     " + str(KCfreqS) + "      " + str(KDCfreqS))
+                        + str(BatteryStart) + "       " + '{0:.2f}'.format(KDfreqS) + "     " + '{0:.2f}'.format(KCfreqS) + "      " + '{0:.2f}'.format(KDCfreqS))
                     ListQ.append(round(coverageQ, 2))
                     # print("LISTQ",ListQ)
                     ListF.append(round(freq_alive, 2))
@@ -1172,11 +1185,11 @@ def DisplayBeutyful():
                 #            round(freq_alive, 2)) + "      " + str(minBatt) + "     " + str(
                 #            round(avgBatt, 2)) + "       "
                 #        + str(maxBatt) + "       " + str(KDfreq) + "     " + str(KCfreq) + "      " + str(KDCfreq))
-                DisplayCaresultFirst.append(str(round(coverageQ, 2)))
-                DisplayCaresultSecond.append("  " + str(
-                            round(freq_alive, 2)) + "      " + str(minBatt) + "     " + str(
+                DisplayCaresultFirst.append('{0:.2f}'.format(round(coverageQ, 2)))
+                DisplayCaresultSecond.append("  " + '{0:.2f}'.format(
+                            round(freq_alive, 2)) + "      " + str(minBatt) + "     " + '{0:.2f}'.format(
                             round(avgBatt, 2)) + "       "
-                        + str(maxBatt) + "       " + str(KDfreq) + "     " + str(KCfreq) + "      " + str(KDCfreq))
+                        + str(maxBatt) + "       " + '{0:.2f}'.format(KDfreq) + "     " + '{0:.2f}'.format(KCfreq) + "      " + '{0:.2f}'.format(KDCfreq))
 
                     # str(round(sensOn/amountSens,2)) + "  " +str(round(sensOff/amountSens,2)))
                 ListQ.append(round(coverageQ, 2))
@@ -1481,7 +1494,6 @@ def MamutDebug():
                         python = sys.executable
                         os.execl(python, python, *sys.argv)
         Exit()
-
 
 
 

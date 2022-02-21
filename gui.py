@@ -351,12 +351,12 @@ def InitGui():
         #print(ListPOI)
                 # ENTRY
 
-        def SaveFile():
-                        with open("RESULT/MYPOI .txt", 'w') as file:
-                                for row in ListPOI:
-                                        s = "".join(map(str, row))
-                                        file.write(s + '\n')
-        SaveFile()
+        #def SaveFile():
+        #                with open("RESULT/MYPOI .txt", 'w') as file:
+        #                        for row in ListPOI:
+        #                                s = "".join(map(str, row))
+        #                                file.write(s + '\n')
+        #SaveFile()
         global radius
         radius = tk.StringVar()
         color = tk.StringVar()
