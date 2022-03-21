@@ -235,6 +235,7 @@ def Start():
         ListSensorneighQresult.append("#Number of Sensors " + str(gs.amountReadWSN))
         ListSensorneighQresult.append("#METHOD" + gs.sensorMethod)
         ListSensorneighQresult.append("#Sensor Range: " + str(gs.radius.get()))
+        ListSensorneighQresult.append("#Battery Capacity: " + str(gs.battery.get()))
         ListSensorneighQresult.append("#POI: " + str(len(gs.ListPOI)))
         ListSensorneighQresult.append("#Sensor for file: " + gs.filename)  # radiusTxt) CHANGE
         ListSensorneighQresult.append("#Battery Unit : " + str(g.labelBattery.get()))
@@ -243,6 +244,7 @@ def Start():
         ListSensorneighQresult.append("#prob KD: " + str(g.labelkDvalue.get()))
         ListSensorneighQresult.append("#prob KC: " + str(g.labelkCvalue.get()))
         ListSensorneighQresult.append("#prob KDC: " + str(g.labelkDCvalue.get()))
+        ListSensorneighQresult.append("#seed: " + str(g.labelSetSeed.get()))
         stringRules = ""  # String with help with debug txt
         for x in RULES:
             if (x == 1):
@@ -255,6 +257,7 @@ def Start():
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     else:
+        ListSensorneighQresult.append(" ")
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     def MainIter():
@@ -682,6 +685,7 @@ def Mamut():
 
     ListSensorneighQ.append("#Number of Sensors " + str(gs.amountReadWSN))
     ListSensorneighQ.append("#Sensor Range: " + str(gs.radius.get()))
+    ListSensorneighQ.append("#Battery Capacity: " + str(gs.battery.get()))
     ListSensorneighQ.append("#POI: " + str(len(gs.ListPOI)))
     ListSensorneighQ.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
     ListSensorneighQ.append("#Battery Unit : " + str(g.labelBattery.get()))
@@ -690,6 +694,7 @@ def Mamut():
     ListSensorneighQ.append("#prob KD: " + str(g.labelkDvalue.get()))
     ListSensorneighQ.append("#prob KC: " + str(g.labelkCvalue.get()))
     ListSensorneighQ.append("#prob KDC: " + str(g.labelkDCvalue.get()))
+    ListSensorneighQ.append("#seed: " + str(g.labelSetSeed.get()))
     stringRules = ""  # String with help with debug txt
     for x in RULES:
         if (x == 1):
@@ -906,6 +911,7 @@ def DisplayBeutyful():
         ListSensorneighQresult.append("#Number of Sensors " + str(gs.amountReadWSN))
         ListSensorneighQresult.append("#METHOD"+ gs.sensorMethod)
         ListSensorneighQresult.append("#Sensor Range: " + str(gs.radius.get()))
+        ListSensorneighQresult.append("#Battery Capacity: " + str(gs.battery.get()))
         ListSensorneighQresult.append("#POI: " + str(len(gs.ListPOI)))
         ListSensorneighQresult.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
         ListSensorneighQresult.append("#Battery Unit : " + str(g.labelBattery.get()))
@@ -914,6 +920,7 @@ def DisplayBeutyful():
         ListSensorneighQresult.append("#prob KD: " + str(g.labelkDvalue.get()))
         ListSensorneighQresult.append("#prob KC: " + str(g.labelkCvalue.get()))
         ListSensorneighQresult.append("#prob KDC: " + str(g.labelkDCvalue.get()))
+        ListSensorneighQresult.append("#seed: " + str(g.labelSetSeed.get()))
         stringRules = ""
         for x in RULES:
             if (x == 1):
@@ -926,6 +933,7 @@ def DisplayBeutyful():
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
     else:
+        ListSensorneighQresult.append(' ')
         ListSensorneighQresult.append("#run ")
         ListSensorneighQresult.append("# iter  q  f_alive minBatt avBatt maxBatt freqkD freqkC freqkDC")
         #DEBUG FILEEEE
@@ -940,6 +948,7 @@ def DisplayBeutyful():
     if (len(ListDebug) == 0):
         ListDebug.append("#Number of Sensors " + str(gs.amountReadWSN))
         ListDebug.append("#Sensor Range: " + str(gs.radius.get()))
+        ListDebug.append("#Sensor Range: " + str(gs.battery.get()))
         ListDebug.append("#POI: " + str(len(gs.ListPOI)))
         ListDebug.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
         ListDebug.append("#Battery Unit : " + str(g.labelBattery.get()))
@@ -948,6 +957,7 @@ def DisplayBeutyful():
         ListDebug.append("#prob KD: " + str(g.labelkDvalue.get()))
         ListDebug.append("#prob KC: " + str(g.labelkCvalue.get()))
         ListDebug.append("#prob KDC: " + str(g.labelkDCvalue.get()))
+        ListSensorneighQresult("#seed: " + str(g.labelSetSeed.get()))
         stringRules = ""
         for x in RULES:
             if (x == 1):
@@ -1451,7 +1461,8 @@ def MamutDebug():
                 os.execl(python, python, *sys.argv)
             Exit()
         ListSensorneighQ.append("#Number of Sensors " + str(gs.amountReadWSN))
-        ListSensorneighQ.append("#Sensor Range: " + str(gs.radius.get()))
+        ListSensorneighQ.append("#Battery Capacity: " + str(gs.radius.get()))
+        ListSensorneighQ.append("#Sensor Range: " + str(gs.battery.get()))
         ListSensorneighQ.append("#POI: " + str(len(gs.ListPOI)))
         ListSensorneighQ.append("#Sensor for file: " + str(gs.filename))  # radiusTxt) CHANGE
         ListSensorneighQ.append("Battery Unit : " + str(g.labelBattery.get()))
@@ -1461,6 +1472,7 @@ def MamutDebug():
         ListSensorneighQ.append("#prob KC: " + str(g.labelkCvalue.get()))
         ListSensorneighQ.append("#prob KDC: " + str(g.labelkDCvalue.get()))
         ListSensorneighQ.append("#Strategies 1-KD , 2 -KC ,3 KDC ->" + str(RULES))
+        ListSensorneighQ.append("#seed: " + str(g.labelSetSeed.get()))
         ListSensorneighQ.append(
             "#iter, av_q, std_q, av_falive, std f_alive, av minBatt, std minBatt, av avBatt, std avBatt,  av maxBatt, std maxBatt, av freq_kD, std freq_kD, av freq_kC, std freq_kC, av freq_kDC, std freq_kDC")
         # HELPERS List

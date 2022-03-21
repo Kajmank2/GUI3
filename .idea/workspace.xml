@@ -3,12 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="7ed02f6d-6c03-4ab7-90ca-939360c3aafe" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/GUIs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Methods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RESULT/CA_result.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/CA_result.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RESULT/Ca_result_std.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/Ca_result_std.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESULT/Debug.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RESULT/Debug.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +25,14 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GUIs.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Methods.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/test.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/miner.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="223BFaKvCPMU0cb6hEyLtu3TmOV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -35,7 +42,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../PhishingReconApp" />
   </component>
   <component name="RunManager" selected="Python.main">
     <configuration name="Methods" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -125,77 +132,77 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>565</line>
+          <line>447</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>566</line>
+          <line>448</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>596</line>
+          <line>478</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>595</line>
+          <line>477</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>598</line>
+          <line>480</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>1055</line>
+          <line>937</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>1043</line>
+          <line>925</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/gui.py</url>
-          <line>1045</line>
+          <line>927</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1472</line>
+          <line>1484</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1411</line>
+          <line>1421</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1412</line>
+          <line>1422</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1408</line>
+          <line>1418</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1407</line>
+          <line>1417</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1187</line>
+          <line>1197</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Methods.py</url>
-          <line>1188</line>
+          <line>1198</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>

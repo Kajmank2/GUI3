@@ -46,7 +46,7 @@ def InitGuis():
     labelBattery.set("1")
     labelIterationNumb.set("8")
     labelMuttiruns.set("1")
-    #labelSetSeed.set(123)
+    labelSetSeed.set('None')
     def choiceD(text):
         valuesRadiokDstate.set(text)
     def choiceC(text):
