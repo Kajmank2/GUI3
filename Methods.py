@@ -45,7 +45,6 @@ lisavBatt=[]
 listfreqKD=[]
 listfreqKC=[]
 listfreqKDC=[]
-#tempListofNumbers=gs.ListofNumbers # ZMIANA WYCISZENIE ============================================
 def donothing():
     abc=0
 av_q=[]
@@ -434,7 +433,6 @@ def Start():
                     FEJKERBATTERY.append(x)
                     FEJKERBATTERY.sort()
                 BATTERY_STATE_SORT=FEJKERBATTERY
-                #BATTERY_STATE_SORT.sort() # UNCOMENT FOR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                 minBatt=BATTERY_STATE_SORT[0]
                 maxBatt=max(BATTERY_STATE_SORT)
                 avgBatt=sum(BATTERY_STATE_SORT)/len(BATTERY_STATE_SORT)
@@ -1484,7 +1482,6 @@ def MamutDebug():
         for i in range(int(g.labelIterationNumb.get())+1):
             avqhelper = float(sum(ListQ[i::ax]) / (len(ListQ[i::ax])))
             #print(str(avqhelper) + " " + str(
-            #    ListQ[i::8]))  # Z KAZDEJ ITERACJI JEST LICZONA SREDNIA -> Dac for dzielacego na liczbe multirunow
             avalife = float(sum(ListF[i::ax]) / (len(ListF[i::ax])))
             minhelper = float(sum(ListminBatt[i::ax]) / (len(ListminBatt[i::ax])))
             avbathelperr = float(sum(lisavBatt[i::ax]) / (len(lisavBatt[i::ax])))
